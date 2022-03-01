@@ -30,5 +30,6 @@ defined('MOODLE_INTERNAL') || die();
 $plugin->version   = 2022030100;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2018120305;        // Requires this Moodle version
 $plugin->component = 'block_finominal_analytics'; // Full name of the plugin (used for diagnostics)
-//$plugin->release = '1.0.0 (build 20190828)';
-//$plugin->maturity = MATURITY_RC;
+$plugin->release = '0.1';
+$plugin->maturity = MATURITY_ALPHA;
+
