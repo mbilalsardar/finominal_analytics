@@ -51,11 +51,11 @@ class block_finominal_analytics extends block_base
 
 
         // $this->content->header = get_string('dashboard', $this->blockname);
-        $blocklink = new moodle_url('/blocks/analytics_dashboard');
+        $blocklink = new moodle_url('/blocks/finominal_analytics');
         $my = new moodle_url('/my');
         // $this->content->text = '<a href="' . $blocklink . '/admin_dashboard.php">' . get_string('viewadmindashboard', $this->blockname) . '</a><br />';
         // $this->content->footer = '';
-        $this->content->text = '<a href="#"> Team Dashboard</a><br />';
+        $this->content->text = '<a href="'.$blocklink.'/team_dashboard.php">'.get_string('teamdashboard',$this->blockname).'</a><br />';
         $this->content->text .= '<a href="#"> Individual Dashboard</a><br />';
 
 
