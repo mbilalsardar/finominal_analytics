@@ -1,6 +1,6 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
-//
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -15,21 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Library.
  *
- * @package     block_finominal_analytics
  * @category    blocks
- * @author      Saqib Ansari (saqib@3ilogic.com)
- * @copyright   2019 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
+ * @author      Bilal Sardar (bilal@3ilogic.com)
+ * @copyright   2020 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
  */
 
-defined('MOODLE_INTERNAL') || die();
+require_once dirname(__FILE__) . '/../../../config.php'; // Creates $PAGE.
+require_once dirname(__FILE__) . '/lib.php';
 
-$plugin->version   = 2022030102;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2018120305;        // Requires this Moodle version
-$plugin->component = 'block_finominal_analytics'; // Full name of the plugin (used for diagnostics)
-$plugin->release = '0.1';
-$plugin->maturity = MATURITY_ALPHA;
 
+if($_POST['function'] == 'get_all_courses') {
+
+    $data = sanitize_data($_POST);
+
+    echo json_encode($data);
+}
+
+// echo json_encode(['Hellow']);
