@@ -89,20 +89,7 @@ HTML;
 /* Code */
 echo <<<HTML
     <div class="app-content content">
-<<<<<<< HEAD
-        <!-- <div class="content-wrapper">
-=======
-        <div class="content-wrapper">
->>>>>>> 4f0d408f0ded98da19bda3327e1269ffd416c6e0
-            <div class="content-header-left col-md-9 col-12 mb-2">
-                <div class="row breadcrumbs-top">
-                    <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Teacher Dashboard</h2>
-                    </div>
-                </div>
-            </div>
-<<<<<<< HEAD
-        </div> -->
+
 
         <div class="content-body">
             <div class="row">
@@ -193,20 +180,7 @@ echo <<<HTML
 
             </div>
         </div> 
-=======
-        </div>
 
-        <div class="content-body">
-            <div class="row">
-                <div class="col-lg-4 col-sm-6 col-12">
-                    <div class="card">
-                        <h1>bilal Sardar</h1>
-                    </div>
-                </div>
-            </div>
-        </div> 
-
->>>>>>> 4f0d408f0ded98da19bda3327e1269ffd416c6e0
     </div>
 HTML;
 
