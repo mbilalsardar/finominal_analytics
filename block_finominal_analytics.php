@@ -56,7 +56,11 @@ class block_finominal_analytics extends block_base
         // $this->content->text = '<a href="' . $blocklink . '/admin_dashboard.php">' . get_string('viewadmindashboard', $this->blockname) . '</a><br />';
         // $this->content->footer = '';
         $this->content->text = '<a href="'.$blocklink.'/team_dashboard.php">'.get_string('teamdashboard',$this->blockname).'</a><br />';
+<<<<<<< HEAD
         $this->content->text .= '<a href="'.$blocklink.'/indi_dashboard.php">'.get_string('individualdashboard',$this->blockname).'</a><br />';
+=======
+        $this->content->text .= '<a href="#"> Individual Dashboard</a><br />';
+>>>>>>> 4f0d408f0ded98da19bda3327e1269ffd416c6e0
 
 
         return $this->content;

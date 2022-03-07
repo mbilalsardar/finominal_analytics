@@ -80,7 +80,7 @@ function get_all_courses($catid)
     
     $params = [];
     
-    $if($catid !== '') {
+    if($catid !== '') {
         $params[] = $catid;
     }
 
