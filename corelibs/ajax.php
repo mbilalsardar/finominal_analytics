@@ -27,11 +27,95 @@ require_once dirname(__FILE__) . '/../../../config.php'; // Creates $PAGE.
 require_once dirname(__FILE__) . '/lib.php';
 
 
+/* Course Drop Down */
 if($_POST['function'] == 'get_all_courses') {
 
     $data = sanitize_data($_POST);
 
-    echo json_encode($data);
+    $allcourses = get_all_courses();
+
+    $options = [];
+
+    $options[] = '<option value="">Select Course</option>';
+    foreach($allcourses as $value) {
+        $options[] = '<option value="'.$value->id.'">'.$value->fullname.'</option>';
+    }
+
+    $optionsstr = implode('',$options);
+    echo json_encode($optionsstr);
+    
 }
 
-// echo json_encode(['Hellow']);
+/* Quiz Drop Down */
+if($_POST['function'] == 'get_course_quiz') {
+
+    $data = sanitize_data($_POST);
+
+    $allquiz = get_course_quiz($data['cid']);
+
+    $options = [];
+
+    $options[] = '<option value="">Select Quiz</option>';
+    foreach($allquiz as $value) {
+        $options[] = '<option value="'.$value->qid.'">'.$value->quizname.'</option>';
+    }
+
+    $optionsstr = implode('',$options);
+    echo json_encode($optionsstr);
+    
+}
+
+/* Student Drop Down */
+if($_POST['function'] == 'get_course_enrollments') {
+
+    $data = sanitize_data($_POST);
+
+    $allenrolments = get_users_enrolled_in_course($data['cid'],5);
+
+    $options = [];
+
+    $options[] = '<option value="">Select Student</option>';
+    foreach($allenrolments as $value) {
+        $options[] = '<option value="'.$value->userid.'">'.$value->username.'</option>';
+    }
+
+    $optionsstr = implode('',$options);
+    echo json_encode($optionsstr);
+    
+}
+
+
+// Individual Dash View POST
+if($_POST['function'] == 'individual_dash_view') {
+
+    $data = sanitize_data($_POST);
+
+    $response = [];
+
+    // Get Employe Info 
+    
+    $userdata = get_user_with_extrafeilds($data['uid']);
+
+    $userinfo = [];
+    $userinfo['username'] = $userdata->firstname . " " . $userdata->lastname;
+    $userinfo['designation'] = $userdata->designation;
+    $userinfo['team'] = $userdata->team;
+    $userinfo['location'] = $userdata->city;
+    $userinfo['department'] = $userdata->department;
+    $userinfo['manager'] = $userdata->manager;
+
+    $response['userinfo'] = $userinfo;
+
+    // Marks Overview
+
+    // Section wise marks overview
+
+    // Individual and team averages
+
+    // Questions overview
+
+    // QUiz Comparison
+
+    echo json_encode($response);
+
+}

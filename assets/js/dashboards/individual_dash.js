@@ -4,24 +4,25 @@ AJAXURL = "https://phpstack-734511-2463855.cloudwaysapps.com/blocks/finominal_an
 
 function load_Courses(elementid) {
     // Populate courses dropdown
-        $.ajax({
-            type: "POST",
-            url: AJAXURL,
-            data: {
-                'function': 'get_all_courses',
-                'userid': 0,
-            }, // Serializes the form's elements.
-            dataType: 'json',
-            success: function (data) {
-                // $('#select_course').attr('disabled', false);
-                // $('#select_course').html(data);
-                console.log(data);
-            },
-            error: function (request) {
-                alert("Request: " + JSON.stringify(request));
-            }
-        });
-        // e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: AJAXURL,
+        data: {
+            'function': 'get_all_courses',
+            'userid': 0,
+        }, // Serializes the form's elements.
+        dataType: 'json',
+        success: function (data) {
+            // $('#select_course').attr('disabled', false);
+            $('#course').empty();
+            $('#course').append(data);
+            // console.log(data);
+        },
+        error: function (request) {
+            alert("Request: " + JSON.stringify(request));
+        }
+    });
+    // e.preventDefault();
 }
 
 $(document).ready(function () {
@@ -445,6 +446,90 @@ $(document).ready(function () {
     
     /* Drop downs */
     load_Courses('');
+
+
+    $('#course').on('change',function(e){
+
+        e.preventDefault();
+
+        var courseid = $('#course').val();
+
+        /* For Quiz dropdown */
+        $.ajax({
+            type: "POST",
+            url: AJAXURL,
+            data: {
+                'function': 'get_course_quiz',
+                'cid': courseid,
+            }, // Serializes the form's elements.
+            dataType: 'json',
+            success: function (data) {
+                $('#quiz').empty();
+                $('#quiz').append(data);
+            },
+            error: function (request) {
+                alert("Request: " + JSON.stringify(request));
+            }
+        });
+
+        /* For Student dropdown */
+        $.ajax({
+            type: "POST",
+            url: AJAXURL,
+            data: {
+                'function': 'get_course_enrollments',
+                'cid': courseid,
+            }, // Serializes the form's elements.
+            dataType: 'json',
+            success: function (data) {
+                $('#student').empty();
+                $('#student').append(data);
+            },
+            error: function (request) {
+                alert("Request: " + JSON.stringify(request));
+            }
+        });
+    });
+
+
+    $('#view').on('click',function(e){
+
+        e.preventDefault();
+
+        var cid = $('#course').val();
+        var qid = $('#quiz').val();
+        var uid = $('#student').val();
+
+       
+        $.ajax({
+        type: "POST",
+        url: AJAXURL,
+        data: {
+            'function': 'individual_dash_view',
+            'cid': cid,
+            'qid': qid,
+            'uid': uid,
+        }, // Serializes the form's elements.
+        dataType: 'json',
+        success: function (data) {
+
+            console.log(data);
+            // Setting employee Info box data
+            var userinfo = data['userinfo'];
+            $('#userinfo_username').html(userinfo['username']);
+            $('#userinfo_designation').html(userinfo['designation']);
+            $('#userinfo_team').html(userinfo['team']);
+            $('#userinfo_location').html(userinfo['location']);
+            $('#userinfo_department').html(userinfo['department']);
+            $('#userinfo_manager').html(userinfo['manager']);
+
+        },
+        error: function (request) {
+            alert("Request: " + JSON.stringify(request));
+            }
+        });
+
+    });
 
 
 

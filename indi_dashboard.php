@@ -113,7 +113,7 @@ echo <<<HTML
                                     <div class="form-group">
                                         <label for="course">Course</label>
                                         <select class="form-control" id="course">
-                                            <option>All</option>
+                                            <option>Select Course</option>
                                         </select>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ echo <<<HTML
                                     <div class="form-group">
                                         <label for="quiz">Quiz</label>
                                         <select class="form-control" id="quiz">
-                                            <option>All</option>
+                                            <option>Select Quiz</option>
                                         </select>
                                     </div>
                                 </div>
@@ -130,19 +130,16 @@ echo <<<HTML
                                     <div class="form-group">
                                         <label for="student">Employee</label>
                                         <select class="form-control" id="student">
-                                            <option>All</option>
+                                            <option>Select Student</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-3 col-sm-12">
-                                    
-                                        <div class='mt-2'></div>
-                                        <button class='btn btn-primary  waves-effect waves-float waves-light'>view</button> 
-                                        <button class='btn btn-danger  waves-effect waves-float waves-light'>reset</button>
-                                    
+                                    <div class='mt-2'></div>
+                                    <button id='view' class='btn btn-primary waves-effect waves-float waves-light'>view</button> 
+                                    <button id='reset' class='btn btn-danger waves-effect waves-float waves-light'>reset</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -162,28 +159,28 @@ echo <<<HTML
                                 <div class="col-12">
                                     <i data-feather="user" class="mr-1"></i>
                                     <span class="card-text user-info-title font-weight-bold mb-0">Username</span>
-                                    <span class="float-right pr-2">Demo Name</span>
+                                    <span class="float-right pr-2" id='userinfo_username'>-</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <i data-feather="check" class="mr-1"></i>
                                     <span class="card-text user-info-title font-weight-bold mb-0">Designation</span>
-                                    <span class="float-right pr-2">Demo Name</span>
+                                    <span class="float-right pr-2" id='userinfo_designation' >-</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <i data-feather="star" class="mr-1"></i>
                                     <span class="card-text user-info-title font-weight-bold mb-0">Team</span>
-                                    <span class="float-right pr-2">Demo Name</span>
+                                    <span class="float-right pr-2" id='userinfo_team'>-</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
                                     <i data-feather="flag" class="mr-1"></i>
                                     <span class="card-text user-info-title font-weight-bold mb-0">Location</span>
-                                    <span class="float-right pr-2">Demo Name</span>
+                                    <span class="float-right pr-2" id='userinfo_location'>-</span>
                                 </div>
                             </div>
 
@@ -191,7 +188,7 @@ echo <<<HTML
                                 <div class="col-12">
                                     <i data-feather="star" class="mr-1"></i>
                                     <span class="card-text user-info-title font-weight-bold mb-0">Department</span>
-                                    <span class="float-right pr-2">Demo Name</span>
+                                    <span class="float-right pr-2" id='userinfo_department'>-</span>
                                 </div>
                             </div>
 
@@ -199,7 +196,7 @@ echo <<<HTML
                                 <div class="col-12">
                                     <i data-feather="user" class="mr-1"></i>
                                     <span class="card-text user-info-title font-weight-bold mb-0">Manager</span>
-                                    <span class="float-right pr-2">Demo Name</span>
+                                    <span class="float-right pr-2" id='userinfo_manager'>-</span>
                                 </div>
                             </div>
                         </div>
@@ -348,8 +345,6 @@ echo <<<HTML
                 </div>
                 <!-- End quiz comparision chart -->
             </div>
-           
-
         </div> 
     </div>
 HTML;
@@ -367,9 +362,6 @@ echo <<<HTML
     <script src="{$assetpath}/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <script src="{$assetpath}/vendors/js/charts/apexcharts.min.js"></script>
 
-    <!-- Dashboard js -->
-    <script src="{$assetpath}/js/dashboards/individual_dash.js"></script>
-
     <script>
         $(window).on('load', function() {
             if (feather) {
@@ -379,9 +371,10 @@ echo <<<HTML
                 });
             }
         })
-    
     </script>
 
+    <!-- Dashboard js -->
+    <script src="{$assetpath}/js/dashboards/individual_dash.js"></script>
 
 
 
