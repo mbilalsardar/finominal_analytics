@@ -217,11 +217,11 @@ echo <<<HTML
                             <div class="row border-top text-center mx-0">
                                 <div class="col-6 border-right py-1">
                                     <p class="card-text text-muted mb-0">Total Marks</p>
-                                    <h3 class="font-weight-bolder mb-0">100</h3>
+                                    <h3 class="font-weight-bolder mb-0" id='marks_overview_totalmarks'>0</h3>
                                 </div>
                                 <div class="col-6 py-1">
                                     <p class="card-text text-muted mb-0">Obtained Marks</p>
-                                    <h3 class="font-weight-bolder mb-0">80</h3>
+                                    <h3 class="font-weight-bolder mb-0" id='marks_overview_obtainedmarks'>0</h3>
                                 </div>
                             </div>
                         </div>
@@ -235,23 +235,62 @@ echo <<<HTML
 
                     <div class="row">
                         <div class="col-lg-12">    
-                            <div class="card py-1 text-center mx-0" style='min-height:130px'>
-                                <i data-feather="user"></i>
-                                <h3 class="font-weight-bolder mb-0">Certification status</h3>
-                                <p class="card-text text-muted mb-0">Not Issued -- todo</p>
+                            <div class="card py-1 text-center mx-0" style='min-height:120px'>
+                                <div class="" style='padding:20px; margin-top: 30px'> 
+                                    <span> <i data-feather="award" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#008ffb; 
+                                    color:white;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                    display: float;
+                                    float : left;
+                                    '>
+                                    </i>
+                                    </span>
+                                    <h4 class="card-text mb-0" id='certificate_status_div'>Not Issued</h4>
+                                    <h4 class="mb-0 font-weight-bolder ">Certification status</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="card" style='min-height:150px;'>
-                                total questions
+                            <div class="card py-1 text-center mx-0" style='min-height:140px;'>
+                                <span> <i data-feather="hash" 
+                                    style='
+                                    width: 40px; 
+                                    height: 40px;
+                                    background:#feb019;
+                                    color:white;
+                                    border-radius:100px;
+                                    padding : 8px;
+                                    margin-bottom : 5px;
+                                    '>
+                                    </i>
+                                    </span>
+                                <h4 id='totalquestions_count_div'>0</h4>
+                                <h4 class='font-weight-bolder '>Total Questions</h4>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="card" style='min-height:150px;'>
-                                total questions
+                            <div class="card py-1 text-center mx-0" style='min-height:140px;'>
+                                <span> <i data-feather="users" 
+                                    style='
+                                    width: 40px; 
+                                    height: 40px;
+                                    background:red; color:white;
+                                    border-radius:100px;
+                                    padding : 8px;
+                                    margin-bottom : 5px;
+                                    '>
+                                    </i>
+                                    </span>
+                                <h4 id='teammember_count_div'>0</h4>
+                                <h4 class='font-weight-bolder '>Team Members</h4>
                             </div>
                         </div>
                     </div>
@@ -313,15 +352,15 @@ echo <<<HTML
                             <div class="row border-top text-center mx-0">
                                 <div class="col-4 border-right py-1">
                                     <p class="card-text text-muted mb-0">Right</p>
-                                    <h3 class="font-weight-bolder mb-0">100</h3>
+                                    <h3 class="font-weight-bolder mb-0" id='q_overview_right'>0</h3>
                                 </div>
                                 <div class="col-4 border-right py-1">
                                     <p class="card-text text-muted mb-0">Wrong</p>
-                                    <h3 class="font-weight-bolder mb-0">80</h3>
+                                    <h3 class="font-weight-bolder mb-0" id='q_overview_wrong' >0</h3>
                                 </div>
                                 <div class="col-4 py-1">
                                     <p class="card-text text-muted mb-0">Gaveup</p>
-                                    <h3 class="font-weight-bolder mb-0">80</h3>
+                                    <h3 class="font-weight-bolder mb-0" id='q_overview_gaveup'>0</h3>
                                 </div>
                             </div>
                         </div>

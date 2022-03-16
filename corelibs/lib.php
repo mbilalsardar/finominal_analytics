@@ -128,6 +128,7 @@ function get_users_enrolled_in_course($courseid, $usertype, $range = '')
             c.id AS courseid ,
             c.fullname AS coursename,
             cat.id AS categoryid,
+            ch.name AS team,
             cat.name AS categoryname
         FROM mdl_course AS c 
         JOIN mdl_course_categories AS cat ON c.category=cat.id
@@ -136,6 +137,8 @@ function get_users_enrolled_in_course($courseid, $usertype, $range = '')
         JOIN mdl_enrol AS en ON en.courseid = c.id
         JOIN mdl_user_enrolments mue ON mue.enrolid = en.id 
         JOIN mdl_user AS u ON lra.userid = u.id
+        JOIN mdl_cohort_members AS chm ON chm.userid = u.id
+        JOIN mdl_cohort AS ch ON chm.cohortid = ch.id
         WHERE lra.roleid=?";
 
 
@@ -188,7 +191,8 @@ function get_user_with_extrafeilds($userid)
     u.lastname,
     u.email,
     u.city,
-    ui_team.data AS 'team',
+    -- ui_team.data AS 'team',
+    cohort.name AS 'team',
     ui_department.data AS 'department',
     ui_designation.data AS 'designation',
     ui_manager.data AS 'manager',
@@ -199,10 +203,223 @@ function get_user_with_extrafeilds($userid)
     LEFT JOIN mdl_user_info_data ui_department ON (ui_department.userid = u.id AND ui_department.fieldid = 3)
     LEFT JOIN mdl_user_info_data ui_manager ON (ui_manager.userid = u.id AND ui_manager.fieldid = 4)
     LEFT JOIN mdl_user_info_data ui_manager_email ON (ui_manager_email.userid = u.id AND ui_manager_email.fieldid = 5)
+    LEFT JOIN mdl_cohort_members cohortmem ON cohortmem.userid = u.id 
+    LEFT JOIN mdl_cohort cohort ON cohort.id = cohortmem.cohortid
     WHERE u.id=?
     ";
 
     $result = $DB->get_record_sql($query, [$userid]);
 
     return $result;
+}
+
+
+
+
+
+function quiz_grades($qid,$cid,$uid=-1) {
+
+    global $DB;
+
+    $query = "SELECT
+        u.id AS 'uid',
+        q.grade AS 'total_grade',
+        gi.gradepass AS 'passinggrade',
+        Format(qg.grade,2) AS 'obtained_grade'
+        FROM mdl_user u
+        LEFT JOIN mdl_quiz_grades qg ON (qg.userid = u.id)
+        LEFT JOIN mdl_quiz q ON (qg.quiz = q.id AND q.course=?)
+        LEFT JOIN mdl_grade_items gi ON (gi.courseid=2 AND gi.iteminstance=q.id)
+        WHERE q.id =?
+    ";
+
+    $params = [$cid,$qid];
+
+    if(u.id != -1) {
+        $query .= " AND u.id=?";
+        $params[] = $uid;
+    }
+    
+    $result = $DB->get_records_sql($query,$params);
+
+    return $result;
+}
+
+
+function course_quiz_grades($uid) {
+
+    global $DB;
+
+    $query = "SELECT 
+    q.id AS 'quizid',
+    qg.userid AS 'userid',
+    q.name as 'quizname',
+    c.fullname as 'coursename',
+    q.grade AS 'total_grade',
+    CONCAT(Format(qg.grade,2),'%') AS 'obtained_grade'
+    FROM mdl_quiz q
+    INNER JOIN mdl_quiz_grades qg ON qg.quiz = q.id
+    INNER JOIN mdl_course c ON c.id = q.course
+    WHERE qg.userid =?
+    ";
+    $result = $DB->get_records_sql($query,[$uid]);
+
+    return $result;
+
+}
+    
+
+function course_quiz_sections($courseid, $quizid)
+{
+    global $DB;
+
+
+    // $query = "SELECT
+    //  q.id as question_id
+	// ,cm.id AS cmid
+    // ,quiz.id AS quiz_id
+    // ,q.id  AS q_id
+    // ,quiz.name as quiz_name
+    // -- 	,COUNT(q.id) AS ttl_questions
+    // ,q.category AS section_id
+    // ,mqc.name as section_name
+    // -- 	,q.name As question_text
+    // FROM mdl_quiz AS quiz
+    // JOIN mdl_course_modules cm ON cm.instance = quiz.id AND cm.module = 17 # 18=quiz mdl_modules
+    // JOIN mdl_quiz_slots qs ON qs.quizid = quiz.id
+    // JOIN mdl_question AS q ON q.id = qs.questionid
+    // INNER JOIN mdl_question_categories mqc on q.category = mqc.id
+    // WHERE quiz.course = ? AND quiz.id = ?
+    // GROUP BY quiz_id,q.category
+    // ORDER BY q.category,quiz.id ASC";
+    // $result = $DB->get_records_sql($query, [$courseid, $quizid]);
+    // return $result;
+
+
+    $query = "SELECT
+	q.category AS 'section_id'
+	,COUNT(q.id) AS 'total_questions'
+	-- 	 q.id as question_id
+	,cm.id AS 'course_moduleid'
+	,quiz.id AS 'quiz_id'
+	-- 	,q.id  AS 'q_id'
+	,quiz.name as quiz_name
+	-- 	,COUNT(q.id) AS ttl_questions
+	,mqc.name as section_name
+	-- 	,q.name As question_text
+	FROM mdl_quiz AS quiz
+	JOIN mdl_course_modules cm ON cm.instance = quiz.id AND cm.module = 17 # 18=quiz mdl_modules
+	JOIN mdl_quiz_slots qs ON qs.quizid = quiz.id
+	JOIN mdl_question AS q ON q.id = qs.questionid
+	INNER JOIN mdl_question_categories mqc on q.category = mqc.id
+	WHERE quiz.course=? AND quiz.id=?
+	GROUP BY q.category
+	ORDER BY q.category,quiz.id ASC";
+
+    $result = $DB->get_records_sql($query, [$courseid, $quizid]);
+    return $result;
+
+}
+
+
+function quiz_section_question_attempts_by_user($qid, $secid, $userid, $courseid)
+{
+    global $DB;
+
+    $query = "SELECT
+    que.id AS questionid,
+    concat( u.firstname,' ', u.lastname ) AS student_name,
+    u.id AS userid,
+    quiza.userid AS quiz_userid,
+    q.course,
+    q.name,
+    quiza.attempt,
+    qa.slot,
+    que.questiontext AS question,
+    qa.rightanswer AS correct_answer,
+    qa.responsesummary AS student_answer
+    FROM mdl_quiz_attempts quiza
+    JOIN mdl_quiz q ON q.id=quiza.quiz
+    JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    JOIN mdl_question que ON que.id = qa.questionid
+    INNER JOIN mdl_question_categories mqc ON que.category = mqc.id
+    JOIN mdl_user u ON u.id = quiza.userid
+    WHERE q.id = ? AND mqc.id=? AND u.id=?
+    AND q.course = ?
+    ORDER BY quiza.userid, quiza.attempt, qa.slot";
+
+    $result = $DB->get_records_sql($query, [$qid, $secid, $userid, $courseid]);
+    return $result;
+}
+
+
+function quiz_sections_result($quizid, $sectionid, $studentid, $courseid)
+{
+    $maindataarr = [];
+
+    // foreach ($quizsections as $sections) {
+    $temparr = []; // Saving Quiz Sections Grades data.
+    $grades = quiz_section_question_attempts_by_user(
+        $quizid,
+        $sectionid,
+        $studentid,
+        $courseid,        
+    );
+
+    // [questionid] => 2,
+    // [student name] => Joan Bower,
+    // [userid] => 29,
+    // [quiz_userid] => 29,
+    // [course] => 10,
+    // [name] => Quiz 1,
+    // [attempt] => 1,
+    // [slot] => 2,
+    // [question] => Car has 4 wheels,
+    // [correct_answer] => True,
+    // [student_answer] => True
+
+    $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = 0;
+
+    if (!empty($grades)) {
+        $ttlsectionquestion = count($grades);
+        foreach ($grades as $gradedata) {
+            // Table data
+            $currentquiz['name'] = $gradedata->name;
+            $profiledata['username'] = $gradedata->student_name;
+            $profiledata['userid'] = $gradedata->userid;
+
+            if($gradedata->student_answer !== "") { 
+                if ($gradedata->correct_answer == $gradedata->student_answer) {
+                    $allcorrect++;
+                } else {
+                    $allwrong++;
+                }
+            }
+            else {
+                $allgaveup++;
+            }
+        }
+        $sectionpercentage = round(($allcorrect / $ttlsectionquestion) * 100, 2);
+    }
+    
+
+    // $temparr['quiz_name'] = $sections->quiz_name;
+    // $temparr['section_name'] = $sections->section_name;
+    $temparr['total_questions'] = $ttlsectionquestion;
+    $temparr['total_correct'] = $allcorrect;
+    $temparr['total_wrong'] = $allwrong;
+    $temparr['total_gaveup'] = $allgaveup;
+    $temparr['percentage'] = $sectionpercentage;
+
+    // $maindataarr[$sections->section_name] = $temparr;
+    // }
+
+    return $temparr;
+}
+
+
+function get_certificate_status_quiz($quizid, $userid) {
+    global $DB;
+    return 0;
 }
