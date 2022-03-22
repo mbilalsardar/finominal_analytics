@@ -52,8 +52,8 @@ function dd($a, $exit)
 /**
  * sanitize_data
  *
- * @param  array $data  post data from ajax
- * @return array $data  return sanitized array
+ * @param  array $data post data from ajax
+ * @return array $data return sanitized array
  */ 
 function sanitize_data($data)
 {
@@ -99,8 +99,8 @@ function get_all_courses()
  * 
  * This function is used to get all quizes in course.
  *
- * @param  int $cid     Course Id
- * @return array $allRecords    Returns array of all quizes in course    
+ * @param  int $cid Course Id
+ * @return array $allRecords Returns array of all quizes in course    
  */
 function get_course_quiz($cid)
 {
@@ -466,6 +466,8 @@ function get_cohort_memebers($cohortid) {
 /**
  * get_users_by_filters
  *
+ * This function is mainly for implementing filters in team dashboard. by default it fetches all users of cohort in team id variable.
+ * 
  * @param  int $teamid
  * @param  string $manageremail
  * @param  string $designation
@@ -535,8 +537,6 @@ function get_users_by_filters($teamid, $manageremail='', $designation='', $locat
 /**
  * check_if_quiz_attempted
  * 
- * This function is mainly for implementing filters in team dashboard. by default it fetches all users of cohort in team id variable.
- *
  * @param  int $cid
  * @param  int $qid
  * @param  int $uid
