@@ -534,6 +534,8 @@ function get_users_by_filters($teamid, $manageremail='', $designation='', $locat
 
 /**
  * check_if_quiz_attempted
+ * 
+ * This function is mainly for implementing filters in team dashboard. by default it fetches all users of cohort in team id variable.
  *
  * @param  int $cid
  * @param  int $qid
