@@ -73,11 +73,13 @@ function sanitize_data($data)
 }
 
 
+
 /**
  * get_all_courses
- *
- * @param  int $catid   Category Id
- * @return array $allRecords    Returns array of courses in moodle
+ * 
+ * this function just resutls all visible courses
+ * 
+ * @return array $allRecords
  */
 function get_all_courses()
 {
