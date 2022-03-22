@@ -19,7 +19,7 @@
  *
  * @category    blocks
  * @author      Bilal Sardar (bilal@3ilogic.com)
- * @copyright   2020 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
+ * @copyright   2021 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,7 +28,16 @@ require_once $CFG->dirroot . '/grade/lib.php';
 require_once $CFG->dirroot . '/grade/querylib.php';
 
 
-/* utility Func */
+
+/**
+ * dd
+ *
+ * @param  mixed $a
+ * @param  boolean $exit
+ * @return void
+ * 
+ * used for printing logs
+ */
 function dd($a, $exit)
 {
     echo '<pre>';
@@ -43,8 +52,8 @@ function dd($a, $exit)
 /**
  * sanitize_data
  *
- * @param  array $data post data from ajax
- * @return array $data return sanitized array
+ * @param  array $data  post data from ajax
+ * @return array $data  return sanitized array
  */ 
 function sanitize_data($data)
 {
@@ -67,8 +76,8 @@ function sanitize_data($data)
 /**
  * get_all_courses
  *
- * @param  int $catid
- * @return void
+ * @param  int $catid   Category Id
+ * @return array $allRecords    Returns array of courses in moodle
  */
 function get_all_courses()
 {
@@ -83,6 +92,14 @@ function get_all_courses()
 
 
 
+/**
+ * get_course_quiz
+ * 
+ * This function is used to get all quizes in course.
+ *
+ * @param  int $cid     Course Id
+ * @return array $allRecords    Returns array of all quizes in course    
+ */
 function get_course_quiz($cid)
 {
     global $DB;
@@ -105,10 +122,10 @@ function get_course_quiz($cid)
 /**
  * get_users_enrolled_in_course
  *
- * @param  int $courseid course id
- * @param  int $usertype role type, 5 for student, 3 for teacher
- * @param  mixed $range    this is for slecting enrollments between specific dates
- * @return array $res returns a user array 
+ * @param  int $courseid    course id
+ * @param  int $usertype    role type, 5 for student, 3 for teacher
+ * @param  mixed $range     this is for slecting enrollments between specific dates
+ * @return array $res       returns a user array 
  */
 function get_users_enrolled_in_course($courseid, $usertype, $range = '')
 {
