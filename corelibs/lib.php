@@ -124,10 +124,10 @@ function get_course_quiz($cid)
 /**
  * get_users_enrolled_in_course
  *
- * @param  int $courseid    course id
- * @param  int $usertype    role type, 5 for student, 3 for teacher
- * @param  mixed $range     this is for slecting enrollments between specific dates
- * @return array $res       returns a user array 
+ * @param int $courseid course id
+ * @param int $usertype role type, 5 for student, 3 for teacher
+ * @param mixed $range this is for slecting enrollments between specific dates
+ * @return array $res returns a user array 
  */
 function get_users_enrolled_in_course($courseid, $usertype, $range = '')
 {
@@ -229,6 +229,16 @@ function get_user_with_extrafeilds($userid)
 }
 
 
+/**
+ * quiz_grades
+ *
+ * Fetch Quiz grades by course for all or perticular user.
+ * 
+ * @param  int $qid
+ * @param  int $cid
+ * @param  int $uid if uid id -1 then all users data will be fetched.
+ * @return array $result returns mixed array of quiz grade records
+ */
 function quiz_grades($qid,$cid,$uid=-1) {
 
     global $DB;
