@@ -40,7 +40,7 @@ $linkurlhome = new moodle_url('/my');
 $PAGE->set_context($context);
 $PAGE->set_url($linkurl);
 $PAGE->set_pagelayout('admin');
-$PAGE->set_title('Dashboard');
+$PAGE->set_title('Individual Dashboard');
 
 // $output = $PAGE->get_renderer('block_finominal_analytics');
 

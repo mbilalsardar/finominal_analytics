@@ -85,6 +85,49 @@ if($_POST['function'] == 'get_course_enrollments') {
 }
 
 
+/* Student Drop Down */
+if($_POST['function'] == 'get_team_in_course') {
+
+    $data = sanitize_data($_POST);
+
+    $allenrolments = get_users_enrolled_in_course($data['cid'],5);
+
+    $options = [];
+    $options[] = '<option value="">Select Team</option>';
+
+    $onlyteamarray = [];
+
+    foreach($allenrolments as $key=>$value) {
+        if(!array_key_exists($value->teamid ,$onlyteamarray)){
+            $onlyteamarray[$value->teamid] = $value->team;
+            $options[] = '<option value="'.$value->teamid.'">'.$value->team.'</option>';
+        }
+    }
+
+    $optionsstr = implode('',$options);
+    echo json_encode($optionsstr);    
+}
+
+
+
+/* Student Drop Down */
+if($_POST['function'] == 'team_manager') {
+
+    $data = sanitize_data($_POST);
+
+
+    $allcohortmembers = get_cohort_memebers();
+    
+
+    $optionsstr = implode('',$options);
+    echo json_encode($optionsstr);    
+}
+
+
+
+
+
+
 // Individual Dash View POST
 if($_POST['function'] == 'individual_dash_view') {
 
@@ -301,6 +344,215 @@ if($_POST['function'] == 'individual_dash_view') {
 
     
     // Certification
+    echo json_encode($response);
+
+}
+
+
+
+// Team Dash view 
+if($_POST['function'] == 'team_dash_view') {
+
+    $data = sanitize_data($_POST);
+    $cid = $data['cid'];
+    $qid = $data['qid'];
+    $teamid = $data['teamid'];
+    $manageremail = $data['manageremail'];
+    $designation = $data['designation'];
+    $department = $data['department'];
+    $location = $data['location'];
+
+
+    // echo json_encode($data);
+
+    
+    // Get array of all users in team first.
+    $allteamusers = get_users_by_filters($teamid);
+
+    // getting only users enrolled in course 
+    $allcourseenrollments = get_users_enrolled_in_course($cid,5);
+
+    $allenrolledusers = [];
+
+    foreach($allteamusers as $key=>$value) {
+        
+        foreach($allcourseenrollments as $enrolkey=>$enrolval)
+        {
+            if((int)$value->id == (int)$enrolval->userid) { 
+                $allenrolledusers[] = (int)$value->id; 
+                break;
+            }
+        
+        }
+    }
+
+    /* Quiz Participation */
+
+    $particpated = 0;
+    $notparticipated = 0;
+
+    foreach($allenrolledusers as $value) {
+        
+        $attempt = check_if_quiz_attempted($cid,$qid,$value);
+
+        if($attempt) { $particpated++; }
+        else { $notparticipated++; }
+
+    }
+
+    $response['quizparticipated'] = $particpated;
+    $response['quiznotparticipated'] = $notparticipated;
+    $response['quizparticipatedpercent'] = round(($particpated / count($allenrolledusers)) * 100,2);
+
+
+    /*  SECTION PERFORMANCE */ 
+
+
+    $quizsections = course_quiz_sections($cid,$qid);
+
+    $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = 0;
+    
+    $sectionaveragemarks = [];
+
+    foreach ($quizsections as $quizseckey => $quizsecvalue) {
+
+        $sectiontotal = [];
+        $sectionname = $quizsecvalue->section_name;
+        $sectionid = $quizsecvalue->section_id;
+
+      
+
+        $labels[] = $sectionname;
+   
+        foreach($allenrolledusers as $user) { 
+            $secresult = quiz_sections_result($qid, $sectionid, $user, $cid);
+            $percentagesectiontotal = $secresult['percentage'];
+            $allcorrect += $secresult['total_correct'];
+            $allwrong += $secresult['total_wrong'];
+            $allgaveup += $secresult['total_gaveup'];
+            $allquestion = $secresult['total_questions'];
+            $sectiontotal[] = $percentagesectiontotal;
+
+
+
+            
+        }
+        
+        $series[] = round(array_sum($sectiontotal)/count($sectiontotal),2);
+
+        /* Section Averages */
+        $sectionaveragemarks[] = [
+            'x' => $sectionname,
+            'y' => round(array_sum($sectiontotal)/count($sectiontotal),2),
+        ];
+    }
+
+    $response['section_performance_labels'] = $labels;
+    $response['section_performance_series'] = $series;
+
+    /* Question Overview  */
+    $response['question_overview_labels'] = ['Right','Wrong','Gave Up'];
+    $response['question_overview_series'] = [$allcorrect, $allwrong, $allgaveup];
+    $response['ttlrightquest'] = $allcorrect;
+    $response['ttlwrongquest'] = $allwrong;
+    $response['ttlgaveupquest'] = $allgaveup;
+
+    /*  Total Questions */
+    $response['ttlquestions'] = $allquestion;
+    /*  Team Sections */
+    $response['ttlsections'] = count($labels);
+    /* Total Team Members */
+    $response['ttlparticipants'] = count($allenrolledusers);
+
+
+    /* Average  */
+    $response['sectionaveragemarks'] = $sectionaveragemarks;
+
+
+
+
+
+    /*  Certification Overview - pass / fail */
+    $allquizmarks = [];
+    $allmarkswithuser = [];
+    $total_certificates = 0;
+    $total_pass = 0;
+    $total_fail = 0;
+
+    foreach($allenrolledusers as $user) {
+        $quizmarksinfo = quiz_grades($qid,$cid,$user);
+        
+        if(!empty($quizmarksinfo)){ 
+            foreach($quizmarksinfo as $value) {
+                $allmarkswithuser[$value->fullname] = $value->obtained_grade;
+                $allquizmarks[] = $value->obtained_grade;
+                if($value->obtained_grade >= $value->passinggrade) {
+                    $total_pass++;
+                }
+                else {
+                    $total_fail++;
+                }
+            }
+        }
+        else {
+            $total_fail++;
+        }
+    }
+
+    $response['totalpass'] = $total_pass;
+    $response['totalfail'] = $total_fail;
+    $response['certificate_series'] = [$total_pass,$total_fail];
+
+
+    /*  Marks Summary  */
+
+    sort($allquizmarks);    
+
+    $minmarks = $allquizmarks[0];
+
+    $avgmarks = round(array_sum($allquizmarks) / count($allquizmarks),2);
+
+    $maxmarks = $allquizmarks[count($allquizmarks)-1];
+
+    $markssummary = [
+        [
+            'x'=>'Minimum',
+            'y'=>$minmarks,
+        ],
+        [
+            'x'=>'Average',
+            'y'=>$avgmarks,
+        ],
+        [
+            'x'=>'Maximum',
+            'y'=>$maxmarks,
+        ],  
+    ];
+    $response['marks_summary'] = $markssummary;
+
+
+    /* Top Performers */
+
+    arsort($allmarkswithuser);
+    $topperformers=[];
+    $count = 0;
+    foreach($allmarkswithuser as $key=>$value){
+    
+
+        if($count >= 5) {break;}
+
+        $temp=[
+            'x'=>$key,
+            'y'=>$value,
+        ];
+
+        $topperformers[] = $temp;
+
+        $count++;
+    }
+
+    $response['top_performer'] = $topperformers;
+
     echo json_encode($response);
 
 }

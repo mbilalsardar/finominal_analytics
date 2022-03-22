@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -46,7 +45,7 @@ function dd($a, $exit)
  *
  * @param  array $data post data from ajax
  * @return array $data return sanitized array
- */
+ */ 
 function sanitize_data($data)
 {
     if (is_array($data)) {
@@ -63,7 +62,6 @@ function sanitize_data($data)
         return $data;
     }
 }
-
 
 
 /**
@@ -104,7 +102,6 @@ function get_course_quiz($cid)
 }
 
 
-
 /**
  * get_users_enrolled_in_course
  *
@@ -128,6 +125,7 @@ function get_users_enrolled_in_course($courseid, $usertype, $range = '')
             c.id AS courseid ,
             c.fullname AS coursename,
             cat.id AS categoryid,
+            ch.id AS teamid,
             ch.name AS team,
             cat.name AS categoryname
         FROM mdl_course AS c 
@@ -156,7 +154,6 @@ function get_users_enrolled_in_course($courseid, $usertype, $range = '')
 
     return $res;
 }
-
 
 
 /**
@@ -191,7 +188,6 @@ function get_user_with_extrafeilds($userid)
     u.lastname,
     u.email,
     u.city,
-    -- ui_team.data AS 'team',
     cohort.name AS 'team',
     ui_department.data AS 'department',
     ui_designation.data AS 'designation',
@@ -214,15 +210,13 @@ function get_user_with_extrafeilds($userid)
 }
 
 
-
-
-
 function quiz_grades($qid,$cid,$uid=-1) {
 
     global $DB;
 
     $query = "SELECT
         u.id AS 'uid',
+        CONCAT(u.firstname,' ',u.lastname) AS 'fullname',
         q.grade AS 'total_grade',
         gi.gradepass AS 'passinggrade',
         Format(qg.grade,2) AS 'obtained_grade'
@@ -419,7 +413,135 @@ function quiz_sections_result($quizid, $sectionid, $studentid, $courseid)
 }
 
 
-function get_certificate_status_quiz($quizid, $userid) {
+function get_cohort_memebers($cohortid) {
+
     global $DB;
-    return 0;
+
+    $query = "SELECT u.id,
+    u.firstname,
+    u.lastname,
+    u.email,
+    u.city,
+    cohort.name AS 'team',
+    ui_department.data AS 'department',
+    ui_designation.data AS 'designation',
+    ui_manager.data AS 'manager',
+    ui_manager_email.data AS 'manager_email'
+    FROM mdl_user u
+    LEFT JOIN mdl_user_info_data ui_team ON (ui_team.userid = u.id AND ui_team.fieldid = 1)
+    LEFT JOIN mdl_user_info_data ui_designation ON (ui_designation.userid = u.id AND ui_designation.fieldid = 2)
+    LEFT JOIN mdl_user_info_data ui_department ON (ui_department.userid = u.id AND ui_department.fieldid = 3)
+    LEFT JOIN mdl_user_info_data ui_manager ON (ui_manager.userid = u.id AND ui_manager.fieldid = 4)
+    LEFT JOIN mdl_user_info_data ui_manager_email ON (ui_manager_email.userid = u.id AND ui_manager_email.fieldid = 5)
+    LEFT JOIN mdl_cohort_members cohortmem ON cohortmem.userid = u.id 
+    LEFT JOIN mdl_cohort cohort ON cohort.id = cohortmem.cohortid
+    WHERE cohort.id=?
+    ";
+
+    $result = $DB->get_records_sql($query,[$cohortid]);
+    return $result;
+
+}
+
+
+/**
+ * get_users_by_filters
+ *
+ * @param  int $teamid
+ * @param  string $manageremail
+ * @param  string $designation
+ * @param  string $location
+ * @param  string $department
+ * @return array $result 
+ */
+function get_users_by_filters($teamid, $manageremail='', $designation='', $location='', $department='') {
+    global $DB;
+
+    $query = "SELECT u.id,
+    u.firstname,
+    u.lastname,
+    u.email,
+    u.city,
+    cohort.name AS 'team',
+    ui_department.data AS 'department',
+    ui_designation.data AS 'designation',
+    ui_manager.data AS 'manager',
+    ui_manager_email.data AS 'manager_email'
+    FROM mdl_user u
+    LEFT JOIN mdl_user_info_data ui_team ON (ui_team.userid = u.id AND ui_team.fieldid = 1)
+    LEFT JOIN mdl_user_info_data ui_designation ON (ui_designation.userid = u.id AND ui_designation.fieldid = 2)
+    LEFT JOIN mdl_user_info_data ui_department ON (ui_department.userid = u.id AND ui_department.fieldid = 3)
+    LEFT JOIN mdl_user_info_data ui_manager ON (ui_manager.userid = u.id AND ui_manager.fieldid = 4)
+    LEFT JOIN mdl_user_info_data ui_manager_email ON (ui_manager_email.userid = u.id AND ui_manager_email.fieldid = 5)
+    LEFT JOIN mdl_cohort_members cohortmem ON cohortmem.userid = u.id 
+    LEFT JOIN mdl_cohort cohort ON cohort.id = cohortmem.cohortid
+    WHERE cohort.id=?
+    ";
+
+    // WHERE cohort.id=2 
+    // AND ui_designation.data = "Software Developer" 
+    // AND u.city='Karachi' 
+    // AND ui_department.data='IT' 
+    // AND ui_manager_email.data='bilal@3ilogic.com'
+
+    $params = [];
+    $params[] = $teamid;
+
+    if($manageremail!='') {
+      $query .= " AND ui_manager_email.data=?";
+      $params[] = $manageremail;
+    }
+
+    if($designation != '') {
+        $query .= " AND ui_designation.data = ?";
+        $params[] = $designation;
+    }
+
+    if($location != '') {
+        $query .= " AND u.city=?"; 
+        $params[] = $city;
+    }
+
+    if($department != '') {
+        $query .= " AND ui_department.data=?"; 
+        $params[] = $department;
+    }
+
+
+    $result = $DB->get_records_sql($query,$params);
+    return $result;
+}
+
+
+/**
+ * check_if_quiz_attempted
+ *
+ * @param  int $cid
+ * @param  int $qid
+ * @param  int $uid
+ * @return boolean true/false 
+ */
+function check_if_quiz_attempted($cid,$qid,$uid) {
+
+    global $DB;
+
+    /* Get all Attempts  */
+    $query = "SELECT 
+    qa.userid,
+    q.id,
+    q.name AS 'quiz',
+    CONCAT(u.firstname,' ',u.lastname) AS 'fullname'
+    FROM mdl_quiz_attempts AS qa
+    JOIN mdl_quiz AS q ON qa.quiz = q.id
+    JOIN mdl_course c ON q.course = c.id
+    JOIN mdl_user u ON u.id=qa.userid
+    WHERE c.id =? AND q.id=? AND u.id=?";
+
+    $params = [$cid,$qid,$uid];
+
+    if($DB->record_exists_sql($query,$params)) {
+        return true;
+    }
+    else { return false; }
+    
 }

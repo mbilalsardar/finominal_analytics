@@ -39,14 +39,14 @@ $linkurl = new moodle_url('/blocks/finominal_analytics/team_dashboard.php');
 $PAGE->set_context($context);
 $PAGE->set_url($linkurl);
 $PAGE->set_pagelayout('admin');
-$PAGE->set_title('Dashboard');
+$PAGE->set_title('Team Dashboard');
 
 // $output = $PAGE->get_renderer('block_finominal_analytics');
 
 // Set the page heading.
-$PAGE->set_heading('Dashboard');
-$PAGE->navbar->add(get_string('teamdashboard', 'block_finominal_analytics'));
+$PAGE->set_heading(get_string('teamdashboard', 'block_finominal_analytics'));
 $PAGE->navbar->add('Dashboard', $linkurl);
+$PAGE->navbar->add(get_string('teamdashboard', 'block_finominal_analytics'));
 $PAGE->requires->jquery();
 
 
@@ -83,6 +83,8 @@ echo <<<HTML
     <link rel="stylesheet" type="text/css" href="{$assetpath}/css/plugins/forms/pickers/form-flat-pickr.css">
     <link rel="stylesheet" type="text/css" href="{$assetpath}/css/plugins/charts/chart-apex.min.css">
     <!-- END: Page CSS-->
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 HTML;
 
 
@@ -101,7 +103,7 @@ echo <<<HTML
                                     <div class="form-group">
                                         <label for="course">Course</label>
                                         <select class="form-control" id="course">
-                                            <option>All</option>
+                                            <option value=''>All</option>
                                         </select>
                                     </div>
                                 </div>
@@ -110,28 +112,39 @@ echo <<<HTML
                                     <div class="form-group">
                                         <label for="quiz">Quiz</label>
                                         <select class="form-control" id="quiz">
-                                            <option>All</option>
+                                            <option value='' >All</option>
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
 
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="team">Team</label>
                                         <select class="form-control" id="team">
-                                            <option>All</option>
+                                            <option value=''>All</option>
                                         </select>
                                     </div>
                                 </div>
 
+                                <!-- <div class="col-lg-3 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-6 mt-2">
+                                            <button id='view' class='btn btn-primary btn-block waves-effect waves-float waves-light'>view</button>
+                                        </div>
+
+                                        <div class="col-6 mt-2">
+                                            <button id='reset' class='btn btn-danger btn-block waves-effect waves-float waves-light'>reset</button>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+
+                            <div class="row"> 
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="manager">Manager</label>
-                                        <select class="form-control" id="manager">
-                                            <option>All</option>
+                                        <select class="form-control" id="manager" disabled>
+                                            <option value=''>All</option>
                                         </select>
                                     </div>
                                 </div>
@@ -139,8 +152,8 @@ echo <<<HTML
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="department">Department</label>
-                                        <select class="form-control" id="department">
-                                            <option>All</option>
+                                        <select class="form-control" id="department" disabled>
+                                            <option value=''>All</option>
                                         </select>
                                     </div>
                                 </div>
@@ -148,38 +161,262 @@ echo <<<HTML
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="location">Location</label>
-                                        <select class="form-control" id="location">
-                                            <option>All</option>
+                                        <select class="form-control" id="location" disabled>
+                                            <option value='' >All</option>
                                         </select>
+                                    </div>
+                                </div> 
+
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-6 mt-2">
+                                            <button id='view' class='btn btn-primary btn-block waves-effect waves-float waves-light'>view</button>
+                                        </div>
+
+                                        <div class="col-6 mt-2">
+                                            <button id='reset' class='btn btn-danger btn-block waves-effect waves-float waves-light'>reset</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-2">
-                                    <button class='btn btn-primary btn-block waves-effect waves-float waves-light'>view</button>
-                                </div>
-
-                                <div class="col-2">
-                                    <button class='btn btn-danger btn-block waves-effect waves-float waves-light'>reset</button>
-                                </div>
-                            </div>
+                            
 
 
 
                         </div>
                     </div>
                 </div>
-
-                
-            </div>
+            </div><!-- End of Filter row -->
 
             <div class="row">
-                <div class="col-4">                    
+                <!-- Total Marks Block -->
+                <div class="col-lg-3 col-12">
+
+                    <div class="row">
+                        <div class="col-lg-12">    
+                            <div class="card py-1 text-center mx-0" style='min-height:120px'>
+                                <div class="" style='padding:20px; margin-top: 15px'> 
+                                    <span> <i data-feather="award" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#008ffb; 
+                                    color:white;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                    display: float;
+                                    float : left;
+                                    '>
+                                    </i>
+                                    </span>
+                                    <h4 class="card-text mb-0" id='ttl_members_count'>0</h4>
+                                    <h4 class="mb-0 font-weight-bolder ">Total Participants</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card py-1 text-center mx-0" style='min-height:140px;'>
+                                <span> <i data-feather="hash" 
+                                    style='
+                                    width: 40px; 
+                                    height: 40px;
+                                    background:#feb019;
+                                    color:white;
+                                    border-radius:100px;
+                                    padding : 8px;
+                                    margin-bottom : 5px;
+                                    '>
+                                    </i>
+                                    </span>
+                                <h4 id='totalquestions_count_div'>0</h4>
+                                <h4 class='font-weight-bolder '>Total Questions</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card py-1 text-center mx-0" style='min-height:140px;'>
+                                <span> <i data-feather="users" 
+                                    style='
+                                    width: 40px; 
+                                    height: 40px;
+                                    background:red; color:white;
+                                    border-radius:100px;
+                                    padding : 8px;
+                                    margin-bottom : 5px;
+                                    '>
+                                    </i>
+                                    </span>
+                                <h4 id='total_sections_div'>0</h4>
+                                <h4 class='font-weight-bolder '>Total Sections</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- Info Box Column End -->
+
+                <!-- Participation Overview Card -->
+                <div class="col-lg-3  col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Quiz Participation</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <div id="attendance-chart"></div>
+                            <div class="row border-top text-center mx-0">
+                                <div class="col-6 border-right py-1">
+                                    <p class="card-text text-muted mb-0">Participated</p>
+                                    <h3 class="font-weight-bolder mb-0" id='participated'>0</h3>
+                                </div>
+                                <div class="col-6 py-1">
+                                    <p class="card-text text-muted mb-0">Not Participated</p>
+                                    <h3 class="font-weight-bolder mb-0" id='notparticipated'>0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!--/ End Participation Overview Card -->
+
+
+                <!-- Certification Overview Card -->
+                <div class="col-lg-3  col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Certification Overview</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <div id="certification-chart"></div>
+                            <div class="row border-top text-center mx-0">
+                                <div class="col-6 border-right py-1">
+                                    <p class="card-text text-muted mb-0">Issued</p>
+                                    <h3 class="font-weight-bolder mb-0" id='ttlcertissued'>0</h3>
+                                </div>
+                                <div class="col-6 py-1">
+                                    <p class="card-text text-muted mb-0">Not Issued</p>
+                                    <h3 class="font-weight-bolder mb-0" id='ttlcertnotissued'>0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ End Certification Overview Card -->
+
+
+
+                <!-- Certification Overview Card -->
+                <div class="col-lg-3  col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Marks Summary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="marks_summary"></div>
+                
+                        </div>
+                    </div>
+                </div>
+                <!--/ End Certification Overview Card -->
+
+
+
+
+
+
+            </div> <!-- end row -->
+
+
+            <div class="row">
+                <!-- section wise marks donut Starts-->
+                <div class="col-xl-6 col-12">
+                    <div class="card">
+                        <div class="card-header flex-column align-items-start">
+                            <h4 class="card-title mb-75">Section Performance Overview</h4>
+                            <!-- <span class="card-subtitle text-muted">Sections marks Averages </span> -->
+                        </div>
+                        <div class="card-body">
+                            <div id="section_marks_chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Donut Chart Ends-->
+          
+                <!-- Section Averages Marks Bar Chart -->
+                <div class="col-xl-6 col-12">
+                    <div class="card">
+                        <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
+                            <div>
+                                <!-- <h4 class="card-title font-weight-bolder">Individual and Team Averages</h4> -->
+                                <h4 class="card-title mb-75">Section's Average Marks</h4>
+                            </div>
+                            <!-- <div class="d-flex align-items-center mt-md-0 mt-1">
+                                <i class="font-medium-2" data-feather="calendar"></i>
+                                <input type="text" class="form-control flat-picker bg-transparent border-0 shadow-none" placeholder="YYYY-MM-DD" />
+                            </div> -->
+                        </div>
+                        <div class="card-body">
+                            <div id="section_average_marks_chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Bar Chart Ends -->
+            </div>
+
+
+
+            <div class="row">
+                <!-- Top Performers -->
+                <div class="col-xl-6 col-12">
+                    <div class="card">
+                        <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
+                            <div>
+                                <!-- <h4 class="card-title font-weight-bolder">Individual and Team Averages</h4> -->
+                                <h4 class="card-title mb-75">Top Performers</h4>
+                            </div>
+                          
+                        </div>
+                        <div class="card-body">
+                            <div id="top_performers_bar_chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Performer chart -->
+
+                <!-- Questions Overview Card -->
+                <div class="col-lg-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Questions Overview</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <div id="questions_overview_chart"></div>
+
+                            <div class="row border-top text-center mx-0">
+                                <div class="col-4 border-right py-1">
+                                    <p class="card-text text-muted mb-0">Right</p>
+                                    <h3 class="font-weight-bolder mb-0" id='q_overview_right'>0</h3>
+                                </div>
+                                <div class="col-4 border-right py-1">
+                                    <p class="card-text text-muted mb-0">Wrong</p>
+                                    <h3 class="font-weight-bolder mb-0" id='q_overview_wrong' >0</h3>
+                                </div>
+                                <div class="col-4 py-1">
+                                    <p class="card-text text-muted mb-0">Gaveup</p>
+                                    <h3 class="font-weight-bolder mb-0" id='q_overview_gaveup'>0</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ end Questions Overview Card -->
 
             </div>
+
+
         </div> 
+
+
+
 
     </div>
 HTML;
@@ -197,6 +434,20 @@ echo <<<HTML
     <script src="{$assetpath}/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <script src="{$assetpath}/vendors/js/charts/apexcharts.min.js"></script>
     <!-- END: Page Vendor JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script>
+
+    <script src="{$assetpath}/js/dashboards/team_dash.js"></script>
+
 HTML;
 
 echo $OUTPUT->footer();
