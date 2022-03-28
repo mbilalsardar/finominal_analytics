@@ -20,7 +20,7 @@
  * @category    blocks
  * @author      Bilal Sardar (bilal@3ilogic.com)
  * @copyright   2020 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license     Private
  */
 
 require_once dirname(__FILE__) . '/../../../config.php'; // Creates $PAGE.
@@ -84,7 +84,6 @@ if($_POST['function'] == 'get_course_enrollments') {
     
 }
 
-
 /* Student Drop Down */
 if($_POST['function'] == 'get_team_in_course') {
 
@@ -109,24 +108,71 @@ if($_POST['function'] == 'get_team_in_course') {
 }
 
 
-
-/* Student Drop Down */
-if($_POST['function'] == 'team_manager') {
+/* Get Manager */
+if($_POST['function'] == 'get_team_managers') {
 
     $data = sanitize_data($_POST);
 
 
-    $allcohortmembers = get_cohort_memebers();
+    $allcohortmembers = get_cohort_memebers($data['teamid']);
+
+    $uniquemanagersoptions = $uniquemanagers = $uniquedepartments = $uniquedepartmentsarr = $locationarr = $uniquelocation = [];
+    $uniquedesig = $uniquedesigarr = [];
+    $uniquemanagersoptions[] = "<option value=''>All</option>";
+    $uniquedepartmentsarr[] = "<option value=''>All</option>";
+    $locationarr[] = "<option value=''>All</option>";
+    $uniquedesigarr[] = "<option value=''>All</option>";
+
+    
+    foreach($allcohortmembers as $value) {
+
+        // Add Manager.
+        if($value->manager != "") { 
+            if (!array_key_exists($value->manager_email,$uniquemanagers)) {
+                $uniquemanagers[$value->manager_email] = $value->manager;
+                $uniquemanagersoptions[] = "<option value='".$value->manager_email."'>".$value->manager."</option>";
+            }
+        }
+
+        // Add Department
+        if($value->department != "") {
+            if(!in_array($value->department,$uniquedepartments)) {
+                $uniquedepartments[] = $value->department;
+                $uniquedepartmentsarr[] = "<option value='".$value->department."'>".$value->department."</option>";
+            }
+        }
+
+        // Location
+        if($value->city != "") {
+            if(!in_array($value->city,$uniquelocation)) {
+                $uniquelocation[] = $value->city;
+                $locationarr[] = "<option value='".$value->city."'>".$value->city."</option>";
+            }
+        }
+
+        // Designation
+        if($value->designation != "") {
+            if(!in_array($value->designation,$uniquedesig)) {
+                $uniquedesig[] = $value->designation;
+                $uniquedesigarr[] = "<option value='".$value->designation."'>".$value->designation."</option>";
+            }
+        }
+    }
     
 
-    $optionsstr = implode('',$options);
-    echo json_encode($optionsstr);    
+    $optionsstr = implode('',$uniquemanagersoptions);
+    $optionsstrdepart = implode('',$uniquedepartmentsarr);
+    $optionsstrlocation = implode('',$locationarr);
+    $uniquedesigstr = implode('',$uniquedesigarr);
+
+    $response = [];
+    $response['manager'] = $optionsstr;
+    $response['department'] = $optionsstrdepart;
+    $response['location'] = $optionsstrlocation;
+    $response['designation'] = $uniquedesigstr;
+
+    echo json_encode($response);    
 }
-
-
-
-
-
 
 // Individual Dash View POST
 if($_POST['function'] == 'individual_dash_view') {
@@ -165,6 +211,7 @@ if($_POST['function'] == 'individual_dash_view') {
         foreach($quizmarksinfo as $value) {
             $quiz_marks['total'] = [round($value->total_grade,2)];
             $quiz_marks['obtained'] = [round($value->obtained_grade,2)];
+            $quiz_marks['percentage'] = [round(($value->obtained_grade / $value->total_grade) * 100,1)];
 
             if($value->obtained_grade >= $value->passinggrade) {
                 $certificate = 'Issued';
@@ -174,6 +221,7 @@ if($_POST['function'] == 'individual_dash_view') {
     else {
         $quiz_marks['total'] = [0];
         $quiz_marks['obtained'] = [0];
+        $quiz_marks['percentage'] = [0];
     }
     $response['quiz_marks'] = $quiz_marks;
     $response['quiz_certificate'] = $certificate;
@@ -348,8 +396,6 @@ if($_POST['function'] == 'individual_dash_view') {
 
 }
 
-
-
 // Team Dash view 
 if($_POST['function'] == 'team_dash_view') {
 
@@ -367,7 +413,7 @@ if($_POST['function'] == 'team_dash_view') {
 
     
     // Get array of all users in team first.
-    $allteamusers = get_users_by_filters($teamid);
+    $allteamusers = get_users_by_filters($teamid,$manageremail,$designation,$location,$department);
 
     // getting only users enrolled in course 
     $allcourseenrollments = get_users_enrolled_in_course($cid,5);
@@ -382,7 +428,6 @@ if($_POST['function'] == 'team_dash_view') {
                 $allenrolledusers[] = (int)$value->id; 
                 break;
             }
-        
         }
     }
 
@@ -402,7 +447,7 @@ if($_POST['function'] == 'team_dash_view') {
 
     $response['quizparticipated'] = $particpated;
     $response['quiznotparticipated'] = $notparticipated;
-    $response['quizparticipatedpercent'] = round(($particpated / count($allenrolledusers)) * 100,2);
+    $response['quizparticipatedpercent'] = round(($particpated / count($allenrolledusers)) * 100,1);
 
 
     /*  SECTION PERFORMANCE */ 
@@ -410,7 +455,7 @@ if($_POST['function'] == 'team_dash_view') {
 
     $quizsections = course_quiz_sections($cid,$qid);
 
-    $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = 0;
+    $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = $allquestion = 0;
     
     $sectionaveragemarks = [];
 
@@ -420,7 +465,6 @@ if($_POST['function'] == 'team_dash_view') {
         $sectionname = $quizsecvalue->section_name;
         $sectionid = $quizsecvalue->section_id;
 
-      
 
         $labels[] = $sectionname;
    
@@ -430,12 +474,7 @@ if($_POST['function'] == 'team_dash_view') {
             $allcorrect += $secresult['total_correct'];
             $allwrong += $secresult['total_wrong'];
             $allgaveup += $secresult['total_gaveup'];
-            $allquestion = $secresult['total_questions'];
             $sectiontotal[] = $percentagesectiontotal;
-
-
-
-            
         }
         
         $series[] = round(array_sum($sectiontotal)/count($sectiontotal),2);
@@ -445,6 +484,9 @@ if($_POST['function'] == 'team_dash_view') {
             'x' => $sectionname,
             'y' => round(array_sum($sectiontotal)/count($sectiontotal),2),
         ];
+
+        $allquestion += $quizsecvalue->total_questions;
+
     }
 
     $response['section_performance_labels'] = $labels;
@@ -467,9 +509,6 @@ if($_POST['function'] == 'team_dash_view') {
 
     /* Average  */
     $response['sectionaveragemarks'] = $sectionaveragemarks;
-
-
-
 
 
     /*  Certification Overview - pass / fail */
@@ -507,11 +546,8 @@ if($_POST['function'] == 'team_dash_view') {
     /*  Marks Summary  */
 
     sort($allquizmarks);    
-
     $minmarks = $allquizmarks[0];
-
     $avgmarks = round(array_sum($allquizmarks) / count($allquizmarks),2);
-
     $maxmarks = $allquizmarks[count($allquizmarks)-1];
 
     $markssummary = [
@@ -537,7 +573,6 @@ if($_POST['function'] == 'team_dash_view') {
     $topperformers=[];
     $count = 0;
     foreach($allmarkswithuser as $key=>$value){
-    
 
         if($count >= 5) {break;}
 
@@ -547,7 +582,6 @@ if($_POST['function'] == 'team_dash_view') {
         ];
 
         $topperformers[] = $temp;
-
         $count++;
     }
 

@@ -42,6 +42,11 @@ $(document).ready(function () {
     var $earningsStrokeColor2 = '#28c76f66';
     var $earningsStrokeColor3 = '#28c76f33';
 
+
+    // Disabling on load 
+    $('#quiz').prop('disabled',true);
+    $('#student').prop('disabled',true);
+
     chartColors = {
         column: {
             series1: '#826af9',
@@ -527,6 +532,16 @@ $(document).ready(function () {
     /* Drop downs */
     load_Courses('');
 
+    $('#reset').on('click',function(e){
+        $('#course').prop('selectedIndex',0);
+        $('#quiz').prop('selectedIndex',0);
+        $('#student').prop('selectedIndex',0);
+      
+        $('#quiz').prop('disabled',true);
+        $('#student').prop('disabled',true);
+       
+        
+    });
 
     $('#course').on('change',function(e){
 
@@ -546,6 +561,8 @@ $(document).ready(function () {
             success: function (data) {
                 $('#quiz').empty();
                 $('#quiz').append(data);
+                $('#quiz').prop('disabled',false);
+             
             },
             error: function (request) {
                 alert("Request: " + JSON.stringify(request));
@@ -564,6 +581,7 @@ $(document).ready(function () {
             success: function (data) {
                 $('#student').empty();
                 $('#student').append(data);
+                $('#student').prop('disabled',false);
             },
             error: function (request) {
                 alert("Request: " + JSON.stringify(request));
@@ -613,7 +631,7 @@ $(document).ready(function () {
             // Quiz Marks Chart
             var quizmarks = data['quiz_marks'];
             goalChart.updateOptions({
-                series: quizmarks['obtained'],
+                series: quizmarks['percentage'],
                 labels: ['grade'],
             });
 

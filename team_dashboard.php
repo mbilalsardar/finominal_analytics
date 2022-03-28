@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,13 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Analytics Dashboard main class.
+ * Library.
  *
- * @category    blocks
- *
- * @author      Saqib Ansari (saqib@3ilogic.com)
- * @copyright   2019 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @category    block
+ * @author      Bilal Sardar (bilal@3ilogic.com)
+ * @copyright   2021 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
+ * @license     Private
  */
 
 require_once dirname(__FILE__) . '/../../config.php'; // Creates $PAGE.
@@ -103,7 +101,7 @@ echo <<<HTML
                                     <div class="form-group">
                                         <label for="course">Course</label>
                                         <select class="form-control" id="course">
-                                            <option value=''>All</option>
+                                            <option value=''>Select Course</option>
                                         </select>
                                     </div>
                                 </div>
@@ -112,7 +110,7 @@ echo <<<HTML
                                     <div class="form-group">
                                         <label for="quiz">Quiz</label>
                                         <select class="form-control" id="quiz">
-                                            <option value='' >All</option>
+                                            <option value='' >Select Quiz</option>
                                         </select>
                                     </div>
                                 </div>
@@ -121,29 +119,26 @@ echo <<<HTML
                                     <div class="form-group">
                                         <label for="team">Team</label>
                                         <select class="form-control" id="team">
-                                            <option value=''>All</option>
+                                            <option value=''>Select Team</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-lg-3 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-6 mt-2">
-                                            <button id='view' class='btn btn-primary btn-block waves-effect waves-float waves-light'>view</button>
-                                        </div>
-
-                                        <div class="col-6 mt-2">
-                                            <button id='reset' class='btn btn-danger btn-block waves-effect waves-float waves-light'>reset</button>
-                                        </div>
+                                <div class="col-lg-3 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="designation">Designation</label>
+                                        <select class="form-control" id="designation">
+                                            <option value=''>All</option>
+                                        </select>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
 
                             <div class="row"> 
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="manager">Manager</label>
-                                        <select class="form-control" id="manager" disabled>
+                                        <select class="form-control" id="manager">
                                             <option value=''>All</option>
                                         </select>
                                     </div>
@@ -152,7 +147,7 @@ echo <<<HTML
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="department">Department</label>
-                                        <select class="form-control" id="department" disabled>
+                                        <select class="form-control" id="department">
                                             <option value=''>All</option>
                                         </select>
                                     </div>
@@ -161,7 +156,7 @@ echo <<<HTML
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="location">Location</label>
-                                        <select class="form-control" id="location" disabled>
+                                        <select class="form-control" id="location">
                                             <option value='' >All</option>
                                         </select>
                                     </div>
@@ -170,19 +165,15 @@ echo <<<HTML
                                 <div class="col-lg-3 col-sm-12">
                                     <div class="row">
                                         <div class="col-6 mt-2">
-                                            <button id='view' class='btn btn-primary btn-block waves-effect waves-float waves-light'>view</button>
+                                            <button id='view' class='btn btn-primary btn-block waves-effect waves-float waves-light'>View</button>
                                         </div>
 
                                         <div class="col-6 mt-2">
-                                            <button id='reset' class='btn btn-danger btn-block waves-effect waves-float waves-light'>reset</button>
+                                            <button id='reset' class='btn btn-danger btn-block waves-effect waves-float waves-light'>Reset</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-
-
-
                         </div>
                     </div>
                 </div>

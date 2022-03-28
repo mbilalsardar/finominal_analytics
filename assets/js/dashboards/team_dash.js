@@ -42,6 +42,16 @@ $(document).ready(function () {
     var $earningsStrokeColor2 = '#28c76f66';
     var $earningsStrokeColor3 = '#28c76f33';
 
+
+
+    $('#manager').prop( "disabled", true );
+    $('#department').prop( "disabled", true );
+    $('#location').prop( "disabled", true );
+    $('#team').prop('disabled',true);
+    $('#quiz').prop('disabled',true);
+    $('#designation').prop( "disabled", true );
+
+
     chartColors = {
         column: {
             series1: '#826af9',
@@ -566,6 +576,7 @@ $(document).ready(function () {
             success: function (data) {
                 $('#quiz').empty();
                 $('#quiz').append(data);
+                $('#quiz').prop('disabled',false);
             },
             error: function (request) {
                 alert("Request: " + JSON.stringify(request));
@@ -584,6 +595,69 @@ $(document).ready(function () {
             success: function (data) {
                 $('#team').empty();
                 $('#team').append(data);
+                $('#team').prop('disabled',false);
+            },
+            error: function (request) {
+                alert("Request: " + JSON.stringify(request));
+            }
+        });
+    });
+
+    $('#reset').on('click',function(e){
+        $('#course').prop('selectedIndex',0);
+        $('#quiz').prop('selectedIndex',0);
+        $('#team').prop('selectedIndex',0);
+        $('#manager').prop('selectedIndex',0);
+        $('#department').prop('selectedIndex',0);
+        $('#location').prop('selectedIndex',0);
+        $('#designation').prop( "selectedIndex", 0 );
+
+        $('#quiz').prop('disabled',true);
+        $('#team').prop('disabled',true);
+        $('#manager').prop('disabled',true);
+        $('#department').prop('disabled',true);
+        $('#location').prop('disabled',true);
+        $('#designation').prop( "disabled", true );
+        
+    });
+
+    $('#team').on('change',function(e){
+        
+        e.preventDefault();
+
+        var teamid = $('#team').val();
+
+        /* For Quiz dropdown */
+        $.ajax({
+            type: "POST",
+            url: AJAXURL,
+            data: {
+                'function': 'get_team_managers',
+                'teamid': teamid,
+            }, // Serializes the form's elements.
+            dataType: 'json',
+            success: function (data) {
+                
+                // Manager
+                $('#manager').empty();
+                $('#manager').append(data['manager']);
+                $('#manager').prop( "disabled", false );
+
+                // Department
+                $('#department').empty();
+                $('#department').append(data['department']);
+                $('#department').prop( "disabled", false );
+
+                // Location
+                $('#location').empty();
+                $('#location').append(data['location']);
+                $('#location').prop( "disabled", false );
+
+                // Designation
+                $('#designation').empty();
+                $('#designation').append(data['designation']);
+                $('#designation').prop( "disabled", false );
+
             },
             error: function (request) {
                 alert("Request: " + JSON.stringify(request));
@@ -593,7 +667,6 @@ $(document).ready(function () {
 
 
     /* View Dashboard button click */
-
     $('#view').on('click',function(e){
 
         e.preventDefault();
@@ -604,7 +677,7 @@ $(document).ready(function () {
         var location = $('#location').val();
         var manageremail = $('#manager').val();
         var department = $('#department').val();
-        // var designation = $('#designation').val();
+        var designation = $('#designation').val();
         
 
         $.ajax({
@@ -616,14 +689,14 @@ $(document).ready(function () {
                 'qid': qid,
                 'teamid': teamid,
                 'manageremail': manageremail,
-                // 'designation': designation,
+                'designation': designation,
                 'location': location,
                 'department': department,
             }, // Serializes the form's elements.
             dataType: 'json',
             success: function (data) {
     
-                console.log(data);
+                // console.log(data);
 
                 // Total members 
                 $('#ttl_members_count').html(data['ttlparticipants']);
@@ -660,7 +733,6 @@ $(document).ready(function () {
 
 
                 /* Marks Summary */
-
                 markssummary.updateSeries([{
                     data: data['marks_summary'],
                 }]);

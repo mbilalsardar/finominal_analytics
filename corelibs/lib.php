@@ -20,7 +20,7 @@
  * @category    blocks
  * @author      Bilal Sardar (bilal@3ilogic.com)
  * @copyright   2021 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license     Private
  */
 
 require_once dirname(__FILE__) . '/../../../config.php'; // Creates $PAGE.
@@ -85,7 +85,7 @@ function get_all_courses()
 {
     global $DB;
 
-    $query = "SELECT id,fullname FROM mdl_course WHERE visible=1";
+    $query = "SELECT id,fullname FROM mdl_course WHERE visible=1 AND category>0";
 
     $allRecords = $DB->get_records_sql($query);
 
@@ -122,6 +122,7 @@ function get_course_quiz($cid)
 
 
 /**
+ * 
  * get_users_enrolled_in_course
  *
  * @param int $courseid course id
@@ -163,7 +164,7 @@ function get_users_enrolled_in_course($courseid, $usertype, $range = '')
         $query .= " AND c.id='{$courseid}'";
     }
 
-    if ($range !== '') {
+    if ($range != '') {
         $query .= " AND mue.timecreated " . $range;
     }
 
@@ -412,7 +413,7 @@ function quiz_sections_result($quizid, $sectionid, $studentid, $courseid)
             $profiledata['username'] = $gradedata->student_name;
             $profiledata['userid'] = $gradedata->userid;
 
-            if($gradedata->student_answer !== "") { 
+            if($gradedata->student_answer != "") { 
                 if ($gradedata->correct_answer == $gradedata->student_answer) {
                     $allcorrect++;
                 } else {
@@ -530,14 +531,13 @@ function get_users_by_filters($teamid, $manageremail='', $designation='', $locat
 
     if($location != '') {
         $query .= " AND u.city=?"; 
-        $params[] = $city;
+        $params[] = $location;
     }
 
     if($department != '') {
         $query .= " AND ui_department.data=?"; 
         $params[] = $department;
     }
-
 
     $result = $DB->get_records_sql($query,$params);
     return $result;

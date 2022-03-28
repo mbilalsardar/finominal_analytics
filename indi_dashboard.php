@@ -18,11 +18,11 @@
 /**
  * Analytics Dashboard main class.
  *
- * @category    blocks
+ * @category    Blocks
  *
- * @author      Saqib Ansari (saqib@3ilogic.com)
- * @copyright   2019 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author      Bilal Sardar (bilal@3ilogic.com)
+ * @copyright   2021 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
+ * @license     Private
  */
 
 require_once dirname(__FILE__) . '/../../config.php'; // Creates $PAGE.
@@ -137,8 +137,8 @@ echo <<<HTML
 
                                 <div class="col-lg-3 col-sm-12">
                                     <div class='mt-2'></div>
-                                    <button id='view' class='btn btn-primary waves-effect waves-float waves-light'>view</button> 
-                                    <button id='reset' class='btn btn-danger waves-effect waves-float waves-light'>reset</button>
+                                    <button id='view' class='btn btn-primary waves-effect waves-float waves-light'>View</button> 
+                                    <button id='reset' class='btn btn-danger waves-effect waves-float waves-light'>Reset</button>
                                 </div>
                             </div>
                         </div>
