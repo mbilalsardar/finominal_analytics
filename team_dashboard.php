@@ -61,7 +61,8 @@ $userrole = get_user_role($USER->id);
 $usertype = $userrole->role;
 $userid = $USER->id;
 
-if($usertype != 'manager' || !is_siteadmin()) {
+// echo $usertype;
+if(($usertype != 'manager') AND (is_siteadmin() !== true)) {
     $home = $CFG->wwwroot . "/my";
     redirect($home, 'Please login as Admin or Manager', 5);
     die();

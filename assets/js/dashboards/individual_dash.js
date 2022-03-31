@@ -249,7 +249,10 @@ $(document).ready(function () {
                 bar: {
                     horizontal: true,
                     barHeight: '30%',
-                    endingShape: 'rounded'
+                    endingShape: 'rounded',
+                    dataLabels: {
+                        position: 'top',
+                    }
                 }
             },
             grid: {
@@ -265,7 +268,9 @@ $(document).ready(function () {
             },
             // colors: window.colors.solid.info,
             dataLabels: {
-                enabled: false
+                enabled: true,
+                offsetX: 20
+                // position: 'right',
             },
             series: [],            
             xaxis: {
@@ -390,6 +395,9 @@ $(document).ready(function () {
                 parentHeightOffset: 0,
                 toolbar: {
                     show: false
+                },
+                dataLabels: {
+                    position: 'top',
                 }
             },
             plotOptions: {
@@ -412,7 +420,9 @@ $(document).ready(function () {
                 }
             },
             dataLabels: {
-                enabled: false
+                enabled: true,
+                // position: 'top',
+                // offsetX: 20
             },
             series: [],
             xaxis: {
@@ -512,6 +522,8 @@ $(document).ready(function () {
         }, // Serializes the form's elements.
         dataType: 'json',
         success: function (data) {
+
+            console.log(data);
 
             // Setting employee Info box data
             var userinfo = data['userinfo'];
