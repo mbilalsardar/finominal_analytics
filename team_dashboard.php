@@ -26,7 +26,7 @@
 require_once dirname(__FILE__) . '/../../config.php'; // Creates $PAGE.
 // require_once $CFG->libdir.'/adminlib.php';
 // require_once $CFG->dirroot.'/user/filters/lib.php';
-// require_once 'lib.php';
+require_once 'corelibs/lib.php';
 
 $context = context_system::instance();
 
@@ -54,35 +54,55 @@ $returnurl = $baseurl;
 global $DB, $CFG, $USER;
 $userid = $USER->id;
 
-echo $OUTPUT->header();
 
-global $CFG;
+// CHECK IF USER IS ADMIN OR MANAGER
+$userrole = get_user_role($USER->id);
+
+$usertype = $userrole->role;
+$userid = $USER->id;
+
+if($usertype != 'manager' || !is_siteadmin()) {
+    $home = $CFG->wwwroot . "/my";
+    redirect($home, 'Please login as Admin or Manager', 5);
+    die();
+}
+
+
+echo $OUTPUT->header();
 $assetpath = $CFG->wwwroot . "/blocks/finominal_analytics/assets";
 
 /* Header Files */
 echo <<<HTML
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/tables/datatable/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/pickers/flatpickr/flatpickr.min.css">
-    <!-- END: Vendor CSS-->
+    <head>
+        <!-- BEGIN: Vendor CSS-->
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/vendors.min.css">
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/tables/datatable/responsive.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/pickers/flatpickr/flatpickr.min.css">
+        <!-- END: Vendor CSS-->
 
-    <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/css/colors.css"> 
-    <!-- <link rel="stylesheet" type="text/css" href="{$assetpath}/css/components.css">  -->
-    <!-- <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/dark-layout.css"> -->
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/bordered-layout.css">
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/semi-dark-layout.css">
+        <!-- BEGIN: Theme CSS-->
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/bootstrap-extended.css">
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/colors.css"> 
+        <!-- <link rel="stylesheet" type="text/css" href="{$assetpath}/css/components.css">  -->
+        <!-- <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/dark-layout.css"> -->
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/bordered-layout.css">
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/semi-dark-layout.css">
 
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/css/plugins/forms/pickers/form-flat-pickr.css">
-    <link rel="stylesheet" type="text/css" href="{$assetpath}/css/plugins/charts/chart-apex.min.css">
-    <!-- END: Page CSS-->
+        <!-- BEGIN: Page CSS-->
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/plugins/forms/pickers/form-flat-pickr.css">
+        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/plugins/charts/chart-apex.min.css">
+        <!-- END: Page CSS-->
 
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+        <style>
+            .app-content {
+                font-family: Verdana,Geneva,sans-serif !important;
+            }
+        </style>
+    </head>
 HTML;
 
 
@@ -201,7 +221,7 @@ echo <<<HTML
                                     </i>
                                     </span>
                                     <h4 class="card-text mb-0" id='ttl_members_count'>0</h4>
-                                    <h4 class="mb-0 font-weight-bolder ">Total Participants</h4>
+                                    <h5 class="mb-0 font-weight-bolder ">Total Participants</h5>
                                 </div>
                             </div>
                         </div>
@@ -223,7 +243,7 @@ echo <<<HTML
                                     </i>
                                     </span>
                                 <h4 id='totalquestions_count_div'>0</h4>
-                                <h4 class='font-weight-bolder '>Total Questions</h4>
+                                <h5 class='font-weight-bolder '>Total <br>Questions</h5>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -240,7 +260,7 @@ echo <<<HTML
                                     </i>
                                     </span>
                                 <h4 id='total_sections_div'>0</h4>
-                                <h4 class='font-weight-bolder '>Total Sections</h4>
+                                <h5 class='font-weight-bolder '>Total <br> Sections</h5>
                             </div>
                         </div>
                     </div>
@@ -274,17 +294,19 @@ echo <<<HTML
                 <div class="col-lg-3  col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Certification Overview</h4>
+                            <h4 class="card-title">Pass/Fail Overview</h4>
                         </div>
                         <div class="card-body p-0">
                             <div id="certification-chart"></div>
                             <div class="row border-top text-center mx-0">
                                 <div class="col-6 border-right py-1">
-                                    <p class="card-text text-muted mb-0">Issued</p>
+                                    <!-- <p class="card-text text-muted mb-0">Issued</p> -->
+                                    <p class="card-text text-muted mb-0">Passed</p>
                                     <h3 class="font-weight-bolder mb-0" id='ttlcertissued'>0</h3>
                                 </div>
                                 <div class="col-6 py-1">
-                                    <p class="card-text text-muted mb-0">Not Issued</p>
+                                    <!-- <p class="card-text text-muted mb-0">Not Issued</p> -->
+                                    <p class="card-text text-muted mb-0">Failed</p>
                                     <h3 class="font-weight-bolder mb-0" id='ttlcertnotissued'>0</h3>
                                 </div>
                             </div>

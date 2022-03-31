@@ -28,7 +28,7 @@
 require_once dirname(__FILE__) . '/../../config.php'; // Creates $PAGE.
 // require_once $CFG->libdir.'/adminlib.php';
 // require_once $CFG->dirroot.'/user/filters/lib.php';
-// require_once 'lib.php';
+require_once 'corelibs/lib.php';
 
 $context = context_system::instance();
 
@@ -55,12 +55,25 @@ $baseurl = new moodle_url(basename(__FILE__));
 $returnurl = $baseurl;
 
 global $DB, $CFG, $USER;
+
+
+$assetpath = $CFG->wwwroot . "/blocks/finominal_analytics/assets";
+
+// CHECK IF USER IS ADMIN OR MANAGER
+    
+$userrole = get_user_role($USER->id);
+
+$usertype = $userrole->role;
 $userid = $USER->id;
+
+if($usertype == 'manager' || is_siteadmin()) {
+    $home = $CFG->wwwroot . "/my";
+    redirect($home, 'Please login as Student', 5);
+    die();
+}
 
 echo $OUTPUT->header();
 
-global $CFG;
-$assetpath = $CFG->wwwroot . "/blocks/finominal_analytics/assets";
 
 /* Header Files */
 echo <<<HTML
@@ -85,6 +98,13 @@ echo <<<HTML
     <link rel="stylesheet" type="text/css" href="{$assetpath}/css/plugins/charts/chart-apex.min.css">
     <!-- END: Page CSS-->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+
+    <style>
+            .app-content {
+                font-family: Verdana,Geneva,sans-serif !important;
+            }
+    </style>
 HTML;
 
 
@@ -126,14 +146,17 @@ echo <<<HTML
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-sm-12">
+                                <!-- <div class="col-lg-3 col-sm-12">
                                     <div class="form-group">
                                         <label for="student">Employee</label>
                                         <select class="form-control" id="student">
                                             <option>Select Student</option>
-                                        </select>
+                                        </select>s
                                     </div>
-                                </div>
+                                </div> -->
+                                <input value="{$userid}" id='userid_input_hidden' type='text' hidden='true'/>
+                                <input value="{$usertype}" id='usertype_input_hidden' type='text'  hidden='true'/>
+                              
 
                                 <div class="col-lg-3 col-sm-12">
                                     <div class='mt-2'></div>
@@ -250,8 +273,8 @@ echo <<<HTML
                                     '>
                                     </i>
                                     </span>
-                                    <h4 class="card-text mb-0" id='certificate_status_div'>Not Issued</h4>
-                                    <h4 class="mb-0 font-weight-bolder ">Certification status</h4>
+                                    <h4 class="card-text mb-0" id='certificate_status_div'>-</h4>
+                                    <h4 class="mb-0 font-weight-bolder ">Pass/Fail status</h4>
                                 </div>
                             </div>
                         </div>
@@ -409,12 +432,13 @@ echo <<<HTML
                     height: 14
                 });
             }
-        })
+        });
     </script>
-
+    
+    
+    
     <!-- Dashboard js -->
     <script src="{$assetpath}/js/dashboards/individual_dash.js"></script>
-
 
 
     

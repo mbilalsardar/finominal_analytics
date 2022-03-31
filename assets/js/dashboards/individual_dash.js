@@ -1,6 +1,8 @@
 // var $ = $.noConflict();
 
 AJAXURL = "https://phpstack-734511-2463855.cloudwaysapps.com/blocks/finominal_analytics/corelibs/ajax.php";
+// AJAXURL = "http://localhost/moodle/blocks/finominal_analytics/corelibs/ajax.php";
+
 
 function load_Courses(elementid) {
     // Populate courses dropdown
@@ -145,110 +147,11 @@ $(document).ready(function () {
     goalChart = new ApexCharts($goalOverviewChart, goalChartOptions);
     goalChart.render();
 
-
-
-    // Section wise marks chart
-    // Donut Chart
-    // --------------------------------------------------------------------
-    // var donutChartEl = document.querySelector('#section_marks_chart'),
-    //     donutChartConfig = {
-    //         chart: {
-    //             height: 400,
-    //             type: 'donut'
-    //         },
-    //         legend: {
-    //             show: true,
-    //             position: 'right'
-    //         },
-    //         labels: [],
-    //         series: [],
-    //         colors: [
-    //             chartColors.donut.series1,
-    //             chartColors.donut.series5,
-    //             chartColors.donut.series3,
-    //             chartColors.donut.series2
-    //         ],
-    //         dataLabels: {
-    //             enabled: true,
-    //             formatter: function (val, opt) {
-    //                 return parseInt(val) + '%';
-    //             }
-    //         },
-    //         plotOptions: {
-    //             pie: {
-    //                 donut: {
-    //                     labels: {
-    //                         show: true,
-    //                         name: {
-    //                             fontSize: '2rem',
-    //                             fontFamily: 'Montserrat'
-    //                         },
-    //                         value: {
-    //                             fontSize: '1rem',
-    //                             fontFamily: 'Montserrat',
-    //                             formatter: function (val) {
-    //                                 return parseInt(val) + '%';
-    //                             }
-    //                         },
-    //                         total: {
-    //                             show: true,
-    //                             fontSize: '1.5rem',
-    //                             // label: 'Operational',
-    //                             // formatter: function (w) {
-    //                             //     return '31%';
-    //                             // }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         },
-    //         responsive: [
-    //             {
-    //                 breakpoint: 992,
-    //                 options: {
-    //                     chart: {
-    //                         height: 380
-    //                     }
-    //                 }
-    //             },
-    //             {
-    //                 breakpoint: 576,
-    //                 options: {
-    //                     chart: {
-    //                         height: 320
-    //                     },
-    //                     plotOptions: {
-    //                         pie: {
-    //                             donut: {
-    //                                 labels: {
-    //                                     show: true,
-    //                                     name: {
-    //                                         fontSize: '1.5rem'
-    //                                     },
-    //                                     value: {
-    //                                         fontSize: '1rem'
-    //                                     },
-    //                                     total: {
-    //                                         fontSize: '1.5rem'
-    //                                     }
-    //                                 }
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             }
-    //         ]
-    //     };
-    // if (typeof donutChartEl !== undefined && donutChartEl !== null) {
-    //     var donutChart = new ApexCharts(donutChartEl, donutChartConfig);
-    //     donutChart.render();
-    // }
-
-
+    // Section Overview
     var donutChartEl = document.querySelector('#section_marks_chart'),
     donutChartConfigGrades = {
         chart: {
-            height: 400,
+            height: 300,
             type: 'donut'
         },
         legend: {
@@ -335,7 +238,7 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#individual_averages_chart'),
         barChartConfig = {
             chart: {
-                height: 400,
+                height: 310,
                 type: 'bar',
                 parentHeightOffset: 0,
                 toolbar: {
@@ -383,7 +286,7 @@ $(document).ready(function () {
     var donutChartEl2 = document.querySelector('#questions_overview_chart'),
         donutChartConfig = {
             chart: {
-                height: 400,
+                height: 300,
                 type: 'pie'
             },
             legend: {
@@ -392,11 +295,13 @@ $(document).ready(function () {
             },
             labels: ['Right','Wrong','Gave Up'],
             series: [0,0,0],
-            colors: [
-                chartColors.donut.series2,
-                chartColors.donut.series5,
-                chartColors.donut.series1,
-            ],
+            // colors: [
+            //     chartColors.donut.series2,
+            //     chartColors.donut.series5,
+            //     chartColors.donut.series1,
+            // ],
+            colors:['#17efcb', '#ed5b2f', '#fc9e5f'],
+
             dataLabels: {
                 enabled: true,
                 formatter: function (val, opt) {
@@ -480,7 +385,7 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#quizcomparision_chart'),
         barChartConfig = {
             chart: {
-                height: 450,
+                height: 350,
                 type: 'bar',
                 parentHeightOffset: 0,
                 toolbar: {
@@ -491,6 +396,7 @@ $(document).ready(function () {
                 bar: {
                     vertical: true,
                     barHeight: '30%',
+                    columnWidth: '20%',
                     endingShape: 'flat'
                 }
             },
@@ -505,18 +411,13 @@ $(document).ready(function () {
                     bottom: 20
                 }
             },
-            // colors: window.colors.solid.info,
             dataLabels: {
                 enabled: false
             },
             series: [],
             xaxis: {
-                // categories: ['quiz 1', 'quiz 2', 'quiz 3', 'quiz 4']
                 type: 'category'
             },
-            // yaxis: {
-            //     opposite: isRtl
-            // }
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
         var barChart = new ApexCharts(barChartEl, barChartConfig);
@@ -570,23 +471,23 @@ $(document).ready(function () {
         });
 
         /* For Student dropdown */
-        $.ajax({
-            type: "POST",
-            url: AJAXURL,
-            data: {
-                'function': 'get_course_enrollments',
-                'cid': courseid,
-            }, // Serializes the form's elements.
-            dataType: 'json',
-            success: function (data) {
-                $('#student').empty();
-                $('#student').append(data);
-                $('#student').prop('disabled',false);
-            },
-            error: function (request) {
-                alert("Request: " + JSON.stringify(request));
-            }
-        });
+        // $.ajax({
+        //     type: "POST",
+        //     url: AJAXURL,
+        //     data: {
+        //         'function': 'get_course_enrollments',
+        //         'cid': courseid,
+        //     }, // Serializes the form's elements.
+        //     dataType: 'json',
+        //     success: function (data) {
+        //         $('#student').empty();
+        //         $('#student').append(data);
+        //         $('#student').prop('disabled',false);
+        //     },
+        //     error: function (request) {
+        //         alert("Request: " + JSON.stringify(request));
+        //     }
+        // });
     });
 
 
@@ -596,7 +497,8 @@ $(document).ready(function () {
 
         var cid = $('#course').val();
         var qid = $('#quiz').val();
-        var uid = $('#student').val();
+        // var uid = $('#student').val();
+        var uid = $('#userid_input_hidden').val();
 
        
         $.ajax({
@@ -611,7 +513,6 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
 
-            console.log(data);
             // Setting employee Info box data
             var userinfo = data['userinfo'];
             $('#userinfo_username').html(userinfo['username']);
@@ -625,7 +526,6 @@ $(document).ready(function () {
             $('#totalquestions_count_div').html(data['quiz_questions_info']['questions_total']);
             $('#teammember_count_div').html(data['totalteammembers']);
             $('#certificate_status_div').html(data['quiz_certificate']);
-
 
 
             // Quiz Marks Chart
@@ -664,11 +564,9 @@ $(document).ready(function () {
 
 
             // All Quiz Comparison Data
-
             barChart.updateSeries([{
                 data: data['allquiz_data'],
             }]);
-
 
 
             // Individual Quiz Section comparison chart
@@ -678,10 +576,6 @@ $(document).ready(function () {
                     categories : data['indi_team_averages_lable'],
                 }
             });
-
-
-
-
 
         },
         error: function (request) {

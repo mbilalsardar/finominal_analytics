@@ -1,5 +1,6 @@
 
 AJAXURL = "https://phpstack-734511-2463855.cloudwaysapps.com/blocks/finominal_analytics/corelibs/ajax.php";
+// AJAXURL = "http://localhost/moodle/blocks/finominal_analytics/corelibs/ajax.php";
 
 function load_Courses(elementid) {
     // Populate courses dropdown
@@ -234,7 +235,7 @@ $(document).ready(function () {
     var donutChartEl = document.querySelector('#section_marks_chart'),
     donutChartConfigGrades = {
         chart: {
-            height: 400,
+            height: 300,
             type: 'donut'
         },
         legend: {
@@ -317,7 +318,7 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#section_average_marks_chart'),
         barChartConfig = {
             chart: {
-                height: 400,
+                height: 300,
                 type: 'bar',
                 parentHeightOffset: 0,
                 toolbar: {
@@ -363,7 +364,7 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#top_performers_bar_chart'),
         barChartConfig = {
             chart: {
-                height: 400,
+                height: 315,
                 type: 'bar',
                 parentHeightOffset: 0,
                 toolbar: {
@@ -410,7 +411,7 @@ $(document).ready(function () {
     var donutChartEl2 = document.querySelector('#questions_overview_chart'),
         donutChartConfig = {
             chart: {
-                height: 400,
+                height: 300,
                 type: 'pie'
             },
             legend: {
@@ -419,11 +420,12 @@ $(document).ready(function () {
             },
             labels: ['Right','Wrong','Gave Up'],
             series: [0,0,0],
-            colors: [
-                chartColors.donut.series2,
-                chartColors.donut.series5,
-                chartColors.donut.series1,
-            ],
+            // colors: [
+            //     chartColors.donut.series2,
+            //     chartColors.donut.series5,
+            //     chartColors.donut.series1,
+            // ],
+            colors:['#17efcb', '#ed5b2f', '#fc9e5f'],
             dataLabels: {
                 enabled: true,
                 formatter: function (val, opt) {

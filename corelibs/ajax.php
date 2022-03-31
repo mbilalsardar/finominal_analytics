@@ -206,7 +206,8 @@ if($_POST['function'] == 'individual_dash_view') {
     // Marks Overview.  
     $quiz_marks = [];
     $quizmarksinfo = quiz_grades($qid,$cid,$uid);
-    $certificate = 'Not Issued';
+    // $certificate = 'Not Issued';
+    $certificate = 'Failed';
     if(!empty($quizmarksinfo)){ 
         foreach($quizmarksinfo as $value) {
             $quiz_marks['total'] = [round($value->total_grade,2)];
@@ -214,7 +215,8 @@ if($_POST['function'] == 'individual_dash_view') {
             $quiz_marks['percentage'] = [round(($value->obtained_grade / $value->total_grade) * 100,1)];
 
             if($value->obtained_grade >= $value->passinggrade) {
-                $certificate = 'Issued';
+                // $certificate = 'Issued';
+                $certificate = 'Passed';
             }
         }
     }
