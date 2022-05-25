@@ -58,7 +58,7 @@ $userid = $USER->id;
 // CHECK IF USER IS ADMIN OR MANAGER
 $userrole = get_user_role($USER->id);
 
-$usertype = $userrole->role;
+$usertype = $userrole['role'];
 $userid = $USER->id;
 
 // echo $usertype;
@@ -71,12 +71,14 @@ if(($usertype != 'manager') AND (is_siteadmin() !== true)) {
 
 echo $OUTPUT->header();
 $assetpath = $CFG->wwwroot . "/blocks/finominal_analytics/assets";
+$ajaxurl = $CFG->wwwroot . "/blocks/finominal_analytics/corelibs/ajax.php";
+
 
 /* Header Files */
 echo <<<HTML
     <head>
         <!-- BEGIN: Vendor CSS-->
-        <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/vendors.min.css">
+        <!-- <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/vendors.min.css"> -->
         <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/tables/datatable/responsive.bootstrap4.min.css">
         <link rel="stylesheet" type="text/css" href="{$assetpath}/vendors/css/pickers/flatpickr/flatpickr.min.css">
@@ -85,11 +87,8 @@ echo <<<HTML
         <!-- BEGIN: Theme CSS-->
         <link rel="stylesheet" type="text/css" href="{$assetpath}/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="{$assetpath}/css/bootstrap-extended.css">
-        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/colors.css"> 
+        <!-- <link rel="stylesheet" type="text/css" href="{$assetpath}/css/colors.css">  -->
         <!-- <link rel="stylesheet" type="text/css" href="{$assetpath}/css/components.css">  -->
-        <!-- <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/dark-layout.css"> -->
-        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/bordered-layout.css">
-        <link rel="stylesheet" type="text/css" href="{$assetpath}/css/themes/semi-dark-layout.css">
 
         <!-- BEGIN: Page CSS-->
         <link rel="stylesheet" type="text/css" href="{$assetpath}/css/plugins/forms/pickers/form-flat-pickr.css">
@@ -459,7 +458,9 @@ echo <<<HTML
             }
         })
     </script>
-
+    <script>
+        AJAXURL = "{$ajaxurl}";
+    </script>
     <script src="{$assetpath}/js/dashboards/team_dash.js"></script>
 
 HTML;
