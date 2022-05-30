@@ -24,8 +24,11 @@
  */
 
 require_once dirname(__FILE__) . '/../../../config.php'; // Creates $PAGE.
-require_once dirname(__FILE__) . '/lib.php';
+require_once dirname(__FILE__) . '/../../../mod/quiz/locallib.php';
+require_once dirname(__FILE__) . '/../../../mod/quiz/addrandomform.php';
+require_once dirname(__FILE__) . '/../../../question/editlib.php';
 
+require_once dirname(__FILE__) . '/lib.php';
 
 /* Course Drop Down */
 if($_POST['function'] == 'get_all_courses') {
@@ -208,15 +211,17 @@ if($_POST['function'] == 'individual_dash_view') {
     $quizmarksinfo = quiz_grades($qid,$cid,$uid);
     // $certificate = 'Not Issued';
     $certificate = 'Failed';
-    if(!empty($quizmarksinfo)){ 
+    if(!empty($quizmarksinfo)) { 
         foreach($quizmarksinfo as $value) {
             $quiz_marks['total'] = [round($value->total_grade,2)];
             $quiz_marks['obtained'] = [round($value->obtained_grade,2)];
             $quiz_marks['percentage'] = [round(($value->obtained_grade / $value->total_grade) * 100,1)];
 
-            if($value->obtained_grade >= $value->passinggrade) {
-                // $certificate = 'Issued';
-                $certificate = 'Passed';
+            if ($value->passinggrade != '') { 
+                if(($value->obtained_grade >= $value->passinggrade)) {
+                    // $certificate = 'Issued';
+                    $certificate = 'Passed';
+                }
             }
         }
     }
@@ -230,6 +235,12 @@ if($_POST['function'] == 'individual_dash_view') {
 
     
 
+    // ---------------- Attemptlib.php ----------------------
+    // Get the course object and related bits.
+    // $course = $DB->get_record('course', array('id' => $quiz->course), '*', MUST_EXIST);
+    // $structure = $quizobj->get_structure();
+
+
 
     // Section wise marks overview
 
@@ -237,11 +248,23 @@ if($_POST['function'] == 'individual_dash_view') {
 
     $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = 0;
 
-    foreach ($quizsections as $quizseckey => $quizsecvalue) {
+
+    // ---------- Getting all sections -----------------------
+    $allSectionsArray = [];
+    if(!empty($quizsections)) { 
+        foreach ($quizsections as $quizseckey => $quizsecvalue) {
+            if(empty($quizsecvalue)) { continue; }
+            if(!array_key_exists($quizsecvalue->section_id,$allSectionsArray))  { 
+                $allSectionsArray[$quizsecvalue->section_id] = $quizsecvalue->section_name;
+            }
+        }
+    }
+
+    foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
         $sectiontotal = 0;
-        $sectionname = $quizsecvalue->section_name;
-        $sectionid = $quizsecvalue->section_id;
+        $sectionname = $quizsecvalue;
+        $sectionid = $quizseckey;
 
         $secresult = quiz_sections_result($qid, $sectionid, $uid, $cid);
         $sectiontotal = $secresult['percentage'];
@@ -461,11 +484,23 @@ if($_POST['function'] == 'team_dash_view') {
     
     $sectionaveragemarks = [];
 
-    foreach ($quizsections as $quizseckey => $quizsecvalue) {
+    // ---------- Getting all sections -----------------------
+    $allSectionsArray = [];
+    if(!empty($quizsections)) { 
+        foreach ($quizsections as $quizseckey => $quizsecvalue) {
+            if(empty($quizsecvalue)) { continue; }
+            if(!array_key_exists($quizsecvalue->section_id,$allSectionsArray))  { 
+                $allSectionsArray[$quizsecvalue->section_id] = $quizsecvalue->section_name;
+            }
+        }
+    }
+
+    $allquestion = count($quizsections);
+    foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
         $sectiontotal = [];
-        $sectionname = $quizsecvalue->section_name;
-        $sectionid = $quizsecvalue->section_id;
+        $sectionname = $quizsecvalue;
+        $sectionid = $quizseckey;
 
 
         $labels[] = $sectionname;
@@ -486,8 +521,6 @@ if($_POST['function'] == 'team_dash_view') {
             'x' => $sectionname,
             'y' => round(array_sum($sectiontotal)/count($sectiontotal),2),
         ];
-
-        $allquestion += $quizsecvalue->total_questions;
 
     }
 

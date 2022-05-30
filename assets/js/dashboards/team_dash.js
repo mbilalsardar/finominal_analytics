@@ -1,7 +1,3 @@
-
-AJAXURL = "https://phpstack-734511-2463855.cloudwaysapps.com/blocks/finominal_analytics/corelibs/ajax.php";
-// AJAXURL = "http://localhost/moodle/blocks/finominal_analytics/corelibs/ajax.php";
-
 function load_Courses(elementid) {
     // Populate courses dropdown
     $.ajax({

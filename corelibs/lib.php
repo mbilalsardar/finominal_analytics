@@ -298,7 +298,7 @@ function quiz_grades($qid,$cid,$uid=-1) {
 
     $params = [$cid,$qid];
 
-    if(u.id != -1) {
+    if($uid != -1) {
         $query .= " AND u.id=?";
         $params[] = $uid;
     }
@@ -337,49 +337,75 @@ function course_quiz_sections($courseid, $quizid)
     global $DB;
 
 
+
+
     // $query = "SELECT
-    //  q.id as question_id
-	// ,cm.id AS cmid
-    // ,quiz.id AS quiz_id
-    // ,q.id  AS q_id
-    // ,quiz.name as quiz_name
-    // -- 	,COUNT(q.id) AS ttl_questions
-    // ,q.category AS section_id
-    // ,mqc.name as section_name
-    // -- 	,q.name As question_text
-    // FROM mdl_quiz AS quiz
-    // JOIN mdl_course_modules cm ON cm.instance = quiz.id AND cm.module = 17 # 18=quiz mdl_modules
-    // JOIN mdl_quiz_slots qs ON qs.quizid = quiz.id
-    // JOIN mdl_question AS q ON q.id = qs.questionid
-    // INNER JOIN mdl_question_categories mqc on q.category = mqc.id
-    // WHERE quiz.course = ? AND quiz.id = ?
-    // GROUP BY quiz_id,q.category
-    // ORDER BY q.category,quiz.id ASC";
-    // $result = $DB->get_records_sql($query, [$courseid, $quizid]);
-    // return $result;
+	// q.category AS 'section_id'
+	// ,COUNT(q.id) AS 'total_questions'
+	// -- 	 q.id as question_id
+	// ,cm.id AS 'course_moduleid'
+	// ,quiz.id AS 'quiz_id'
+	// -- 	,q.id  AS 'q_id'
+	// ,quiz.name as quiz_name
+	// -- 	,COUNT(q.id) AS ttl_questions
+	// ,mqc.name as section_name
+	// -- 	,q.name As question_text
+	// FROM mdl_quiz AS quiz
+	// JOIN mdl_course_modules cm ON cm.instance = quiz.id AND cm.module = 17 # 18=quiz mdl_modules
+	// JOIN mdl_quiz_slots qs ON qs.quizid = quiz.id
+	// JOIN mdl_question AS q ON q.id = qs.questionid
+	// INNER JOIN mdl_question_categories mqc on q.category = mqc.id
+	// WHERE quiz.course=? AND quiz.id=?
+	// GROUP BY q.category
+	// ORDER BY q.category,quiz.id ASC";
+
+    // $query = "SELECT 
+	// mqc.id 'section_id',
+	// COUNT(mq.id) 'total_questions',
+	// cm.id 'course_moduleid',
+	// mq2.id 'quiz_id',
+	// mq2.name 'quiz_name',
+	// mqc.name 'section_name',
+	// mqc.id 'section_id',
+	// c.id 'course_id',
+	// c.fullname 'course_name'
+    // FROM mdl_question mq
+    // JOIN mdl_question_bank_entries mqbe on mqbe.id=mq.id 
+    // JOIN mdl_question_categories mqc on mqc.id = mqbe.questioncategoryid 
+    // JOIN mdl_quiz mq2 ON mq2.id = mqbe.ownerid 
+    // JOIN mdl_course_modules cm ON cm.instance = mq2.id AND cm.module = 18 # 18=quiz mdl_modules
+    // JOIN mdl_course c on c.id = cm.course 
+    // WHERE mq2.course=? AND mq2.id=?
+    // GROUP BY mqc.id";
 
 
     $query = "SELECT
-	q.category AS 'section_id'
-	,COUNT(q.id) AS 'total_questions'
-	-- 	 q.id as question_id
-	,cm.id AS 'course_moduleid'
-	,quiz.id AS 'quiz_id'
-	-- 	,q.id  AS 'q_id'
-	,quiz.name as quiz_name
-	-- 	,COUNT(q.id) AS ttl_questions
-	,mqc.name as section_name
-	-- 	,q.name As question_text
-	FROM mdl_quiz AS quiz
-	JOIN mdl_course_modules cm ON cm.instance = quiz.id AND cm.module = 17 # 18=quiz mdl_modules
-	JOIN mdl_quiz_slots qs ON qs.quizid = quiz.id
-	JOIN mdl_question AS q ON q.id = qs.questionid
-	INNER JOIN mdl_question_categories mqc on q.category = mqc.id
-	WHERE quiz.course=? AND quiz.id=?
-	GROUP BY q.category
-	ORDER BY q.category,quiz.id ASC";
+    que.id AS questionid,
+    concat( u.firstname,' ', u.lastname ) AS student_name,
+    u.id AS userid,
+    quiza.userid AS quiz_userid,
+    q.course,
+    q.name,
+    quiza.attempt,
+    qa.slot,
+    mqc.id 'section_id',
+    mqc.name 'section_name',
+    que.questiontext AS question,
+    qa.rightanswer AS correct_answer,
+    qa.responsesummary AS student_answer
+    FROM mdl_quiz_attempts quiza
+    JOIN mdl_quiz q ON q.id=quiza.quiz
+    JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    JOIN mdl_question que ON que.id = qa.questionid
+    JOIN mdl_question_bank_entries mqbe on mqbe.id=que.id 
+	JOIN mdl_question_categories mqc on mqc.id = mqbe.questioncategoryid 
+    JOIN mdl_user u ON u.id = quiza.userid
+    WHERE q.id = ?
+    AND q.course = ?
+    ORDER BY quiza.userid, quiza.attempt, qa.slot";
 
-    $result = $DB->get_records_sql($query, [$courseid, $quizid]);
+    $result = $DB->get_records_sql($query, [$quizid, $courseid]);
     return $result;
 
 }
@@ -389,6 +415,29 @@ function quiz_section_question_attempts_by_user($qid, $secid, $userid, $courseid
 {
     global $DB;
 
+    // $query = "SELECT
+    // que.id AS questionid,
+    // concat( u.firstname,' ', u.lastname ) AS student_name,
+    // u.id AS userid,
+    // quiza.userid AS quiz_userid,
+    // q.course,
+    // q.name,
+    // quiza.attempt,
+    // qa.slot,
+    // que.questiontext AS question,
+    // qa.rightanswer AS correct_answer,
+    // qa.responsesummary AS student_answer
+    // FROM mdl_quiz_attempts quiza
+    // JOIN mdl_quiz q ON q.id=quiza.quiz
+    // JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    // JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    // JOIN mdl_question que ON que.id = qa.questionid
+    // INNER JOIN mdl_question_categories mqc ON que.category = mqc.id
+    // JOIN mdl_user u ON u.id = quiza.userid
+    // WHERE q.id = ? AND mqc.id=? AND u.id=?
+    // AND q.course = ?
+    // ORDER BY quiza.userid, quiza.attempt, qa.slot";
+    
     $query = "SELECT
     que.id AS questionid,
     concat( u.firstname,' ', u.lastname ) AS student_name,
@@ -406,9 +455,12 @@ function quiz_section_question_attempts_by_user($qid, $secid, $userid, $courseid
     JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
     JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
     JOIN mdl_question que ON que.id = qa.questionid
-    INNER JOIN mdl_question_categories mqc ON que.category = mqc.id
+    JOIN mdl_question_bank_entries mqbe on mqbe.id=que.id 
+	JOIN mdl_question_categories mqc on mqc.id = mqbe.questioncategoryid 
     JOIN mdl_user u ON u.id = quiza.userid
-    WHERE q.id = ? AND mqc.id=? AND u.id=?
+    WHERE q.id = ?
+    AND mqc.id = ?
+    AND u.id = ?
     AND q.course = ?
     ORDER BY quiza.userid, quiza.attempt, qa.slot";
 

@@ -1,9 +1,3 @@
-// var $ = $.noConflict();
-
-AJAXURL = "https://phpstack-734511-2463855.cloudwaysapps.com/blocks/finominal_analytics/corelibs/ajax.php";
-// AJAXURL = "http://localhost/moodle/blocks/finominal_analytics/corelibs/ajax.php";
-
-
 function load_Courses(elementid) {
     // Populate courses dropdown
     $.ajax({
@@ -73,13 +67,10 @@ $(document).ready(function () {
         }
     };
 
-
     /* CHARTS DECLARATION */
-
     var $goalOverviewChart = document.querySelector('#marks-overview-chart');
 
     // Marks Overview  Chart
-
     goalChartOptions = {
         chart: {
             // height: 245,
@@ -229,10 +220,6 @@ $(document).ready(function () {
         donutChartSections.render();
     }
 
-
-
-
-
     // individual averages Chart
     // --------------------------------------------------------------------
     var barChartEl = document.querySelector('#individual_averages_chart'),
@@ -283,7 +270,6 @@ $(document).ready(function () {
         var individual_barChart = new ApexCharts(barChartEl, barChartConfig);
         individual_barChart.render();
     }
-
 
     // Questions overview chart
     // pie Chart
@@ -383,7 +369,6 @@ $(document).ready(function () {
         var pieChart = new ApexCharts(donutChartEl2, donutChartConfig);
         pieChart.render();
     }
-
 
     // quiz comparision Chart
     // --------------------------------------------------------------------
@@ -499,7 +484,6 @@ $(document).ready(function () {
         //     }
         // });
     });
-
 
     $('#view').on('click',function(e){
 

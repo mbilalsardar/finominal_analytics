@@ -58,6 +58,7 @@ global $DB, $CFG, $USER;
 
 
 $assetpath = $CFG->wwwroot . "/blocks/finominal_analytics/assets";
+$ajaxurl = $CFG->wwwroot . "/blocks/finominal_analytics/corelibs/ajax.php";
 
 // CHECK IF USER IS ADMIN OR MANAGER
     
@@ -436,7 +437,9 @@ echo <<<HTML
     </script>
     
     
-    
+    <script>
+        AJAXURL = "{$ajaxurl}";
+    </script>
     <!-- Dashboard js -->
     <script src="{$assetpath}/js/dashboards/individual_dash.js"></script>
 
