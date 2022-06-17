@@ -42,7 +42,7 @@ if($_POST['function'] == 'get_all_courses') {
     $options = [];
     $options[] = '<option value="">Select Course</option>';
 
-    if(is_siteadmin() || userroles->role=='manager') {
+    if(is_siteadmin() || $userroles->role=='manager') {
         // get all course
         $allcourses = get_all_courses();
         foreach($allcourses as $value) {
