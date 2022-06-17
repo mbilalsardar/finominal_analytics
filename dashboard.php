@@ -40,10 +40,10 @@ $PAGE->set_url($linkurl);
 $PAGE->set_pagelayout('admin');
 $PAGE->set_title('Dashboard');
 
-$output = $PAGE->get_renderer('block_finominal_analytics');
+// $output = $PAGE->get_renderer('block_finominal_analytics');
 // Set the page heading.
-// $PAGE->set_heading(get_string('dashboard', 'block_finominal_analytics'));
-// $PAGE->navbar->add(get_string('dashboard', 'block_finominal_analytics'));
+$PAGE->set_heading(get_string('dashboard', 'block_finominal_analytics'));
+$PAGE->navbar->add(get_string('dashboard', 'block_finominal_analytics'));
 
 // $baseurl = new moodle_url(basename(__FILE__));
 // $returnurl = $baseurl;
