@@ -39,7 +39,7 @@ $PAGE->set_url($linkurl);
 $PAGE->set_pagelayout('admin');
 $PAGE->set_title('Dashboard');
 
-// $output = $PAGE->get_renderer('block_academicanalytics');
+$output = $PAGE->get_renderer('block_finominal_analytics');
 // Set the page heading.
 $PAGE->set_heading('Dashboard');
 $PAGE->navbar->add(get_string('dashboard', 'block_finominal_analytics'));
@@ -89,23 +89,26 @@ echo <<<'EOF'
 <h3>Redirecting. Please wait!</h3>
 EOF;
 
-$teachercourses = $studentcourses = [];
+// $teachercourses = $studentcourses = [];
 
 
-$blocklink = new moodle_url('/blocks/finominal_analytics');
-$my = new moodle_url('/my');
-// $this->content->text = '<a href="' . $blocklink . '/admin_dashboard.php">' . get_string('viewadmindashboard', $this->blockname) . '</a><br />';
+// $blocklink = new moodle_url('/blocks/finominal_analytics');
+// $my = new moodle_url('/my');
+// // $this->content->text = '<a href="' . $blocklink . '/admin_dashboard.php">' . get_string('viewadmindashboard', $this->blockname) . '</a><br />';
 
-$userroles = $this->get_user_role($USER->id);
+// $userroles = $this->get_user_role($USER->id);
 
-if($userroles->role == 'manager' || is_siteadmin()) {
-    // $this->content->text = '<a style="font-size:18px;" href="'.$blocklink.'/team_dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp'.get_string('teamdashboard',$this->blockname).'</a><br />';
-    $url = new \moodle_url('/blocks/finominal_analytics/team_dashboard.php');
-    redirect($url);
-} 
-elseif ($userroles->role == 'student') { 
-    // $this->content->text .= '<a style="font-size:18px;" href="'.$blocklink.'/indi_dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp'.get_string('individualdashboard',$this->blockname).'</a><br />';
-    $url = new \moodle_url('/blocks/finominal_analytics/indi_dashboard.php');
-    redirect($url);
-}
+// if($userroles->role == 'manager' || is_siteadmin()) {
+//     // $this->content->text = '<a style="font-size:18px;" href="'.$blocklink.'/team_dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp'.get_string('teamdashboard',$this->blockname).'</a><br />';
+//     $url = new \moodle_url('/blocks/finominal_analytics/team_dashboard.php');
+//     echo $url;
+//     // redirect($url);
+// } 
+// elseif ($userroles->role == 'student') { 
+//     // $this->content->text .= '<a style="font-size:18px;" href="'.$blocklink.'/indi_dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp'.get_string('individualdashboard',$this->blockname).'</a><br />';
+//     $url = new \moodle_url('/blocks/finominal_analytics/indi_dashboard.php');
+//     echo $url;
+
+//     // redirect($url);
+// }
    
