@@ -60,45 +60,45 @@ echo <<<'EOF'
 EOF;
 
 
-function get_user_role($uid) {
+// function get_user_role($uid) {
 
-    global $DB;
+//     global $DB;
 
-    $query = "SELECT
-    u.id,
-    u.username,
-    r.shortname AS 'role',
-    CASE ctx.contextlevel 
-      WHEN 10 THEN 'system'
-      WHEN 20 THEN 'personal'
-      WHEN 30 THEN 'user'
-      WHEN 40 THEN 'course_category'
-      WHEN 50 THEN 'course'
-      WHEN 60 THEN 'group'
-      WHEN 70 THEN 'course_module'
-      WHEN 80 THEN 'block'
-     ELSE CONCAT('unknown context: ',ctx.contextlevel)
-    END AS 'context_level',
-    ctx.instanceid AS 'context_instance_id'
-    FROM mdl_role_assignments ra
-    JOIN mdl_user u ON u.id = ra.userid
-    JOIN mdl_role r ON r.id = ra.roleid
-    JOIN mdl_context ctx ON ctx.id = ra.contextid
-    WHERE u.id=?
-    GROUP BY u.id
-    ORDER BY u.username ";
+//     $query = "SELECT
+//     u.id,
+//     u.username,
+//     r.shortname AS 'role',
+//     CASE ctx.contextlevel 
+//       WHEN 10 THEN 'system'
+//       WHEN 20 THEN 'personal'
+//       WHEN 30 THEN 'user'
+//       WHEN 40 THEN 'course_category'
+//       WHEN 50 THEN 'course'
+//       WHEN 60 THEN 'group'
+//       WHEN 70 THEN 'course_module'
+//       WHEN 80 THEN 'block'
+//      ELSE CONCAT('unknown context: ',ctx.contextlevel)
+//     END AS 'context_level',
+//     ctx.instanceid AS 'context_instance_id'
+//     FROM mdl_role_assignments ra
+//     JOIN mdl_user u ON u.id = ra.userid
+//     JOIN mdl_role r ON r.id = ra.roleid
+//     JOIN mdl_context ctx ON ctx.id = ra.contextid
+//     WHERE u.id=?
+//     GROUP BY u.id
+//     ORDER BY u.username ";
 
-    $result=$DB->get_record_sql($query,[$uid]);
+//     $result=$DB->get_record_sql($query,[$uid]);
 
-    return $result;
-}
+//     return $result;
+// }
 
 
 $blocklink = new moodle_url('/blocks/finominal_analytics');
 $my = new moodle_url('/my');
 // // $this->content->text = '<a href="' . $blocklink . '/admin_dashboard.php">' . get_string('viewadmindashboard', $this->blockname) . '</a><br />';
 
-$userroles = $this->get_user_role($USER->id);
+// $userroles = $this->get_user_role($USER->id);
 dd($userroles,0);
 // if($userroles->role == 'manager' || is_siteadmin()) {
 //     // $this->content->text = '<a style="font-size:18px;" href="'.$blocklink.'/team_dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp'.get_string('teamdashboard',$this->blockname).'</a><br />';
