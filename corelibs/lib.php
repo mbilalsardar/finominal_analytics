@@ -395,12 +395,12 @@ function course_quiz_sections($courseid, $quizid)
     qa.responsesummary AS student_answer
     FROM mdl_quiz_attempts quiza
     JOIN mdl_quiz q ON q.id=quiza.quiz
-    JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
-    JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
-    JOIN mdl_question que ON que.id = qa.questionid
-    JOIN mdl_question_bank_entries mqbe on mqbe.id=que.id 
-	JOIN mdl_question_categories mqc on mqc.id = mqbe.questioncategoryid 
-    JOIN mdl_user u ON u.id = quiza.userid
+    LEFT JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    LEFT JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    LEFT JOIN mdl_question que ON que.id = qa.questionid
+    LEFT JOIN mdl_question_bank_entries mqbe on mqbe.id=que.id 
+	LEFT JOIN mdl_question_categories mqc on mqc.id = mqbe.questioncategoryid 
+    LEFT JOIN mdl_user u ON u.id = quiza.userid
     WHERE q.id = ?
     AND q.course = ?
     ORDER BY quiza.userid, quiza.attempt, qa.slot";

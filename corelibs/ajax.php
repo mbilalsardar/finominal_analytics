@@ -434,9 +434,6 @@ if($_POST['function'] == 'team_dash_view') {
     $location = $data['location'];
 
 
-    // echo json_encode($data);
-
-    
     // Get array of all users in team first.
     $allteamusers = get_users_by_filters($teamid,$manageremail,$designation,$location,$department);
 
@@ -476,12 +473,8 @@ if($_POST['function'] == 'team_dash_view') {
 
 
     /*  SECTION PERFORMANCE */ 
-
-
     $quizsections = course_quiz_sections($cid,$qid);
-
     $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = $allquestion = 0;
-    
     $sectionaveragemarks = [];
 
     // ---------- Getting all sections -----------------------
@@ -501,8 +494,6 @@ if($_POST['function'] == 'team_dash_view') {
         $sectiontotal = [];
         $sectionname = $quizsecvalue;
         $sectionid = $quizseckey;
-
-
         $labels[] = $sectionname;
    
         foreach($allenrolledusers as $user) { 
@@ -541,10 +532,8 @@ if($_POST['function'] == 'team_dash_view') {
     /* Total Team Members */
     $response['ttlparticipants'] = count($allenrolledusers);
 
-
     /* Average  */
     $response['sectionaveragemarks'] = $sectionaveragemarks;
-
 
     /*  Certification Overview - pass / fail */
     $allquizmarks = [];
@@ -579,7 +568,6 @@ if($_POST['function'] == 'team_dash_view') {
 
 
     /*  Marks Summary  */
-
     sort($allquizmarks);    
     $minmarks = $allquizmarks[0];
     $avgmarks = round(array_sum($allquizmarks) / count($allquizmarks),2);
@@ -603,7 +591,6 @@ if($_POST['function'] == 'team_dash_view') {
 
 
     /* Top Performers */
-
     arsort($allmarkswithuser);
     $topperformers=[];
     $count = 0;
