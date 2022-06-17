@@ -65,7 +65,7 @@ $blocklink = new moodle_url('/blocks/finominal_analytics');
 $my = new moodle_url('/my');
 // // $this->content->text = '<a href="' . $blocklink . '/admin_dashboard.php">' . get_string('viewadmindashboard', $this->blockname) . '</a><br />';
 
-$userroles = $this->get_user_role($USER->id);
+$userroles = get_user_role($USER->id);
 if($userroles->role == 'manager' || is_siteadmin()) {
     // $this->content->text = '<a style="font-size:18px;" href="'.$blocklink.'/team_dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp'.get_string('teamdashboard',$this->blockname).'</a><br />';
     $url = new \moodle_url('/blocks/finominal_analytics/team_dashboard.php');
