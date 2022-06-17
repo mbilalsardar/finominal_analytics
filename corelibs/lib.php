@@ -292,11 +292,11 @@ function quiz_grades($qid,$cid,$uid=-1) {
         FROM mdl_user u
         LEFT JOIN mdl_quiz_grades qg ON (qg.userid = u.id)
         LEFT JOIN mdl_quiz q ON (qg.quiz = q.id AND q.course=?)
-        LEFT JOIN mdl_grade_items gi ON (gi.courseid=2 AND gi.iteminstance=q.id)
+        LEFT JOIN mdl_grade_items gi ON (gi.courseid=? AND gi.iteminstance=q.id)
         WHERE q.id =?
     ";
 
-    $params = [$cid,$qid];
+    $params = [$cid,$cid,$qid];
 
     if($uid != -1) {
         $query .= " AND u.id=?";
@@ -452,12 +452,12 @@ function quiz_section_question_attempts_by_user($qid, $secid, $userid, $courseid
     qa.responsesummary AS student_answer
     FROM mdl_quiz_attempts quiza
     JOIN mdl_quiz q ON q.id=quiza.quiz
-    JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
-    JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
-    JOIN mdl_question que ON que.id = qa.questionid
-    JOIN mdl_question_bank_entries mqbe on mqbe.id=que.id 
-	JOIN mdl_question_categories mqc on mqc.id = mqbe.questioncategoryid 
-    JOIN mdl_user u ON u.id = quiza.userid
+    LEFT JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    LEFT JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    LEFT JOIN mdl_question que ON que.id = qa.questionid
+    LEFT JOIN mdl_question_bank_entries mqbe on mqbe.id=que.id 
+	LEFT JOIN mdl_question_categories mqc on mqc.id = mqbe.questioncategoryid 
+    LEFT JOIN mdl_user u ON u.id = quiza.userid
     WHERE q.id = ?
     AND mqc.id = ?
     AND u.id = ?
