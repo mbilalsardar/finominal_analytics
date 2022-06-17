@@ -91,7 +91,7 @@ class block_finominal_analytics extends block_base
         // $this->content->footer = '';
 
 
-        global $DB,$USER,$CFG;
+        // global $DB,$USER,$CFG;
         $this->content->text = '<a style="font-size:18px;" href="'.$blocklink.'/dashboard.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp'.get_string('dashboard',$this->blockname).'</a><br />';
 
 

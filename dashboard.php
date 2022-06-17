@@ -24,7 +24,7 @@
  * @copyright   2019 onwards 3i Logic (Private) Limited (http://www.3ilogic.com)
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once dirname(__FILE__) . '/../../config.php';
+require_once dirname(__FILE__) . '/../../config.php'; // Creates $PAGE.
 require_once 'corelibs/lib.php';
 
 
@@ -39,11 +39,10 @@ $PAGE->set_url($linkurl);
 $PAGE->set_pagelayout('admin');
 $PAGE->set_title('Dashboard');
 
-$output = $PAGE->get_renderer('block_finominal_analytics');
+// $output = $PAGE->get_renderer('block_finominal_analytics');
 // Set the page heading.
-$PAGE->set_heading('Dashboard');
+$PAGE->set_heading(get_string('dashboard', 'block_finominal_analytics'));
 $PAGE->navbar->add(get_string('dashboard', 'block_finominal_analytics'));
-$PAGE->navbar->add('Dashboard', $linkurl);
 
 $baseurl = new moodle_url(basename(__FILE__));
 $returnurl = $baseurl;
