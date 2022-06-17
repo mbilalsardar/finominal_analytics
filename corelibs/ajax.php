@@ -30,19 +30,32 @@ require_once dirname(__FILE__) . '/../../../question/editlib.php';
 
 require_once dirname(__FILE__) . '/lib.php';
 
+global $USER;
+
 /* Course Drop Down */
 if($_POST['function'] == 'get_all_courses') {
 
     $data = sanitize_data($_POST);
 
-    $allcourses = get_all_courses();
 
+    $userroles = get_user_role($USER->id);
     $options = [];
-
     $options[] = '<option value="">Select Course</option>';
-    foreach($allcourses as $value) {
-        $options[] = '<option value="'.$value->id.'">'.$value->fullname.'</option>';
+
+    if(is_siteadmin() || userroles->role=='manager') {
+        // get all course
+        $allcourses = get_all_courses();
+        foreach($allcourses as $value) {
+            $options[] = '<option value="'.$value->id.'">'.$value->fullname.'</option>';
+        }
     }
+    else if($userroles->role == 'student') {
+        $allcourses = stud_get_enrolled_courses($USER->id);
+        foreach($allcourses as $value) {
+            $options[] = '<option value="'.$value->cid.'">'.$value->course.'</option>';
+        }
+    }
+
 
     $optionsstr = implode('',$options);
     echo json_encode($optionsstr);

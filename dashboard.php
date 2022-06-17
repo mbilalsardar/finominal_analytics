@@ -76,6 +76,9 @@ elseif ($userroles->role == 'student') {
     $url = new \moodle_url('/blocks/finominal_analytics/indi_dashboard.php');
     redirect($url);
 }
+else {
+    redirect($my);
+}
 
 
 echo $OUTPUT->footer();

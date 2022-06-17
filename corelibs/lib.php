@@ -667,3 +667,38 @@ function check_if_quiz_attempted($cid,$qid,$uid) {
     else { return false; }
     
 }
+
+
+
+function stud_get_enrolled_courses($student_id)
+{
+    global $DB;
+
+    $query = 'SELECT
+    course.id AS cid,
+    user2.firstname AS Firstname,
+    user2.lastname AS Lastname,
+    user2.email AS Email,
+    user2.city AS City,
+    course.fullname AS Course,
+    cat.id AS catid,
+    cat.name AS categoryname,
+    cat.path AS allpath
+    ,(SELECT shortname FROM mdl_role WHERE id=en.roleid) AS ROLE
+    ,(SELECT name FROM mdl_role WHERE id=en.roleid) AS RoleName
+    FROM mdl_course AS course
+    JOIN mdl_course_categories AS cat ON course.category = cat.id
+    JOIN mdl_enrol AS en ON en.courseid = course.id
+    JOIN mdl_user_enrolments AS ue ON ue.enrolid = en.id
+    JOIN mdl_user AS user2 ON ue.userid = user2.id
+    WHERE user2.id = ? AND course.visible=1 AND en.status=0 AND user2.suspended=0';
+
+    $resexist = $DB->record_exists_sql($query, [$student_id]);
+    if ($resexist) {
+        $res = $DB->get_records_sql($query, [$student_id]);
+
+        return $res;
+    }
+
+    return 0;
+}
