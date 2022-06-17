@@ -58,7 +58,7 @@ $userid = $USER->id;
 // CHECK IF USER IS ADMIN OR MANAGER
 $userrole = get_user_role($USER->id);
 
-$usertype = $userrole['role'];
+$usertype = $userrole->role;
 $userid = $USER->id;
 
 // echo $usertype;
