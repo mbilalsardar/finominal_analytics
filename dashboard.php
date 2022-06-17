@@ -29,16 +29,16 @@ require_once dirname(__FILE__) . '/../../config.php'; // Creates $PAGE.
 require_once 'corelibs/lib.php';
 
 
-// $context = context_system::instance();
+$context = context_system::instance();
 
-// require_login();
+require_login();
 
-// $linkurl = new moodle_url('/blocks/finominal_analytics/dashboard.php');
+$linkurl = new moodle_url('/blocks/finominal_analytics/dashboard.php');
 
-// $PAGE->set_context($context);
-// $PAGE->set_url($linkurl);
-// $PAGE->set_pagelayout('admin');
-// $PAGE->set_title('Dashboard');
+$PAGE->set_context($context);
+$PAGE->set_url($linkurl);
+$PAGE->set_pagelayout('admin');
+$PAGE->set_title('Dashboard');
 
 // $output = $PAGE->get_renderer('block_finominal_analytics');
 // Set the page heading.
