@@ -379,9 +379,10 @@ if($_POST['function'] == 'individual_dash_view') {
         $section_currentuser_precentage[$sectionname] = $temp2;
     }
 
+
+
     echo json_encode($response);
     exit();
-
 
     // Summing all averages. 
 
@@ -405,6 +406,9 @@ if($_POST['function'] == 'individual_dash_view') {
         $usertotal = array_shift($section_currentuser_precentage[$key]);
         $totalsections_selecteduser_averages[] = $usertotal;
     }
+
+ 
+  
 
 
     $final_indivual_section_series = [ 
