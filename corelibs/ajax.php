@@ -380,7 +380,6 @@ if($_POST['function'] == 'individual_dash_view') {
     }
 
 
-
     echo json_encode($response);
     exit();
 
