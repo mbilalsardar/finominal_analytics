@@ -307,10 +307,9 @@ if($_POST['function'] == 'individual_dash_view') {
     $response['questions_overview_series'] = $qoverviewseries;
 
 
-    echo json_encode($response);
-    exit();
+   
 
-    
+
     // QUiz Comparison
     $allquizgrades = course_quiz_grades($uid);
     $allquizgradesdata = [];
@@ -327,6 +326,7 @@ if($_POST['function'] == 'individual_dash_view') {
 
     $response['allquiz_data'] = $allquizgradesdata;
 
+  
     /*  
         Individual and team averages.
         Team is considered a cohort. cohort is the main team.   
@@ -344,7 +344,10 @@ if($_POST['function'] == 'individual_dash_view') {
     }
     $response['totalteammembers'] = $teammembers;
   
+    echo json_encode($response);
+    exit();
 
+    
     // Getting quiz sections
     $section_allusers_precentage = [];
     $section_currentuser_precentage = [];
