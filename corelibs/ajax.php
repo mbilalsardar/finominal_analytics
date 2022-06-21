@@ -123,7 +123,6 @@ if($_POST['function'] == 'get_team_in_course') {
     echo json_encode($optionsstr);    
 }
 
-
 /* Get Manager */
 if($_POST['function'] == 'get_team_managers') {
 
@@ -190,7 +189,7 @@ if($_POST['function'] == 'get_team_managers') {
     echo json_encode($response);    
 }
 
-// Individual Dash View POST
+/* Individual Dash View POST */
 if($_POST['function'] == 'individual_dash_view') {
 
 
@@ -217,7 +216,8 @@ if($_POST['function'] == 'individual_dash_view') {
     $response['userinfo'] = $userinfo;
 
 
-
+    echo json_encode($response);
+    exit();
 
     // Marks Overview.  
     $quiz_marks = [];
@@ -246,19 +246,10 @@ if($_POST['function'] == 'individual_dash_view') {
     $response['quiz_marks'] = $quiz_marks;
     $response['quiz_certificate'] = $certificate;
 
-    
-
-    // ---------------- Attemptlib.php ----------------------
-    // Get the course object and related bits.
-    // $course = $DB->get_record('course', array('id' => $quiz->course), '*', MUST_EXIST);
-    // $structure = $quizobj->get_structure();
-
-
 
     // Section wise marks overview
 
     $quizsections = course_quiz_sections($cid,$qid);
-
     $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = $allquestion = 0;
 
 
@@ -314,11 +305,9 @@ if($_POST['function'] == 'individual_dash_view') {
 
 
     // QUiz Comparison
-
     $allquizgrades = course_quiz_grades($uid);
     $allquizgradesdata = [];
     foreach($allquizgrades as $value) {
-        
         $label = $value->quizname;
         $data = $value->obtained_grade;
 
@@ -331,15 +320,11 @@ if($_POST['function'] == 'individual_dash_view') {
 
     $response['allquiz_data'] = $allquizgradesdata;
 
-
-
-   
     /*  
         Individual and team averages.
         Team is considered a cohort. cohort is the main team.   
         
     */
-
 
     $teammembers = 0;
     $course_enrollments = get_users_enrolled_in_course($cid,5);
@@ -428,7 +413,6 @@ if($_POST['function'] == 'individual_dash_view') {
 
     /* End Individual team user avg comparison chart */
 
-    
     // Certification
     echo json_encode($response);
 

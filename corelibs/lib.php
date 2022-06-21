@@ -123,11 +123,8 @@ function get_user_role($uid) {
 function get_all_courses()
 {
     global $DB;
-
     $query = "SELECT id,fullname FROM mdl_course WHERE visible=1 AND category>0";
-
     $allRecords = $DB->get_records_sql($query);
-
     return $allRecords;
 }
 
