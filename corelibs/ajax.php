@@ -259,7 +259,7 @@ if($_POST['function'] == 'individual_dash_view') {
 
     $quizsections = course_quiz_sections($cid,$qid);
 
-    $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = 0;
+    $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = $allquestion = 0;
 
 
     // ---------- Getting all sections -----------------------

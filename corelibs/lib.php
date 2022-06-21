@@ -248,12 +248,13 @@ function get_user_with_extrafeilds($userid)
     u.email,
     u.city,
     cohort.name AS 'team',
+    ui_pno.data AS 'pno',
     ui_department.data AS 'department',
     ui_designation.data AS 'designation',
     ui_manager.data AS 'manager',
     ui_manager_email.data AS 'manager_email'
     FROM mdl_user u
-    LEFT JOIN mdl_user_info_data ui_team ON (ui_team.userid = u.id AND ui_team.fieldid = 1)
+    LEFT JOIN mdl_user_info_data ui_pno ON (ui_pno.userid = u.id AND ui_pno.fieldid = 1)
     LEFT JOIN mdl_user_info_data ui_designation ON (ui_designation.userid = u.id AND ui_designation.fieldid = 2)
     LEFT JOIN mdl_user_info_data ui_department ON (ui_department.userid = u.id AND ui_department.fieldid = 3)
     LEFT JOIN mdl_user_info_data ui_manager ON (ui_manager.userid = u.id AND ui_manager.fieldid = 4)
@@ -294,6 +295,7 @@ function quiz_grades($qid,$cid,$uid=-1) {
         LEFT JOIN mdl_quiz q ON (qg.quiz = q.id AND q.course=?)
         LEFT JOIN mdl_grade_items gi ON (gi.courseid=? AND gi.iteminstance=q.id)
         WHERE q.id =?
+        
     ";
 
     $params = [$cid,$cid,$qid];
@@ -303,6 +305,7 @@ function quiz_grades($qid,$cid,$uid=-1) {
         $params[] = $uid;
     }
     
+    $query .= " ORDER BY gi.id  DESC LIMIT 1";
     $result = $DB->get_records_sql($query,$params);
 
     return $result;
@@ -380,6 +383,7 @@ function course_quiz_sections($courseid, $quizid)
 
 
     $query = "SELECT
+    CONCAT(quiza.id,qa.slot,u.id) AS unique_id,
     que.id AS questionid,
     concat( u.firstname,' ', u.lastname ) AS student_name,
     u.id AS userid,
@@ -702,3 +706,42 @@ function stud_get_enrolled_courses($student_id)
 
     return 0;
 }
+
+
+
+function get_sub_managers_for_main_manager($firstlinemanageremail, $team = '')
+{
+
+    global $DB;
+
+    $query = "SELECT u.id,
+    u.firstname,
+    u.lastname,
+    u.email,
+    u.city,
+    uidp.data AS 'pno',
+    uidt.data AS 'team',
+    uidd.data AS 'designation',
+    u_mangeremail.data AS '1_manager_email',
+    u_2_linemanager_email.data AS '2_manager_email',
+    u_3_linemanager_email.data AS '3_manager_email'
+    FROM mdl_user u
+    LEFT JOIN mdl_user_info_data uidt ON (uidt.userid = u.id AND uidt.fieldid = 4)
+    LEFT JOIN mdl_user_info_data uidp ON (uidp.userid = u.id AND uidp.fieldid = 1)
+    LEFT JOIN mdl_user_info_data uidd ON (uidd.userid = u.id AND uidd.fieldid = 13)
+    LEFT JOIN mdl_user_info_data u_mangeremail ON (u_mangeremail.userid = u.id AND u_mangeremail.fieldid = 5)
+    LEFT JOIN mdl_user_info_data u_2_linemanager_email ON (u_2_linemanager_email.userid = u.id AND u_2_linemanager_email.fieldid = 8)
+    LEFT JOIN mdl_user_info_data u_3_linemanager_email ON (u_3_linemanager_email.userid = u.id AND u_3_linemanager_email.fieldid = 11)
+    LEFT JOIN mdl_user_info_data u_buisnessunit ON (u_buisnessunit.userid = u.id AND u_buisnessunit.fieldid = 9)
+    WHERE u_mangeremail.data=? AND u.suspended=0
+    ";
+
+    if ($team != '') {
+        $query .= " AND uidt.data='$team'";
+    }
+
+    $result = $DB->get_records_sql($query, [strtoupper($firstlinemanageremail)]);
+
+    return $result;
+}
+
