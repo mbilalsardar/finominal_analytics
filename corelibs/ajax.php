@@ -379,7 +379,8 @@ if($_POST['function'] == 'individual_dash_view') {
         $section_currentuser_precentage[$sectionname] = $temp2;
     }
 
-
+    echo json_encode($response);
+    exit();
 
 
     // Summing all averages. 
