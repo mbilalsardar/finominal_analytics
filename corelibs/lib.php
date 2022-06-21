@@ -374,28 +374,6 @@ function quiz_section_question_attempts_by_user($qid, $secid, $userid, $courseid
 {
     global $DB;
 
-    // $query = "SELECT
-    // que.id AS questionid,
-    // concat( u.firstname,' ', u.lastname ) AS student_name,
-    // u.id AS userid,
-    // quiza.userid AS quiz_userid,
-    // q.course,
-    // q.name,
-    // quiza.attempt,
-    // qa.slot,
-    // que.questiontext AS question,
-    // qa.rightanswer AS correct_answer,
-    // qa.responsesummary AS student_answer
-    // FROM mdl_quiz_attempts quiza
-    // JOIN mdl_quiz q ON q.id=quiza.quiz
-    // JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
-    // JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
-    // JOIN mdl_question que ON que.id = qa.questionid
-    // INNER JOIN mdl_question_categories mqc ON que.category = mqc.id
-    // JOIN mdl_user u ON u.id = quiza.userid
-    // WHERE q.id = ? AND mqc.id=? AND u.id=?
-    // AND q.course = ?
-    // ORDER BY quiza.userid, quiza.attempt, qa.slot";
     
     $query = "SELECT
     CONCAT(que.id,u.id) as uniqueid,

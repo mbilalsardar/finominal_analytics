@@ -344,10 +344,9 @@ if($_POST['function'] == 'individual_dash_view') {
     }
     $response['totalteammembers'] = $teammembers;
   
-    echo json_encode($response);
-    exit();
 
-    
+
+
     // Getting quiz sections
     $section_allusers_precentage = [];
     $section_currentuser_precentage = [];
@@ -423,7 +422,6 @@ if($_POST['function'] == 'individual_dash_view') {
 
     /* End Individual team user avg comparison chart */
 
-    // Certification
     echo json_encode($response);
 
 }
