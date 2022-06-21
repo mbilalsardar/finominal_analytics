@@ -380,8 +380,7 @@ if($_POST['function'] == 'individual_dash_view') {
     }
 
 
-    echo json_encode($response);
-    exit();
+   
 
     // Summing all averages. 
 
@@ -406,9 +405,8 @@ if($_POST['function'] == 'individual_dash_view') {
         $totalsections_selecteduser_averages[] = $usertotal;
     }
 
- 
-  
-
+    echo json_encode($response);
+    exit();
 
     $final_indivual_section_series = [ 
         [ 
