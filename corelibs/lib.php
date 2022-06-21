@@ -443,6 +443,7 @@ function quiz_section_question_attempts_by_user($qid, $secid, $userid, $courseid
     // ORDER BY quiza.userid, quiza.attempt, qa.slot";
     
     $query = "SELECT
+    CONCAT(que.id,u.id) as uniqueid,
     que.id AS questionid,
     concat( u.firstname,' ', u.lastname ) AS student_name,
     u.id AS userid,
