@@ -266,8 +266,6 @@ if($_POST['function'] == 'individual_dash_view') {
     }
 
 
-    echo json_encode($response);
-    exit();
 
     foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
@@ -309,6 +307,10 @@ if($_POST['function'] == 'individual_dash_view') {
     $response['questions_overview_series'] = $qoverviewseries;
 
 
+    echo json_encode($response);
+    exit();
+
+    
     // QUiz Comparison
     $allquizgrades = course_quiz_grades($uid);
     $allquizgradesdata = [];
