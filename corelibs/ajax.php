@@ -405,8 +405,7 @@ if($_POST['function'] == 'individual_dash_view') {
         $totalsections_selecteduser_averages[] = $usertotal;
     }
 
-    echo json_encode($response);
-    exit();
+   
 
     $final_indivual_section_series = [ 
         [ 
@@ -419,6 +418,7 @@ if($_POST['function'] == 'individual_dash_view') {
         ]
     ];
 
+    
     $response['indi_team_averages_lable'] = $final_indivual_section_labels;
     $response['indi_team_averages_series'] = $final_indivual_section_series;
 
