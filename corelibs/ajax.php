@@ -245,14 +245,13 @@ if($_POST['function'] == 'individual_dash_view') {
     $response['quiz_marks'] = $quiz_marks;
     $response['quiz_certificate'] = $certificate;
 
-    echo json_encode($response);
-    exit();
-
+ 
     
     // Section wise marks overview
 
     $quizsections = course_quiz_sections($cid,$qid);
     $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = $allquestion = 0;
+
 
 
     // ---------- Getting all sections -----------------------
@@ -265,6 +264,10 @@ if($_POST['function'] == 'individual_dash_view') {
             }
         }
     }
+
+
+    echo json_encode($response);
+    exit();
 
     foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
