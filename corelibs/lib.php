@@ -402,8 +402,9 @@ function course_quiz_sections($courseid, $quizid)
     LEFT JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
     LEFT JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
     LEFT JOIN mdl_question que ON que.id = qa.questionid
-    LEFT JOIN mdl_question_bank_entries mqbe on mqbe.id=que.id 
-	LEFT JOIN mdl_question_categories mqc on mqc.id = mqbe.questioncategoryid 
+	JOIN mdl_question_versions mqv on mqv.questionid = que.id 
+	JOIN mdl_question_bank_entries mqbe on mqbe.id = mqv.questionbankentryid  
+	JOIN mdl_question_categories mqc on mqbe.questioncategoryid = mqc.id 
     LEFT JOIN mdl_user u ON u.id = quiza.userid
     WHERE q.id = ?
     AND q.course = ?
