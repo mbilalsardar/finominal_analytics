@@ -261,8 +261,8 @@ $(document).ready(function () {
             },
             series: [],            
             xaxis: {
-                // categories : ['A','B','C']
-                type: 'categories',
+                categories : ['A','B','C']
+                // type: 'categories',
                 // categories : []
             },
         };
@@ -567,9 +567,9 @@ $(document).ready(function () {
 
             // Individual Quiz Section comparison chart
             individual_barChart.updateOptions({
-                xaxis: {
-                    categories : data['indi_team_averages_lable'],
-                },
+                // xaxis: {
+                //     categories : data['indi_team_averages_lable'],
+                // },
                 series: data['indi_team_averages_series'],
             });
 
