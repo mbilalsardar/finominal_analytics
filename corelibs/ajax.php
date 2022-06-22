@@ -408,16 +408,17 @@ if($_POST['function'] == 'individual_dash_view') {
     } 
    
 
-    // $final_indivual_section_series = [ 
-    //     [ 
-    //         "name" =>"Team",
-    //         "data" => $totalsections_alluser_averages
-    //     ],
-    //     [
-    //         "name" => "User",
-    //         "data" => $totalsections_selecteduser_averages
-    //     ]
-    // ];
+    $final_indivual_section_series = [ 
+        [ 
+            "name" =>"Team",
+            "data" => $totalsections_alluser_averages
+        ],
+        [
+            "name" => "User",
+            // "data" => $totalsections_selecteduser_averages
+            "data" => [0,0,0]
+        ]
+    ];
 
     $response['indi_team_averages_label'] = $final_indivual_section_labels;
     $response['indi_team_averages_series'] = $final_indivual_section_series;
