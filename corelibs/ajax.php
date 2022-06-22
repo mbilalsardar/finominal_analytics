@@ -407,7 +407,7 @@ if($_POST['function'] == 'individual_dash_view') {
         }
     } else {
         $final_indivual_section_labels = ['','',''];
-        $totalsections_alluser_averages = ['','',''];
+        $totalsections_alluser_averages =  [0,0,0];
         $totalsections_selecteduser_averages = [0,0,0];
     }
    
