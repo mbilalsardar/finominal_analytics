@@ -291,8 +291,9 @@ function quiz_grades($qid,$cid,$uid=-1) {
         FROM mdl_user u
         LEFT JOIN mdl_quiz_grades qg ON (qg.userid = u.id)
         LEFT JOIN mdl_quiz q ON (qg.quiz = q.id AND q.course=?)
+        JOIN mdl_course_modules mcm on mcm.`instance`=q.id
         LEFT JOIN mdl_grade_items gi ON (gi.courseid=? AND gi.iteminstance=q.id)
-        WHERE q.id =?
+        WHERE q.id =? AND mcm.visible=1
         
     ";
 
@@ -324,7 +325,8 @@ function course_quiz_grades($uid) {
     FROM mdl_quiz q
     INNER JOIN mdl_quiz_grades qg ON qg.quiz = q.id
     INNER JOIN mdl_course c ON c.id = q.course
-    WHERE qg.userid =?
+    INNER JOIN mdl_course_modules mcm on mcm.`instance`=q.id
+    WHERE qg.userid =? and mcm.visible=1
     ";
     $result = $DB->get_records_sql($query,[$uid]);
 
