@@ -149,7 +149,7 @@ function get_course_quiz($cid)
     c.fullname AS 'coursename'
     FROM mdl_quiz q
     INNER JOIN mdl_course c on c.id=q.course 
-    INNER JOIN mdl_course_modules mcm on mcm.`instance`=q.id
+    INNER JOIN mdl_course_modules mcm on mcm.`instance`=q.id AND mcm.course=c.id
     WHERE c.id = ? AND mcm.visible=1";
 
     $allRecords = $DB->get_records_sql($query,[$cid]);
