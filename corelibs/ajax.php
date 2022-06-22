@@ -392,9 +392,10 @@ if($_POST['function'] == 'individual_dash_view') {
 
     foreach($section_users_precentage as $key=>$value) {
         
+        $sectionname = $key;
         $final_indivual_section_labels[] = $sectionname;
+        
         if(!empty($value)) { 
-            $sectionname = $key;
 
             $a = array_filter($value);
             $allteamaverage = round(array_sum($value)/count($value),2);
