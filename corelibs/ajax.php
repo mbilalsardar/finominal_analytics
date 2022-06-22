@@ -405,31 +405,33 @@ if($_POST['function'] == 'individual_dash_view') {
             $usertotal = array_shift($section_currentuser_precentage[$key]);
             $totalsections_selecteduser_averages[] = $usertotal;
         }
-    } 
+    } else {
+        $final_indivual_section_labels = [''];
+    }
    
 
-    // $final_indivual_section_series = [ 
-    //     [ 
-    //         "name" =>"Team",
-    //         "data" => $totalsections_alluser_averages
-    //     ],
-    //     [
-    //         "name" => "User",
-    //         "data" => $totalsections_selecteduser_averages
-    //     ]
-    // ];
-
-    $final_indivual_section_labels = ['X','Y','Z'];
     $final_indivual_section_series = [ 
         [ 
             "name" =>"Team",
-            "data" => [10,20,30]
+            "data" => $totalsections_alluser_averages
         ],
         [
             "name" => "User",
-            "data" => [10,20,60]
+            "data" => $totalsections_selecteduser_averages
         ]
     ];
+
+    // $final_indivual_section_labels = ['X','Y','Z'];
+    // $final_indivual_section_series = [ 
+    //     [ 
+    //         "name" =>"Team",
+    //         "data" => [10,20,30]
+    //     ],
+    //     [
+    //         "name" => "User",
+    //         "data" => [10,20,60]
+    //     ]
+    // ];
 
 
     $response['indi_team_averages_label'] = $final_indivual_section_labels;
