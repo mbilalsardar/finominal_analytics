@@ -419,7 +419,7 @@ if($_POST['function'] == 'individual_dash_view') {
     //     ]
     // ];
 
-    $final_indivual_section_labels = ['a','b','c'];
+    $final_indivual_section_labels = ['X','Y','Z'];
     $final_indivual_section_series = [ 
         [ 
             "name" =>"Team",
