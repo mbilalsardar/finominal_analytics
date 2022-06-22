@@ -326,6 +326,8 @@ function course_quiz_grades($uid) {
     INNER JOIN mdl_quiz_grades qg ON qg.quiz = q.id
     INNER JOIN mdl_course c ON c.id = q.course
     INNER JOIN mdl_course_modules mcm on mcm.`instance`=q.id AND mcm.course=q.course
+    JOIN mdl_enrol AS en ON en.courseid = c.id
+    JOIN mdl_user_enrolments mue ON mue.enrolid = en.id 
     WHERE qg.userid =? and mcm.visible=1
     ";
     $result = $DB->get_records_sql($query,[$uid]);
