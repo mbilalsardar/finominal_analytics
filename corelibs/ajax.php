@@ -426,17 +426,6 @@ if($_POST['function'] == 'individual_dash_view') {
         ]
     ];
 
-    // $final_indivual_section_series = [ 
-    //     [ 
-    //         "name" =>"Team",
-    //         "data" => [10,20,30]
-    //     ],
-    //     [
-    //         "name" => "User",
-    //         "data" => [10,20,60]
-    //     ]
-    // ];
-
 
     $response['indi_team_averages_label'] = $final_indivual_section_labels;
     $response['indi_team_averages_series'] = $final_indivual_section_series;

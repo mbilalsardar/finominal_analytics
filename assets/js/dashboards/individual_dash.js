@@ -572,13 +572,13 @@ $(document).ready(function () {
             }]);
 
 
-            // // Individual Quiz Section comparison chart
-            // individual_barChart.updateOptions({
-            //     xaxis: {
-            //         categories : data['indi_team_averages_label'],
-            //     },
-            //     series: data['indi_team_averages_series'],
-            // });
+            // Individual Quiz Section comparison chart
+            individual_barChart.updateOptions({
+                xaxis: {
+                    categories : data['indi_team_averages_label'],
+                },
+                series: data['indi_team_averages_series'],
+            });
 
         },
         error: function (request) {
