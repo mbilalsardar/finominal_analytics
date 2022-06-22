@@ -390,36 +390,37 @@ if($_POST['function'] == 'individual_dash_view') {
     $totalsections_alluser_averages = [];
     $totalsections_selecteduser_averages = [];
 
-    foreach($section_users_precentage as $key=>$value) {
+    if(!empty($section_users_precentage)) { 
+        foreach($section_users_precentage as $key=>$value) {
 
-        $sectionname = $key;
-        $final_indivual_section_labels[] = $sectionname;
+            $sectionname = $key;
+            $final_indivual_section_labels[] = $sectionname;
 
-        $a = array_filter($value);
-        $allteamaverage = round(array_sum($value)/count($value),2);
-        
-        $totalsections_alluser_averages[] = $allteamaverage;
+            $a = array_filter($value);
+            $allteamaverage = round(array_sum($value)/count($value),2);
+            
+            $totalsections_alluser_averages[] = $allteamaverage;
 
 
-        $usertotal = array_shift($section_currentuser_precentage[$key]);
-        $totalsections_selecteduser_averages[] = $usertotal;
-    }
-
+            $usertotal = array_shift($section_currentuser_precentage[$key]);
+            $totalsections_selecteduser_averages[] = $usertotal;
+        }
+    } 
    
 
-    // $final_indivual_section_series = [ 
-    //     [ 
-    //         "name" =>"Team",
-    //         "data" => $totalsections_alluser_averages
-    //     ],
-    //     [
-    //         "name" => "User",
-    //         "data" => $totalsections_selecteduser_averages
-    //     ]
-    // ];
+    $final_indivual_section_series = [ 
+        [ 
+            "name" =>"Team",
+            "data" => $totalsections_alluser_averages
+        ],
+        [
+            "name" => "User",
+            "data" => $totalsections_selecteduser_averages
+        ]
+    ];
 
-    // $response['indi_team_averages_label'] = $final_indivual_section_labels;
-    // $response['indi_team_averages_series'] = $final_indivual_section_series;
+    $response['indi_team_averages_label'] = $final_indivual_section_labels;
+    $response['indi_team_averages_series'] = $final_indivual_section_series;
     
     
     echo json_encode($response);

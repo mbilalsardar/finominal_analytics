@@ -336,6 +336,7 @@ function course_quiz_sections($courseid, $quizid)
 {
     global $DB;
 
+    
     $query = "SELECT
     CONCAT(quiza.id,qa.slot,u.id) AS unique_id,
     que.id AS questionid,
