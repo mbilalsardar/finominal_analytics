@@ -487,6 +487,13 @@ $(document).ready(function () {
 
     $('#view').on('click',function(e){
 
+        // Sections donut chart update.
+        donutChartSections.updateOptions({
+            series: [],
+            labels: []
+        });
+        
+
         e.preventDefault();
 
         var cid = $('#course').val();
@@ -565,13 +572,13 @@ $(document).ready(function () {
             }]);
 
 
-            // Individual Quiz Section comparison chart
-            individual_barChart.updateOptions({
-                xaxis: {
-                    categories : data['indi_team_averages_label'],
-                },
-                series: data['indi_team_averages_series'],
-            });
+            // // Individual Quiz Section comparison chart
+            // individual_barChart.updateOptions({
+            //     xaxis: {
+            //         categories : data['indi_team_averages_label'],
+            //     },
+            //     series: data['indi_team_averages_series'],
+            // });
 
         },
         error: function (request) {
