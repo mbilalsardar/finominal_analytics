@@ -487,12 +487,6 @@ $(document).ready(function () {
 
     $('#view').on('click',function(e){
 
-        // Sections donut chart update.
-        donutChartSections.updateOptions({
-            series: [],
-            labels: []
-        });
-        
 
         e.preventDefault();
 
