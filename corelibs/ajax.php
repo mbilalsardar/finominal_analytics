@@ -411,12 +411,13 @@ if($_POST['function'] == 'individual_dash_view') {
     $final_indivual_section_series = [ 
         [ 
             "name" =>"Team",
-            "data" => $totalsections_alluser_averages
+            "data" => array(10,20,30)
+            // "data" => $totalsections_alluser_averages
         ],
         [
             "name" => "User",
             // "data" => $totalsections_selecteduser_averages
-            "data" => [0,0,0]
+            "data" => array(10,20,30)
         ]
     ];
 
