@@ -408,7 +408,9 @@ if($_POST['function'] == 'individual_dash_view') {
         }
         else {
             $totalsections_alluser_averages[] =  0;
-            $totalsections_selecteduser_averages[] = 0;
+            // $totalsections_selecteduser_averages[] = 0;
+            $usertotal = array_shift($section_currentuser_precentage[$key]);
+            $totalsections_selecteduser_averages[] = $usertotal;
         }
     } 
    
