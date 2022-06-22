@@ -390,9 +390,9 @@ if($_POST['function'] == 'individual_dash_view') {
     $totalsections_alluser_averages = [];
     $totalsections_selecteduser_averages = [];
 
-    if(!empty($section_users_precentage)) { 
-        foreach($section_users_precentage as $key=>$value) {
-
+    foreach($section_users_precentage as $key=>$value) {
+        
+        if(!empty($value)) { 
             $sectionname = $key;
             $final_indivual_section_labels[] = $sectionname;
 
@@ -405,23 +405,23 @@ if($_POST['function'] == 'individual_dash_view') {
             $usertotal = array_shift($section_currentuser_precentage[$key]);
             $totalsections_selecteduser_averages[] = $usertotal;
         }
-    } else {
-        $final_indivual_section_labels = ['','',''];
-        $totalsections_alluser_averages =  [0,0,0];
-        $totalsections_selecteduser_averages = [0,0,0];
-    }
+        else {
+            $totalsections_alluser_averages[] =  0;
+            $totalsections_selecteduser_averages[] = 0;
+        }
+    } 
    
 
-    // $final_indivual_section_series = [ 
-    //     [ 
-    //         "name" =>"Team",
-    //         "data" => $totalsections_alluser_averages
-    //     ],
-    //     [
-    //         "name" => "User",
-    //         "data" => $totalsections_selecteduser_averages
-    //     ]
-    // ];
+    $final_indivual_section_series = [ 
+        [ 
+            "name" =>"Team",
+            "data" => $totalsections_alluser_averages
+        ],
+        [
+            "name" => "User",
+            "data" => $totalsections_selecteduser_averages
+        ]
+    ];
 
     // $final_indivual_section_series = [ 
     //     [ 
@@ -435,9 +435,9 @@ if($_POST['function'] == 'individual_dash_view') {
     // ];
 
 
-    // $response['indi_team_averages_label'] = $final_indivual_section_labels;
-    // $response['indi_team_averages_series'] = $final_indivual_section_series;
-    $response['test'] = $section_users_precentage;
+    $response['indi_team_averages_label'] = $final_indivual_section_labels;
+    $response['indi_team_averages_series'] = $final_indivual_section_series;
+    // $response['test'] = $section_users_precentage;
     
     
     echo json_encode($response);
