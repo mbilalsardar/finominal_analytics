@@ -262,7 +262,7 @@ $(document).ready(function () {
             series: [],            
             xaxis: {
                 // categories : ['A','B','C']
-                type: 'category',
+                type: 'categories',
                 // categories : []
             },
         };
