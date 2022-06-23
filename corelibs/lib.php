@@ -289,7 +289,7 @@ function quiz_grades($qid,$cid,$uid=-1) {
         gi.gradepass AS 'passinggrade',
         Format(qg.grade,2) AS 'obtained_grade',
         q.sumgrades AS quiz_total_marks,
-        quiza.sumgrades as obtained_marks
+        quiza.sumgrades AS obtained_marks
         FROM mdl_user u
         LEFT JOIN mdl_quiz_grades qg ON (qg.userid = u.id)
         LEFT JOIN mdl_quiz q ON (qg.quiz = q.id AND q.course=?)
