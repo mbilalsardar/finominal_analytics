@@ -357,6 +357,7 @@ function course_quiz_sections($courseid, $quizid)
     qa.slot,
     mqc.id 'section_id',
     mqc.name 'section_name',
+    que.id AS 'question_id',
     que.questiontext AS question,
     qa.rightanswer AS correct_answer,
     qa.responsesummary AS student_answer
@@ -372,9 +373,6 @@ function course_quiz_sections($courseid, $quizid)
     WHERE q.id = ?
     AND q.course = ?
     ORDER BY quiza.userid, quiza.attempt, qa.slot";
-
-
-
 
     $result = $DB->get_records_sql($query, [$quizid, $courseid]);
     return $result;

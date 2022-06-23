@@ -500,16 +500,22 @@ if($_POST['function'] == 'team_dash_view') {
 
     // ---------- Getting all sections -----------------------
     $allSectionsArray = [];
+    $allQuestionsArray = [];
     if(!empty($quizsections)) { 
         foreach ($quizsections as $quizseckey => $quizsecvalue) {
             if(empty($quizsecvalue)) { continue; }
+
+            if(!in_array($quizsecvalue->question_id,$allQuestionsArray))  { 
+                $allQuestionsArray[] = $quizsecvalue->question_id;
+            }
+
             if(!array_key_exists($quizsecvalue->section_id,$allSectionsArray))  { 
                 $allSectionsArray[$quizsecvalue->section_id] = $quizsecvalue->section_name;
             }
         }
     }
 
-    $allquestion = count($quizsections);
+    $allquestion = count($allSectionsArray);
     foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
         $sectiontotal = [];
