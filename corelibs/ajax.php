@@ -511,12 +511,15 @@ if($_POST['function'] == 'team_dash_view') {
         $labels[] = $sectionname;
    
         foreach($allenrolledusers as $user) { 
-            $secresult = quiz_sections_result($qid, $sectionid, $user, $cid);
-            $percentagesectiontotal = $secresult['percentage'];
-            $allcorrect += $secresult['total_correct'];
-            $allwrong += $secresult['total_wrong'];
-            $allgaveup += $secresult['total_gaveup'];
-            $sectiontotal[] = $percentagesectiontotal;
+            $attempt = check_if_quiz_attempted($cid,$qid,$user);
+            if($attempt) {  
+                $secresult = quiz_sections_result($qid, $sectionid, $user, $cid);
+                $percentagesectiontotal = $secresult['percentage'];
+                $allcorrect += $secresult['total_correct'];
+                $allwrong += $secresult['total_wrong'];
+                $allgaveup += $secresult['total_gaveup'];
+                $sectiontotal[] = $percentagesectiontotal;
+            }
         }
         
         $series[] = round(array_sum($sectiontotal)/count($sectiontotal),2);
