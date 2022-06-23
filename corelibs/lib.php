@@ -288,14 +288,16 @@ function quiz_grades($qid,$cid,$uid=-1) {
         q.grade AS 'total_grade',
         gi.gradepass AS 'passinggrade',
         Format(qg.grade,2) AS 'obtained_grade',
-        q.sumgrades AS quiz_total_marks
+        q.sumgrades AS quiz_total_marks,
+        quiza.sumgrades as obtained_marks
         FROM mdl_user u
         LEFT JOIN mdl_quiz_grades qg ON (qg.userid = u.id)
         LEFT JOIN mdl_quiz q ON (qg.quiz = q.id AND q.course=?)
         JOIN mdl_course_modules mcm on mcm.`instance`=q.id
         LEFT JOIN mdl_grade_items gi ON (gi.courseid=? AND gi.iteminstance=q.id)
+        LEFT JOIN mdl_quiz_attempts quiza on quiza.quiz = q.id
         WHERE q.id =? AND mcm.visible=1
-        
+        ORDER BY quiza.attempt DESC LIMIT 1;
     ";
 
     $params = [$cid,$cid,$qid];
