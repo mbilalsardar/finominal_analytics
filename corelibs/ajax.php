@@ -515,7 +515,7 @@ if($_POST['function'] == 'team_dash_view') {
         }
     }
 
-    $allquestion = count($allSectionsArray);
+    $allquestion = count($allQuestionsArray);
     foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
         $sectiontotal = [];
