@@ -297,7 +297,7 @@ function quiz_grades($qid,$cid,$uid=-1) {
         LEFT JOIN mdl_grade_items gi ON (gi.courseid=? AND gi.iteminstance=q.id)
         LEFT JOIN mdl_quiz_attempts quiza on quiza.quiz = q.id
         WHERE q.id =? AND mcm.visible=1
-        ORDER BY quiza.attempt DESC LIMIT 1;
+       
     ";
 
     $params = [$cid,$cid,$qid];
@@ -305,9 +305,9 @@ function quiz_grades($qid,$cid,$uid=-1) {
     if($uid != -1) {
         $query .= " AND u.id=?";
         $params[] = $uid;
-    }
+    } 
     
-    $query .= " ORDER BY gi.id  DESC LIMIT 1";
+    $query .= " ORDER BY quiza.attempt  DESC LIMIT 1";
     $result = $DB->get_records_sql($query,$params);
 
     return $result;
