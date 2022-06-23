@@ -227,7 +227,8 @@ if($_POST['function'] == 'individual_dash_view') {
     $certificate = 'Failed';
     if(!empty($quizmarksinfo)) { 
         foreach($quizmarksinfo as $value) {
-            $quiz_marks['total'] = [round($value->total_grade,2)];
+            // $quiz_marks['total'] = [round($value->total_grade,2)];
+            $quiz_marks['total'] = [round($value->quiz_total_marks,2)];
             $quiz_marks['obtained'] = [round($value->obtained_grade,2)];
             $quiz_marks['percentage'] = [round(($value->obtained_grade / $value->total_grade) * 100,1)];
 
