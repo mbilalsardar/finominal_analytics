@@ -469,7 +469,6 @@ if($_POST['function'] == 'team_dash_view') {
     }
 
     /* Quiz Participation */
-
     $particpated = 0;
     $notparticipated = 0;
 
@@ -558,22 +557,25 @@ if($_POST['function'] == 'team_dash_view') {
     $total_fail = 0;
 
     foreach($allenrolledusers as $user) {
-        $quizmarksinfo = quiz_grades($qid,$cid,$user);
-        
-        if(!empty($quizmarksinfo)){ 
-            foreach($quizmarksinfo as $value) {
-                $allmarkswithuser[$value->fullname] = $value->obtained_grade;
-                $allquizmarks[] = $value->obtained_grade;
-                if($value->obtained_grade >= $value->passinggrade) {
-                    $total_pass++;
-                }
-                else {
-                    $total_fail++;
+        $attempt = check_if_quiz_attempted($cid,$qid,$user);
+        if($attempt) { 
+            $quizmarksinfo = quiz_grades($qid,$cid,$user);
+            
+            if(!empty($quizmarksinfo)){ 
+                foreach($quizmarksinfo as $value) {
+                    $allmarkswithuser[$value->fullname] = $value->obtained_grade;
+                    $allquizmarks[] = $value->obtained_grade;
+                    if($value->obtained_grade >= $value->passinggrade) {
+                        $total_pass++;
+                    }
+                    else {
+                        $total_fail++;
+                    }
                 }
             }
-        }
-        else {
-            $total_fail++;
+            else {
+                $total_fail++;
+            }
         }
     }
 
