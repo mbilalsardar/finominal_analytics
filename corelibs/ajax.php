@@ -202,6 +202,8 @@ if($_POST['function'] == 'individual_dash_view') {
     $response = [];
     $totalquestionsinfo = [];
 
+
+
     // Get Employe Info 
     
     $userdata = get_user_with_extrafeilds($data['uid']);
@@ -369,9 +371,12 @@ if($_POST['function'] == 'individual_dash_view') {
                     $temp2[] = $sectiontotal;
                 }
                 else {
-                    $secresult = quiz_sections_result($qid, $sectionid, $value->userid, $cid);
-                    $sectiontotal = $secresult['percentage'];
-                    $temp[] = $sectiontotal;
+                    $attempt = check_if_quiz_attempted($cid,$qid,$value->userid);
+                    if($attempt) {  
+                        $secresult = quiz_sections_result($qid, $sectionid, $value->userid, $cid);
+                        $sectiontotal = $secresult['percentage'];
+                        $temp[] = $sectiontotal;
+                    }
                 }
             }
         }
