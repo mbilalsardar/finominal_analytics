@@ -230,7 +230,7 @@ if($_POST['function'] == 'individual_dash_view') {
             // $quiz_marks['total'] = [round($value->total_grade,2)];
             $quiz_marks['total'] = [round($value->quiz_total_marks,2)];
             // $quiz_marks['obtained'] = [round($value->obtained_grade,2)];
-            $quiz_marks['obtained'] = [round($value->obtained_marks)];
+            $quiz_marks['obtained'] = [(int)$value->obtained_marks];
             $quiz_marks['percentage'] = [round(($value->obtained_grade / $value->total_grade) * 100,1)];
 
             if ($value->passinggrade != '') { 
