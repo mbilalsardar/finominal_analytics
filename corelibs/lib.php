@@ -390,7 +390,8 @@ function course_quiz_sections($courseid, $quizid)
     LEFT JOIN mdl_user u ON u.id = quiza.userid
     WHERE q.id = ?
     AND q.course = ?
-    ORDER BY quiza.userid, quiza.attempt, qa.slot";
+    GROUP BY mqc.id,que.id";
+    // -- ORDER BY quiza.userid, quiza.attempt, qa.slot";
     
 
     $result = $DB->get_records_sql($query, [$quizid, $courseid]);
