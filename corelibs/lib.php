@@ -295,7 +295,7 @@ function quiz_grades($qid,$cid,$uid=-1) {
         LEFT JOIN mdl_quiz q ON (qg.quiz = q.id AND q.course=?)
         JOIN mdl_course_modules mcm on mcm.`instance`=q.id
         LEFT JOIN mdl_grade_items gi ON (gi.courseid=? AND gi.iteminstance=q.id)
-        LEFT JOIN mdl_quiz_attempts quiza on quiza.quiz = q.id
+        LEFT JOIN mdl_quiz_attempts quiza on quiza.quiz=q.id AND quiza.userid=u.id
         WHERE q.id =? AND mcm.visible=1
        
     ";
