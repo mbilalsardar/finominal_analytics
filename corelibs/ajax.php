@@ -498,16 +498,28 @@ if($_POST['function'] == 'team_dash_view') {
     $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = $allquestion = 0;
     $sectionaveragemarks = [];
 
+
+    // ---------- ALL Qyestions of quiz ---------------
+    $allQuestionsArray = total_quiz_questions_from_attemptedusers($cid,$qid);
+    foreach($allQuestionsArray as $value ){ 
+        if(!empty($value->total_questions)){
+            $allquestion = $value->total_questions;
+            break;
+        }
+    }
+
+
+
     // ---------- Getting all sections -----------------------
     $allSectionsArray = [];
-    $allQuestionsArray = [];
+
     if(!empty($quizsections)) { 
         foreach ($quizsections as $quizseckey => $quizsecvalue) {
             if(empty($quizsecvalue)) { continue; }
 
-            if(!in_array($quizsecvalue->question_id,$allQuestionsArray))  { 
-                $allQuestionsArray[] = $quizsecvalue->question_id;
-            }
+            // if(!in_array($quizsecvalue->question_id,$allQuestionsArray))  { 
+            //     $allQuestionsArray[] = $quizsecvalue->question_id;
+            // }
 
             if(!array_key_exists($quizsecvalue->section_id,$allSectionsArray))  { 
                 $allSectionsArray[$quizsecvalue->section_id] = $quizsecvalue->section_name;
@@ -515,7 +527,7 @@ if($_POST['function'] == 'team_dash_view') {
         }
     }
 
-    $allquestion = count($allQuestionsArray);
+
     foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
         $sectiontotal = [];
@@ -554,6 +566,8 @@ if($_POST['function'] == 'team_dash_view') {
     $response['ttlrightquest'] = $allcorrect;
     $response['ttlwrongquest'] = $allwrong;
     $response['ttlgaveupquest'] = $allgaveup;
+
+
 
     /*  Total Questions */
     $response['ttlquestions'] = $allquestion;

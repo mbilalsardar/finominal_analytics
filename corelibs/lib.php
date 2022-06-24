@@ -339,6 +339,44 @@ function course_quiz_grades($uid) {
 
 }
     
+function total_quiz_questions_from_attemptedusers ($courseid, $quizid) {
+
+    global $DB;
+
+    $query = "SELECT
+--     DISTINCT(que.id) AS questionid,
+--     concat( u.firstname,' ', u.lastname ) AS student_name,
+--     u.id AS userid
+    COUNT(quiza.userid) AS total_questions
+--     q.course,
+--     q.name,
+--     quiza.attempt,
+--     qa.slot,
+--     mqc.id 'section_id',
+--     mqc.name 'section_name',
+--     que.id AS 'question_id',
+--     que.questiontext AS question
+--     qa.rightanswer AS correct_answer,
+--     qa.responsesummary AS student_answer
+    FROM mdl_quiz_attempts quiza
+    JOIN mdl_quiz q ON q.id=quiza.quiz
+    LEFT JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    LEFT JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    LEFT JOIN mdl_question que ON que.id = qa.questionid
+	JOIN mdl_question_versions mqv on mqv.questionid = que.id 
+	JOIN mdl_question_bank_entries mqbe on mqbe.id = mqv.questionbankentryid  
+	JOIN mdl_question_categories mqc on mqbe.questioncategoryid = mqc.id 
+    LEFT JOIN mdl_user u ON u.id = quiza.userid
+    WHERE q.id = ?
+    AND q.course = ?
+    GROUP BY quiza.userid
+    ORDER BY quiza.userid, quiza.attempt, qa.slot
+    ";
+
+    $result = $DB->get_records_sql($query, [$quizid, $courseid]);
+    return $result;
+
+}
 
 function course_quiz_sections($courseid, $quizid)
 {
