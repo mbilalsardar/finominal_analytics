@@ -252,8 +252,8 @@ echo <<<HTML
                                     color:#000;
                                     border-radius:100px;
                                     padding : 12px;
-                                    display: float;
-                                    float : left;
+                                    /* display: float; */
+                                    /* float : left; */
                                     '>
                                     </i>
                                 </span>
