@@ -399,7 +399,7 @@ echo <<<HTML
 
 
                 <!-- Section Overview Individual and Team Averages -->
-                <div class="col-xl-6 col-12">
+                <div class="col-xl-12 col-12">
                     <div class="card">
                         <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
