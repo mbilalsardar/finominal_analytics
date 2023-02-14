@@ -256,7 +256,10 @@ $(document).ready(function () {
             // colors: window.colors.solid.info,
             dataLabels: {
                 enabled: true,
-                offsetX: 40
+                offsetX: 40,
+                formatter: function (val, opts) {
+                    return val+' %'
+                },
                 // position: 'right',
             },
             series: [],            
