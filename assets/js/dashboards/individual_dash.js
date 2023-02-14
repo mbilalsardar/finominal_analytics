@@ -94,7 +94,7 @@ $(document).ready(function () {
                 startAngle: -150,
                 endAngle: 150,
                 hollow: {
-                    size: '77%'
+                    size: '70%'
                 },
                 track: {
                     background: $strokeColor,
@@ -107,7 +107,7 @@ $(document).ready(function () {
                     value: {
                         color: $textHeadingColor,
                         fontSize: '2.50rem',
-                        fontWeight: '600'
+                        fontWeight: '400'
                     }
                 }
             }
