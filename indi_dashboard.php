@@ -259,10 +259,28 @@ echo <<<HTML
                                             <span class="" id='userinfo_designation'>Designation</span>
                                         </div>
                                         <div class="">
-                                            <h6>Team : <span class="" id='userinfo_team'>-</span></h6>
-                                            <h6>Location :   <span class="" id='userinfo_location'>-</span></h6>
-                                            <h6>Department :<span class="" id='userinfo_department'>-</span></h6>
-                                            <h6>Manager : <span class="" id='userinfo_manager'>-</span></h6>
+                                            <table style="width:100%; border:none">
+                                                <tr>
+                                                    <td>Team</td>
+                                                    <td style="text-align:right"><span class="" id='userinfo_team'>-</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Location</td>
+                                                    <td style="text-align:right"><span class="" id='userinfo_location'>-</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Department</td>
+                                                    <td style="text-align:right"> <span class="" id='userinfo_department'>-</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Manager</td>
+                                                    <td style="text-align:right"><span class="" id='userinfo_manager'>-</span></td>
+                                                </tr>
+                                            </table>
+                                            <!-- <h6>Team : <span class="" id='userinfo_team'>-</span></h6>
+                                            <h6>Location : <span class="" id='userinfo_location'>-</span></h6>
+                                            <h6>Department : <span class="" id='userinfo_department'>-</span></h6>
+                                            <h6>Manager : <span class="" id='userinfo_manager'>-</span></h6> -->
                                         </div>
                                     </div>
                                 </div>
