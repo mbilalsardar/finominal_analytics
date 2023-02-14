@@ -178,17 +178,13 @@ echo <<<HTML
             <!-- User Info Block -->
             <div class="row">
                  <!-- <div class="col-lg-4 col-sm-12">
-                  
 
                     <div class="card user-card" style="min-height:320px;">
-                        
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Employee Details</h4>
                         </div>
-
                         
                         <div id='customuseravatar'> {$picture}  </div>
-
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
@@ -236,8 +232,6 @@ echo <<<HTML
                             </div>
                         </div>
                     </div>
-
-                    
                 </div> -->
 
                 <div class="col-lg-4 col-sm-12">
@@ -282,10 +276,7 @@ echo <<<HTML
                                                     <td style="">:&nbsp; <span class="" id='userinfo_manager'>-</span></td>
                                                 </tr>
                                             </table>
-                                            <!-- <h6>Team : <span class="" id='userinfo_team'>-</span></h6>
-                                            <h6>Location : <span class="" id='userinfo_location'>-</span></h6>
-                                            <h6>Department : <span class="" id='userinfo_department'>-</span></h6>
-                                            <h6>Manager : <span class="" id='userinfo_manager'>-</span></h6> -->
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -341,8 +332,8 @@ echo <<<HTML
                                     '>
                                     </i>
                                     </span>
-                                    <h4 class="card-text mb-0" id='certificate_status_div'>-</h4>
-                                    <h4 class="mb-0 font-weight-bolder ">Pass/Fail status</h4>
+                                    <h4 class="mb-0 font-weight-bolder ">status</h4>
+                                    <h4 class="font-weight-bolder card-text mb-0" id='certificate_status_div'>-</h4>
                                 </div>
                             </div>
                         </div>
