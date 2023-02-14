@@ -235,7 +235,7 @@ echo <<<HTML
                 </div> -->
 
                 <div class="col-lg-4 col-sm-12">
-                    <div class="card user-card" style="min-height:320px;">
+                    <div class="card user-card bg-light-primary" style="min-height:320px;">
                             
                         <div class="card-header d-flex justify-content-between align-items-center mb-2">
                             <h4 class="card-title">Employee Details</h4>
@@ -244,12 +244,12 @@ echo <<<HTML
                         <div class="card-body">
                             <div class="user-avatar-section">
                                 <div class="d-flex justify-content-start">
-                                    <div id='customuseravatar'>
+                                    <div id='customuseravatar' style="border-radius:15px;">
                                         $picture
                                     </div>
                                     <div class="d-flex flex-column ml-1">
                                         <div class="col-12">
-                                            <table style="width:%; border:none">
+                                            <table style="width:%; border:none; font-size:small">
                                                 <tr>
                                                     <td colspan='2'><h4 class="mb-0" id='userinfo_username'>Username</h4></td>
                                                 </tr>
@@ -290,7 +290,7 @@ echo <<<HTML
 
                 <!-- Marks Overview Card -->
                 <div class="col-lg-4 col-12">
-                    <div class="card">
+                    <div class="card bg-light-success">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Marks Overview</h4>
                         </div>
@@ -317,7 +317,7 @@ echo <<<HTML
 
                     <div class="row">
                         <div class="col-lg-12">    
-                            <div class="card py-1 text-center mx-0" style='min-height:120px'>
+                            <div class="card py-1 text-center mx-0 bg-light-info" style='min-height:120px'>
                                 <div class="" style='padding:20px; margin-top: 30px'> 
                                     <span> <i data-feather="award" 
                                     style='
@@ -400,7 +400,7 @@ echo <<<HTML
 
                 <!-- Section Overview Individual and Team Averages -->
                 <div class="col-xl-12 col-12">
-                    <div class="card">
+                    <div class="card bg-light-warning">
                         <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
                                 <p class="card-subtitle text-muted mb-25">Sections Overview</p>
@@ -426,7 +426,7 @@ echo <<<HTML
 
                 <!-- quiz comparision chart -->
                 <div class="col-lg-12 col-sm-12">
-                    <div class="card">
+                    <div class="card bg-light-danger">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Quiz Comparision</h4>
                         </div>
