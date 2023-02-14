@@ -240,7 +240,7 @@ echo <<<HTML
                     </div>
                 </div> -->
 
-                <div class="col-lg-4 col-sm-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card user-card bg-light-primary" style="min-height:320px;">
                             
                         <div class="card-header d-flex justify-content-between align-items-center mb-2">
@@ -306,7 +306,7 @@ echo <<<HTML
 
 
                 <!-- Marks Overview Card -->
-                <div class="col-lg-4 col-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card bg-light-success" style="min-height:320px;">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
@@ -343,7 +343,7 @@ echo <<<HTML
 
 
                 <!-- Total Marks Block -->
-                <div class="col-lg-4 col-12">
+                <div class="col-lg-4 col-md-6 col-sm-12">
 
                     <div class="row">
                         <div class="col-lg-12">    
