@@ -255,11 +255,20 @@ echo <<<HTML
                                     </div>
                                     <div class="d-flex flex-column ml-1">
                                         <div class="user-info mb-1">
-                                            <h4 class="mb-0" id='userinfo_username'>Username</h4>
-                                            <span class="" id='userinfo_designation'>Designation</span>
+                                            
+                                          
                                         </div>
                                         <div class="col-12">
                                             <table style="width:%; border:none">
+                                                <tr>
+                                                    <td colspan='2'><h4 class="mb-0" id='userinfo_username'>Username</h4></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='2'><span class="" id='userinfo_designation'>Designation</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan='2'></td>
+                                                </tr>
                                                 <tr>
                                                     <td>Team</td>
                                                     <td style="">: <span class="" id='userinfo_team'>-</span></td>
