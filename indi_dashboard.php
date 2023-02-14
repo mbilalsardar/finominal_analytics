@@ -333,7 +333,7 @@ echo <<<HTML
                                     </i>
                                     </span>
                                     <h4 class="mb-0">Status</h4>
-                                    <h4 class="card-text mb-0" id='certificate_status_div'>-</h4>
+                                    <h4 class="font-weight-bolder card-text mb-0" id='certificate_status_div'>-</h4>
                                 </div>
                             </div>
                         </div>
@@ -353,9 +353,9 @@ echo <<<HTML
                                     margin-bottom : 5px;
                                     '>
                                     </i>
-                                    </span>
-                                <h4 id='totalquestions_count_div'>0</h4>
-                                <h4 class='font-weight-bolder '>Total Questions</h4>
+                                </span>
+                                <h4 class=''>Total Questions</h4>
+                                <h4 class='font-weight-bolder' id='totalquestions_count_div'>0</h4>
                             </div>
                         </div>
                         <div class="col-lg-6">
