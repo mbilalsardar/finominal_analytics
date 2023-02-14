@@ -258,23 +258,23 @@ echo <<<HTML
                                             <h4 class="mb-0" id='userinfo_username'>Username</h4>
                                             <span class="" id='userinfo_designation'>Designation</span>
                                         </div>
-                                        <div class="">
-                                            <table style="width:100%; border:none">
+                                        <div class="col-12">
+                                            <table style="width:%; border:none">
                                                 <tr>
                                                     <td>Team</td>
-                                                    <td style="text-align:right"><span class="" id='userinfo_team'>-</span></td>
+                                                    <td style="">: <span class="" id='userinfo_team'>-</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Location</td>
-                                                    <td style="text-align:right"><span class="" id='userinfo_location'>-</span></td>
+                                                    <td style="">: <span class="" id='userinfo_location'>-</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Department</td>
-                                                    <td style="text-align:right"> <span class="" id='userinfo_department'>-</span></td>
+                                                    <td style="">: <span class="" id='userinfo_department'>-</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Manager</td>
-                                                    <td style="text-align:right"><span class="" id='userinfo_manager'>-</span></td>
+                                                    <td style="">: <span class="" id='userinfo_manager'>-</span></td>
                                                 </tr>
                                             </table>
                                             <!-- <h6>Team : <span class="" id='userinfo_team'>-</span></h6>
