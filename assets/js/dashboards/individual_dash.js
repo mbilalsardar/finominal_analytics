@@ -423,7 +423,7 @@ $(document).ready(function () {
                 }
             },
             legend: { 
-                position: 'top',
+                position: 'left',
             }
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
