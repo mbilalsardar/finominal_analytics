@@ -244,6 +244,19 @@ echo <<<HTML
                     <div class="card user-card bg-light-primary" style="min-height:320px;">
                             
                         <div class="card-header d-flex justify-content-between align-items-center mb-2">
+                                <span> <i data-feather="user" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#fff; 
+                                    color:#000;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                    display: float;
+                                    float : left;
+                                    '>
+                                    </i>
+                                </span>
                             <h4 class="card-title">Employee Profile</h4>
                         </div>
 
