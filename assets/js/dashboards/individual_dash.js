@@ -106,7 +106,7 @@ $(document).ready(function () {
                     },
                     value: {
                         color: $textHeadingColor,
-                        fontSize: '2.50rem',
+                        fontSize: '2.00rem',
                         fontWeight: '400'
                     }
                 }
