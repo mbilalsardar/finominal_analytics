@@ -390,6 +390,9 @@ $(document).ready(function () {
             },
             plotOptions: {
                 bar: {
+                    dataLabels: {
+                        position: 'top'
+                    },
                     vertical: true,
                     barHeight: '30%',
                     distributed: true,
@@ -410,7 +413,7 @@ $(document).ready(function () {
             },
             dataLabels: {
                 enabled: true,
-                position: 'top',
+                // position: 'top',
                 // color:['#fff'],
                 // offsetY: -30,
                 formatter: function (val, opt) {
