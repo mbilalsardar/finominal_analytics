@@ -267,19 +267,19 @@ echo <<<HTML
                                                 </tr>
                                                 <tr>
                                                     <td>Team</td>
-                                                    <td style="">: <span class="" id='userinfo_team'>-</span></td>
+                                                    <td style="">:$nbsp; <span class="" id='userinfo_team'>-</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Location</td>
-                                                    <td style="">: <span class="" id='userinfo_location'>-</span></td>
+                                                    <td style="">:$nbsp; <span class="" id='userinfo_location'>-</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Department</td>
-                                                    <td style="">: <span class="" id='userinfo_department'>-</span></td>
+                                                    <td style="">:$nbsp; <span class="" id='userinfo_department'>-</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Manager</td>
-                                                    <td style="">: <span class="" id='userinfo_manager'>-</span></td>
+                                                    <td style="">:$nbsp; <span class="" id='userinfo_manager'>-</span></td>
                                                 </tr>
                                             </table>
                                             <!-- <h6>Team : <span class="" id='userinfo_team'>-</span></h6>
