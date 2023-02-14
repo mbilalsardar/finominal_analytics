@@ -244,20 +244,9 @@ echo <<<HTML
                     <div class="card user-card bg-light-primary" style="min-height:320px;">
                             
                         <div class="card-header d-flex justify-content-between align-items-center mb-2">
-                                <!-- <span> <i data-feather="user" 
-                                    style='
-                                    width: 50px; 
-                                    height: 50px;
-                                    background:#fff; 
-                                    color:#000;
-                                    border-radius:100px;
-                                    padding : 12px;
-                                    /* display: float; */
-                                    /* float : left; */
-                                    '>
-                                    </i>
-                                </span> -->
-                            <h4 class="card-title"><i data-feather="user" 
+                            
+                            <h4 class="card-title">
+                                <i data-feather="user" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
@@ -267,7 +256,7 @@ echo <<<HTML
                                     padding : 12px;
                                    
                                     '>
-                                    </i> Employee Profile</h4>
+                                    </i> &nbsp; Employee Profile</h4>
                         </div>
 
                         <div class="card-body">
@@ -321,7 +310,20 @@ echo <<<HTML
                 <div class="col-lg-4 col-12">
                     <div class="card bg-light-success">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Result Overview</h4>
+                            <h4 class="card-title">
+                                <i data-feather="user" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#fff; 
+                                    color:#000;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                    </i> &nbsp;
+                                Result Overview
+                            </h4>
                         </div>
                         <div class="card-body p-0">
                             <div id="marks-overview-chart"></div>
