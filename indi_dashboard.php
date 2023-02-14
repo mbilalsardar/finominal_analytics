@@ -109,6 +109,12 @@ echo <<<HTML
             .app-content {
                 font-family: Verdana,Geneva,sans-serif !important;
             }
+            
+            .userpicture {
+                border-radius : 15px;
+                width : 140px;
+                height : 140px;
+            }
     </style>
 HTML;
 
@@ -244,7 +250,7 @@ echo <<<HTML
                         <div class="card-body">
                             <div class="user-avatar-section">
                                 <div class="d-flex justify-content-start">
-                                    <div id='customuseravatar' style="border-radius:15px;">
+                                    <div id='customuseravatar'>
                                         $picture
                                     </div>
                                     <div class="d-flex flex-column ml-1">
