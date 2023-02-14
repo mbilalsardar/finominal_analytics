@@ -263,7 +263,7 @@ echo <<<HTML
                                                 <tr>
                                                     <td colspan='2'><h4 class="mb-0" id='userinfo_username'>Username</h4></td>
                                                 </tr>
-                                                <tr>
+                                                <tr style='padding-bottom: 5px'>
                                                     <td colspan='2'><span class="" id='userinfo_designation'>Designation</span></td>
                                                 </tr>
                                                 <tr>
