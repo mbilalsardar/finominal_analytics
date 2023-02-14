@@ -243,7 +243,7 @@ echo <<<HTML
                 <div class="col-lg-4 col-sm-12">
                     <div class="card user-card" style="min-height:320px;">
                             
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="card-header d-flex justify-content-between align-items-center mb-2">
                             <h4 class="card-title">Employee Details</h4>
                         </div>
 
