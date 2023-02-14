@@ -383,7 +383,7 @@ echo <<<HTML
 
             <div class="row">
                 <!-- section wise marks donut Starts-->
-                <div class="col-xl-6 col-12">
+                <!-- <div class="col-xl-6 col-12">
                     <div class="card">
                         <div class="card-header flex-column align-items-start">
                             <h4 class="card-title mb-75">Section Wise Marks Overview</h4>
@@ -393,7 +393,7 @@ echo <<<HTML
                             <div id="section_marks_chart"></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- Donut Chart Ends-->
 
 

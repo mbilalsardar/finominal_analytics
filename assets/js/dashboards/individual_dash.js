@@ -139,86 +139,86 @@ $(document).ready(function () {
     goalChart.render();
 
     // Section Overview
-    var donutChartEl = document.querySelector('#section_marks_chart'),
-    donutChartConfigGrades = {
-        chart: {
-            height: 300,
-            type: 'donut'
-        },
-        legend: {
-            show: true,
-            position: 'right'
-        },
-        labels: [],
-        series: [],
-        // colors: [
-        //     chartColors.donut.green,
-        //     chartColors.donut.red,
-        // ],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val, opt) {
-                return parseInt(val) + '%';
-            }
-        },
-        plotOptions: {
-            pie: {
-                donut: {
-                    labels: {
-                        show: true,
-                        name: {
-                            fontSize: '0.5rem',
-                            fontFamily: 'Montserrat'
-                        },
-                        value: {
-                            fontSize: '0.5rem',
-                            fontFamily: 'Montserrat',
-                            formatter: function (val) {
-                                return parseInt(val) + '%';
-                            }
-                        },
-                    }
-                }
-            }
-        },
-        responsive: [
-            {
-                breakpoint: 992,
-                options: {
-                    chart: {
-                        height: 250
-                    }
-                }
-            },
-            {
-                breakpoint: 576,
-                options: {
-                    chart: {
-                        height: 250
-                    },
-                    plotOptions: {
-                        pie: {
-                            donut: {
-                                labels: {
-                                    show: true,
-                                    name: {
-                                        fontSize: '0.5rem'
-                                    },
-                                    value: {
-                                        fontSize: '0.5rem'
-                                    },
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        ]
-    };
-    if (typeof donutChartEl !== undefined && donutChartEl !== null) {
-        var donutChartSections = new ApexCharts(donutChartEl, donutChartConfigGrades);
-        donutChartSections.render();
-    }
+    // var donutChartEl = document.querySelector('#section_marks_chart'),
+    // donutChartConfigGrades = {
+    //     chart: {
+    //         height: 300,
+    //         type: 'donut'
+    //     },
+    //     legend: {
+    //         show: true,
+    //         position: 'right'
+    //     },
+    //     labels: [],
+    //     series: [],
+    //     // colors: [
+    //     //     chartColors.donut.green,
+    //     //     chartColors.donut.red,
+    //     // ],
+    //     dataLabels: {
+    //         enabled: true,
+    //         formatter: function (val, opt) {
+    //             return parseInt(val) + '%';
+    //         }
+    //     },
+    //     plotOptions: {
+    //         pie: {
+    //             donut: {
+    //                 labels: {
+    //                     show: true,
+    //                     name: {
+    //                         fontSize: '0.5rem',
+    //                         fontFamily: 'Montserrat'
+    //                     },
+    //                     value: {
+    //                         fontSize: '0.5rem',
+    //                         fontFamily: 'Montserrat',
+    //                         formatter: function (val) {
+    //                             return parseInt(val) + '%';
+    //                         }
+    //                     },
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     responsive: [
+    //         {
+    //             breakpoint: 992,
+    //             options: {
+    //                 chart: {
+    //                     height: 250
+    //                 }
+    //             }
+    //         },
+    //         {
+    //             breakpoint: 576,
+    //             options: {
+    //                 chart: {
+    //                     height: 250
+    //                 },
+    //                 plotOptions: {
+    //                     pie: {
+    //                         donut: {
+    //                             labels: {
+    //                                 show: true,
+    //                                 name: {
+    //                                     fontSize: '0.5rem'
+    //                                 },
+    //                                 value: {
+    //                                     fontSize: '0.5rem'
+    //                                 },
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     ]
+    // };
+    // if (typeof donutChartEl !== undefined && donutChartEl !== null) {
+    //     var donutChartSections = new ApexCharts(donutChartEl, donutChartConfigGrades);
+    //     donutChartSections.render();
+    // }
 
     // individual averages Chart
     // --------------------------------------------------------------------
@@ -538,10 +538,10 @@ $(document).ready(function () {
 
 
             // Sections donut chart update.
-            donutChartSections.updateOptions({
-                series: data['section_grade_series'],
-                labels: data['section_grade_labels']
-            });
+            // donutChartSections.updateOptions({
+            //     series: data['section_grade_series'],
+            //     labels: data['section_grade_labels']
+            // });
 
 
             // Questions Overview Chart Update
