@@ -416,14 +416,17 @@ $(document).ready(function () {
                 // position: 'top',
                 // color:['#fff'],
                 // offsetY: -30,
-                offsetY: -50,
+                offsetY: -30,
                 formatter: function (val, opt) {
                     return parseInt(val) + '%';
                 }
             },
             series: [],
             xaxis: {
-                type: 'category'
+                type: 'category',
+                labels: {
+                    show: false,
+                }
             },
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
