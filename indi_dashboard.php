@@ -76,7 +76,7 @@ if($usertype == 'manager' || is_siteadmin()) {
 
 $user = $DB->get_record('user', array('id' => $USER->id));
 $user_picture = new user_picture($user);
-$user_picture_url = $user_picture->get_url();
+$user_picture_url = $user_picture->get_url(200);
 
 echo $OUTPUT->header();
 
