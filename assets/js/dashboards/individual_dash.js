@@ -411,6 +411,7 @@ $(document).ready(function () {
             dataLabels: {
                 enabled: true,
                 // position: 'top',
+                color:['#fff'],
                 // offsetX: 20
             },
             series: [],
