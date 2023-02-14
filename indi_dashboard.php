@@ -171,7 +171,7 @@ echo <<<HTML
 
                                 <div class="col-lg-3 col-sm-12">
                                     <div class='mt-2'></div>
-                                    <button id='view' class='btn btn-primary waves-effect waves-float waves-light'>View</button> 
+                                    <!-- <button id='view' class='btn btn-primary waves-effect waves-float waves-light'>View</button>  -->
                                     <button id='reset' class='btn btn-danger waves-effect waves-float waves-light'>Reset</button>
                                 </div>
                             </div>
