@@ -225,7 +225,7 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#individual_averages_chart'),
         barChartConfig = {
             chart: {
-                height: 800,
+                height: 500,
                 type: 'bar',
                 parentHeightOffset: 0,
                 toolbar: {
