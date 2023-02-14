@@ -410,7 +410,7 @@ echo <<<HTML
                         <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
                                 <p class="card-subtitle text-muted mb-25">Sections Overview</p>
-                                <h4 class="card-title ">Individual and Team Averages</h4>
+                                <h4 class="card-title ">Section-wise Results Vs Peers (%)</h4>
                             </div>
                             <!-- <div class="d-flex align-items-center mt-md-0 mt-1">
                                 <i class="font-medium-2" data-feather="calendar"></i>

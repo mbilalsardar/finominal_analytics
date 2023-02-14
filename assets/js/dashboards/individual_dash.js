@@ -253,7 +253,7 @@ $(document).ready(function () {
                     bottom: -10
                 }
             },
-            // colors: window.colors.solid.info,
+            colors: ['#ea5455','#269df8'],
             dataLabels: {
                 enabled: true,
                 offsetX: 40,
