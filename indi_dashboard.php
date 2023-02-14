@@ -74,7 +74,8 @@ if($usertype == 'manager' || is_siteadmin()) {
 }
 
 
-$picture = $OUTPUT->user_picture($userid, array('size' => 130));
+$user = $DB->get_record('user', array('id' => $USER->id));
+$picture = $OUTPUT->user_picture($user, array('size' => 130));
 
 echo $OUTPUT->header();
 
