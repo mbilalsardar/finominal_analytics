@@ -255,13 +255,13 @@ echo <<<HTML
                                     </div>
                                     <div class="d-flex flex-column ml-1">
                                         <div class="user-info mb-1">
-                                            <h4 class="mb-0" id='userinfo_username' >Username</h4>
-                                            <span class="float-right pr-2" id='userinfo_designation' >Designation</span>
+                                            <h4 class="mb-0" id='userinfo_username'>Username</h4>
+                                            <span class="float-right pr-2" id='userinfo_designation'>Designation</span>
                                         </div>
                                         <div class="">
                                             <h6>Team  : <span class="float-right pr-2" id='userinfo_team'>-</span></h6>
                                             <h6>Location  :   <span class="float-right pr-2" id='userinfo_location'>-</span></h6>
-                                            <h6>Department  : <span class="float-right pr-2" id='userinfo_department'>-</span></h6>
+                                            <h6>Department  :  <span class="float-right pr-2" id='userinfo_department'>-</span></h6>
                                             <h6>Manager  : <span class="float-right pr-2" id='userinfo_manager'>-</span></h6>
                                         </div>
                                     </div>
