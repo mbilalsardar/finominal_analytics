@@ -235,7 +235,7 @@ $(document).ready(function () {
             plotOptions: {
                 bar: {
                     horizontal: true,
-                    barHeight: '30%',
+                    barHeight: '50%',
                     endingShape: 'rounded',
                     dataLabels: {
                         position: 'top',
@@ -256,7 +256,7 @@ $(document).ready(function () {
             // colors: window.colors.solid.info,
             dataLabels: {
                 enabled: true,
-                offsetX: 20
+                offsetX: 40
                 // position: 'right',
             },
             series: [],            
