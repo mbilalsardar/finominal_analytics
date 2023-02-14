@@ -253,7 +253,7 @@ echo <<<HTML
                                     <div id='customuseravatar'>
                                         $picture
                                     </div>
-                                    <div class="d-flex flex-column ml-1">
+                                    <div class="d-flex flex-column">
                                         <div class="col-12">
                                             <table style="width:%; border:none; font-size:small">
                                                 <tr>
