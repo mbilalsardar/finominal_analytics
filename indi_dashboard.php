@@ -254,10 +254,6 @@ echo <<<HTML
                                         $picture
                                     </div>
                                     <div class="d-flex flex-column ml-1">
-                                        <div class="user-info mb-1">
-                                            
-                                          
-                                        </div>
                                         <div class="col-12">
                                             <table style="width:%; border:none">
                                                 <tr>
