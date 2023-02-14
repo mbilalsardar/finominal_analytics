@@ -386,7 +386,6 @@ $(document).ready(function () {
                 },
                 dataLabels: {
                     position: 'top',
-                    offsetY: -50,
                 }
             },
             plotOptions: {
@@ -417,6 +416,7 @@ $(document).ready(function () {
                 // position: 'top',
                 // color:['#fff'],
                 // offsetY: -30,
+                offsetY: -50,
                 formatter: function (val, opt) {
                     return parseInt(val) + '%';
                 }
