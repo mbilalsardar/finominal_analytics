@@ -424,6 +424,10 @@ $(document).ready(function () {
             },
             legend: { 
                 position: 'right',
+            },
+            yaxis: {
+                // min: 100,
+                max: 100,
             }
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
