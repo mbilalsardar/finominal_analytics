@@ -75,7 +75,7 @@ if($usertype == 'manager' || is_siteadmin()) {
 
 
 $user = $DB->get_record('user', array('id' => $USER->id));
-$picture = $OUTPUT->user_picture($user, array('size' => 150));
+$picture = $OUTPUT->user_picture($user, array('size' => 130));
 
 echo $OUTPUT->header();
 
@@ -110,11 +110,11 @@ echo <<<HTML
                 font-family: Verdana,Geneva,sans-serif !important;
             }
             
-            .userpicture {
+            /* .userpicture {
                 border-radius : 15px;
                 width : 140px;
                 height : 140px;
-            }
+            } */
     </style>
 HTML;
 
