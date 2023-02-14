@@ -501,8 +501,13 @@ $(document).ready(function () {
         // });
     });
 
-    $('#view').on('click',function(e){
 
+    // $('#view').on('click',function(e){
+
+
+
+
+    $('#quiz').on('change',function(e){
 
         e.preventDefault();
 
@@ -511,90 +516,91 @@ $(document).ready(function () {
         // var uid = $('#student').val();
         var uid = $('#userid_input_hidden').val();
 
-       
-        $.ajax({
-        type: "POST",
-        url: AJAXURL,
-        data: {
-            'function': 'individual_dash_view',
-            'cid': cid,
-            'qid': qid,
-            'uid': uid,
-        }, // Serializes the form's elements.
-        dataType: 'json',
-        success: function (data) {
+        if(cid !== '' && qid !== '') { 
+            $.ajax({
+            type: "POST",
+            url: AJAXURL,
+            data: {
+                'function': 'individual_dash_view',
+                'cid': cid,
+                'qid': qid,
+                'uid': uid,
+            }, // Serializes the form's elements.
+            dataType: 'json',
+            success: function (data) {
 
-            console.log(data);
+                console.log(data);
 
-            // Setting employee Info box data
-            var userinfo = data['userinfo'];
-            $('#userinfo_username').html(userinfo['username']);
-            $('#userinfo_designation').html(userinfo['designation']);
-            $('#userinfo_team').html(userinfo['team']);
-            $('#userinfo_location').html(userinfo['location']);
-            $('#userinfo_department').html(userinfo['department']);
-            $('#userinfo_manager').html(userinfo['manager']);
+                // Setting employee Info box data
+                var userinfo = data['userinfo'];
+                $('#userinfo_username').html(userinfo['username']);
+                $('#userinfo_designation').html(userinfo['designation']);
+                $('#userinfo_team').html(userinfo['team']);
+                $('#userinfo_location').html(userinfo['location']);
+                $('#userinfo_department').html(userinfo['department']);
+                $('#userinfo_manager').html(userinfo['manager']);
 
-            
-            $('#totalquestions_count_div').html(data['quiz_questions_info']['questions_total']);
-            $('#teammember_count_div').html(data['totalteammembers']);
-            $('#certificate_status_div').html(data['quiz_certificate']);
+                
+                $('#totalquestions_count_div').html(data['quiz_questions_info']['questions_total']);
+                $('#teammember_count_div').html(data['totalteammembers']);
+                $('#certificate_status_div').html(data['quiz_certificate']);
 
 
-            // Quiz Marks Chart
-            var quizmarks = data['quiz_marks'];
-            goalChart.updateOptions({
-                series: quizmarks['percentage'],
-                labels: ['grade'],
+                // Quiz Marks Chart
+                var quizmarks = data['quiz_marks'];
+                goalChart.updateOptions({
+                    series: quizmarks['percentage'],
+                    labels: ['grade'],
+                });
+
+
+                $('#marks_overview_totalmarks').html(quizmarks['total']);
+                $('#marks_overview_obtainedmarks').html(quizmarks['obtained']);
+
+
+                // Sections donut chart update.
+                // donutChartSections.updateOptions({
+                //     series: data['section_grade_series'],
+                //     labels: data['section_grade_labels']
+                // });
+
+
+                // Questions Overview Chart Update
+                var q_overview = data['quiz_questions_info'];
+                var q_overivew_series = data['questions_overview_series'];
+                var q_overivew_labels = data['questions_overview_labels'];
+
+                $('#q_overview_right').html(q_overview['questions_ttlcorrect']);
+                $('#q_overview_wrong').html(q_overview['questions_ttlwrong']);
+                $('#q_overview_gaveup').html(q_overview['questions_ttlgaveup']);
+
+                // Sections donut chart update.
+                pieChart.updateOptions({
+                    series: q_overivew_series,
+                    labels: q_overivew_labels
+                });
+
+
+                // All Quiz Comparison Data
+                barChart.updateSeries([{
+                    data: data['allquiz_data'],
+                }]);
+
+
+                // Individual Quiz Section comparison chart
+                individual_barChart.updateOptions({
+                    xaxis: {
+                        categories : data['indi_team_averages_label'],
+                    },
+                    series: data['indi_team_averages_series'],
+                });
+
+            },
+            error: function (request) {
+                console.log("Request: " + JSON.stringify(request));
+                }
             });
-
-
-            $('#marks_overview_totalmarks').html(quizmarks['total']);
-            $('#marks_overview_obtainedmarks').html(quizmarks['obtained']);
-
-
-            // Sections donut chart update.
-            // donutChartSections.updateOptions({
-            //     series: data['section_grade_series'],
-            //     labels: data['section_grade_labels']
-            // });
-
-
-            // Questions Overview Chart Update
-            var q_overview = data['quiz_questions_info'];
-            var q_overivew_series = data['questions_overview_series'];
-            var q_overivew_labels = data['questions_overview_labels'];
-
-            $('#q_overview_right').html(q_overview['questions_ttlcorrect']);
-            $('#q_overview_wrong').html(q_overview['questions_ttlwrong']);
-            $('#q_overview_gaveup').html(q_overview['questions_ttlgaveup']);
-
-            // Sections donut chart update.
-            pieChart.updateOptions({
-                series: q_overivew_series,
-                labels: q_overivew_labels
-            });
-
-
-            // All Quiz Comparison Data
-            barChart.updateSeries([{
-                data: data['allquiz_data'],
-            }]);
-
-
-            // Individual Quiz Section comparison chart
-            individual_barChart.updateOptions({
-                xaxis: {
-                    categories : data['indi_team_averages_label'],
-                },
-                series: data['indi_team_averages_series'],
-            });
-
-        },
-        error: function (request) {
-            console.log("Request: " + JSON.stringify(request));
-            }
-        });
+        }
 
     });
 
