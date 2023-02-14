@@ -240,22 +240,31 @@ echo <<<HTML
                     
                 </div> -->
 
-                <div class="col-xl-4 col-md-4 d-flex flex-column justify-content-between border-container-lg">
-                    <div class="user-avatar-section">
-                        <div class="d-flex justify-content-start">
-                            <div id='customuseravatar'>
-                                $picture
-                            </div>
-                            <div class="d-flex flex-column ml-1">
-                                <div class="user-info mb-1">
-                                    <h4 class="mb-0" id='userinfo_username' >Username</h4>
-                                    <span class="float-right pr-2" id='userinfo_designation' >Designation</span>
-                                </div>
-                                <div class="">
-                                    <h6>Team  : <span class="float-right pr-2" id='userinfo_team'>-</span></h6>
-                                    <h6>Location  :   <span class="float-right pr-2" id='userinfo_location'>-</span></h6>
-                                    <h6>Department  : <span class="float-right pr-2" id='userinfo_department'>-</span></h6>
-                                    <h6>Manager  : <span class="float-right pr-2" id='userinfo_manager'>-</span></h6>
+                <div class="col-lg-4 col-sm-12">
+                    <div class="card user-card" style="min-height:320px;">
+                            
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Employee Details</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="user-avatar-section">
+                                <div class="d-flex justify-content-start">
+                                    <div id='customuseravatar'>
+                                        $picture
+                                    </div>
+                                    <div class="d-flex flex-column ml-1">
+                                        <div class="user-info mb-1">
+                                            <h4 class="mb-0" id='userinfo_username' >Username</h4>
+                                            <span class="float-right pr-2" id='userinfo_designation' >Designation</span>
+                                        </div>
+                                        <div class="">
+                                            <h6>Team  : <span class="float-right pr-2" id='userinfo_team'>-</span></h6>
+                                            <h6>Location  :   <span class="float-right pr-2" id='userinfo_location'>-</span></h6>
+                                            <h6>Department  : <span class="float-right pr-2" id='userinfo_department'>-</span></h6>
+                                            <h6>Manager  : <span class="float-right pr-2" id='userinfo_manager'>-</span></h6>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
