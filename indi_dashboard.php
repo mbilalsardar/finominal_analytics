@@ -73,6 +73,11 @@ if($usertype == 'manager' || is_siteadmin()) {
     die();
 }
 
+
+$user = $DB->get_record('user', array('id' => $USER->id));
+$user_picture = new user_picture($user);
+$user_picture_url = $user_picture->get_url();
+
 echo $OUTPUT->header();
 
 
@@ -184,6 +189,8 @@ echo <<<HTML
                             <button class="class='btn btn-primary btn-block"
                             style="font-size:20.56px; font-weight:500; ">Employee Details</button>
                         </div> -->
+                        <img src="{$user_picture_url}" alt="profilepic">
+
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
