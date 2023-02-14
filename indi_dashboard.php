@@ -436,7 +436,7 @@ echo <<<HTML
                                 
                                 <p class="card-subtitle text-muted mb-25">Sections Overview</p>
                                 <h4 class="card-title ">
-                                <i data-feather="user" 
+                                <i data-feather="bar-chart-2" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
