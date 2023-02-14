@@ -238,6 +238,8 @@ if($_POST['function'] == 'individual_dash_view') {
                     // $certificate = 'Issued';
                     $certificate = 'Passed';
                 }
+            } else {
+                $certificate = 'N/A';
             }
         }
     }
