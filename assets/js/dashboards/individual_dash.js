@@ -74,7 +74,7 @@ $(document).ready(function () {
     goalChartOptions = {
         chart: {
             // height: 245,
-            height: 200,
+            height: 150,
             type: 'radialBar',
             sparkline: {
                 enabled: true
