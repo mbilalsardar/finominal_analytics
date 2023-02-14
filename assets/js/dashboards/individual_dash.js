@@ -236,7 +236,6 @@ $(document).ready(function () {
                 bar: {
                     horizontal: true,
                     barHeight: '50%',
-                    distributed: true,
                     endingShape: 'flat',
                     dataLabels: {
                         position: 'top',
@@ -393,6 +392,7 @@ $(document).ready(function () {
                 bar: {
                     vertical: true,
                     barHeight: '30%',
+                    distributed: true,
                     columnWidth: '20%',
                     endingShape: 'flat'
                 }
