@@ -307,7 +307,7 @@ echo <<<HTML
 
                 <!-- Marks Overview Card -->
                 <div class="col-lg-4 col-12">
-                    <div class="card bg-light-success" >
+                    <div class="card bg-light-success" style="min-height:320px;">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
                                 <i data-feather="percent" 
