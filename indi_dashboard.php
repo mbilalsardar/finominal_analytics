@@ -176,7 +176,8 @@ echo <<<HTML
                 <div class="col-lg-4 col-sm-12">
                     <div class="card user-card" style="min-height:320px;">
                         <div class="card-header">
-                            <button class="class='btn btn-primary btn-block">Employee Info</button>
+                            <button class="class='btn btn-primary btn-block"
+                            style="font-size:20.56px; font-weight:500; ">Employee Info</button>
                         </div>
                         <div class="card-body">
                             <div class="row">
