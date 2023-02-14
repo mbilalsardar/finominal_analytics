@@ -332,8 +332,8 @@ echo <<<HTML
                                     '>
                                     </i>
                                     </span>
-                                    <h4 class="mb-0 font-weight-bolder ">status</h4>
-                                    <h4 class="font-weight-bolder card-text mb-0" id='certificate_status_div'>-</h4>
+                                    <h4 class="mb-0">Status</h4>
+                                    <h4 class="card-text mb-0" id='certificate_status_div'>-</h4>
                                 </div>
                             </div>
                         </div>
