@@ -250,8 +250,8 @@ echo <<<HTML
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#fff; 
-                                    color:#000;
+                                    background:#7774ac; 
+                                    color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
                                    
@@ -311,12 +311,12 @@ echo <<<HTML
                     <div class="card bg-light-success">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
-                                <i data-feather="user" 
+                                <i data-feather="percent" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#fff; 
-                                    color:#000;
+                                    background:#37b96e; 
+                                    color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
                                    
