@@ -386,7 +386,7 @@ $(document).ready(function () {
                 },
                 dataLabels: {
                     position: 'top',
-                    offsetY: 50,
+                    offsetY: -50,
                 }
             },
             plotOptions: {
