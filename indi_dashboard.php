@@ -175,10 +175,15 @@ echo <<<HTML
             <div class="row">
                 <div class="col-lg-4 col-sm-12">
                     <div class="card user-card" style="min-height:320px;">
-                        <div class="card-header">
-                            <button class="class='btn btn-primary btn-block"
-                            style="font-size:20.56px; font-weight:500; ">Employee Info</button>
+                        
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Employee Details</h4>
                         </div>
+
+                        <!-- <div class="card-header">
+                            <button class="class='btn btn-primary btn-block"
+                            style="font-size:20.56px; font-weight:500; ">Employee Details</button>
+                        </div> -->
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
