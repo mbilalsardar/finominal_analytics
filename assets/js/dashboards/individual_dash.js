@@ -384,9 +384,6 @@ $(document).ready(function () {
                 toolbar: {
                     show: false
                 },
-                dataLabels: {
-                    position: 'top',
-                }
             },
             plotOptions: {
                 bar: {
@@ -413,9 +410,6 @@ $(document).ready(function () {
             },
             dataLabels: {
                 enabled: true,
-                // position: 'top',
-                // color:['#fff'],
-                // offsetY: -30,
                 offsetY: -30,
                 formatter: function (val, opt) {
                     return parseInt(val) + '%';
@@ -428,6 +422,9 @@ $(document).ready(function () {
                     show: false,
                 }
             },
+            legend: { 
+                position: 'top',
+            }
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
         var barChart = new ApexCharts(barChartEl, barChartConfig);
