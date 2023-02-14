@@ -410,9 +410,12 @@ $(document).ready(function () {
             },
             dataLabels: {
                 enabled: true,
-                // position: 'top',
-                color:['#fff'],
-                // offsetX: 20
+                position: 'top',
+                // color:['#fff'],
+                offsetY: 30,
+                formatter: function (val, opt) {
+                    return parseInt(val) + '%';
+                }
             },
             series: [],
             xaxis: {
