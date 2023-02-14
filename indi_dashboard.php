@@ -371,7 +371,7 @@ echo <<<HTML
                                     '>
                                     </i>
                                 </span>
-                                <h4 class='font-weight-bolder '>Team Members</h4>
+                                <h4 class=''>Team Members</h4>
                                 <h4 class='font-weight-bolder' id='teammember_count_div'>0</h4>
                             </div>
                         </div>
