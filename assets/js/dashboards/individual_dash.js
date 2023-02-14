@@ -412,7 +412,7 @@ $(document).ready(function () {
                 enabled: true,
                 position: 'top',
                 // color:['#fff'],
-                offsetY: -30,
+                // offsetY: -30,
                 formatter: function (val, opt) {
                     return parseInt(val) + '%';
                 }
