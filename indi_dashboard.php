@@ -434,7 +434,7 @@ echo <<<HTML
                 <div class="col-lg-12 col-sm-12">
                     <div class="card bg-light-danger">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Quiz Comparision</h4>
+                            <h4 class="card-title">Summary Results in Other Tests (%)</h4>
                         </div>
                         <div class="card-body p-0">
                             <div id='quizcomparision_chart'></div>
