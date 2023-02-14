@@ -241,7 +241,7 @@ echo <<<HTML
                 </div> -->
 
                 <div class="col-lg-4 col-sm-12">
-                    <div class="card user-card bg-light-primary" style="max-height:320px;">
+                    <div class="card user-card bg-light-primary" style="min-height:320px;">
                             
                         <div class="card-header d-flex justify-content-between align-items-center mb-2">
                             
