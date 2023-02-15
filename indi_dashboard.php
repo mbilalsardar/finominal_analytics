@@ -471,7 +471,7 @@ echo <<<HTML
                     <div class="card bg-light-danger">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
-                            <i data-feather="bar-chart-2" 
+                            <i data-feather="bar-chart" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
@@ -494,9 +494,21 @@ echo <<<HTML
 
                 <!-- Questions Overview Card -->
                 <div class="col-lg-12 col-sm-12">
-                    <div class="card">
+                    <div class="card bg-light-warning">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Questions Overview</h4>
+                            <h4 class="card-title">
+                                <i data-feather="pie-chart" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#e98c37; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                    '>
+                                </i> &nbsp; 
+
+                            Questions Overview</h4>
                         </div>
                         <div class="card-body p-0">
                             <div id="questions_overview_chart"></div>
