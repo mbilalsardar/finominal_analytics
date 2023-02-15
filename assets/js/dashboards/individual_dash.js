@@ -439,7 +439,7 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#marks_summary'),
     barChartConfig = {
         chart: {
-            height: 350,
+            height: 340,
             type: 'bar',
             parentHeightOffset: 0,
             toolbar: {
@@ -480,10 +480,19 @@ $(document).ready(function () {
         series: [
             { data : [0,0,0] }
         ],
-        colors: [ '#fc585c', '#e7bd4f', '#499dff'],            
+        colors: [ '#fc585c', '#e7bd4f', '#499dff'],        
+        // xaxis: {
+        //     type: 'category',
+        //     labels: {
+        //         show: false,
+        //     }
+        // },    
         xaxis: {
-            categories : ['Minimum','Average','Maximum']
+            categories : ['Minimum','Average','Maximum'],
             // type: 'category',
+            labels: {
+                show: false,
+            }
         },
     };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
