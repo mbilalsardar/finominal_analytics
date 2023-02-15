@@ -340,6 +340,8 @@ if($_POST['function'] == 'individual_dash_view') {
     */
 
     $teammembers = 0;
+    $allquizmarks = [];
+
     $course_enrollments = get_users_enrolled_in_course($cid,5);
 
     // total team count.
@@ -347,20 +349,19 @@ if($_POST['function'] == 'individual_dash_view') {
         if($userdata->team == $value->team) {
             $teammembers++;
         }
-    }
-    $response['totalteammembers'] = $teammembers;
-  
 
-    // GETTING QUIZ MARKS FOR AVERAGE SUMMARY AND RANK
-    $allquizmarks = [];
-    foreach($course_enrollments as $value) {
+
+        // GETTING QUIZ MARKS FOR AVERAGE SUMMARY AND RANK
         $quizmarksinfo = quiz_grades($qid,$cid,$value->userid);
         if(!empty($quizmarksinfo)){ 
-            foreach($quizmarksinfo as $value) {
-                $allquizmarks[] = $value->obtained_grade;
+            foreach($quizmarksinfo as $qqvalue) {
+                $allquizmarks[] = $qqvalue->obtained_grade;
             }
         }
     }
+
+    $response['totalteammembers'] = $teammembers;
+  
 
     /*  Marks Summary  */
     sort($allquizmarks);    
@@ -382,7 +383,7 @@ if($_POST['function'] == 'individual_dash_view') {
             'y'=>$maxmarks,
         ],  
     ];
-    
+
     $response['marks_summary'] = $markssummary;
 
 
