@@ -439,7 +439,7 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#marks_summary'),
     barChartConfig = {
         chart: {
-            height: 335,
+            height: 330,
             type: 'bar',
             parentHeightOffset: 0,
             toolbar: {
