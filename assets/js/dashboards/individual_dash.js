@@ -435,12 +435,11 @@ $(document).ready(function () {
         barChart.render();
     }
 
-
     /* Marks Summary Chart */
     var barChartEl = document.querySelector('#marks_summary'),
     barChartConfig = {
         chart: {
-            height: 229,
+            height: 300,
             type: 'bar',
             parentHeightOffset: 0,
             toolbar: {
@@ -449,8 +448,13 @@ $(document).ready(function () {
         },
         plotOptions: {
             bar: {
+                dataLabels: {
+                    position: 'top'
+                },
                 vertical: true,
                 barHeight: '30%',
+                distributed: true,
+                columnWidth: '20%',
                 endingShape: 'flat'
             }
         },
