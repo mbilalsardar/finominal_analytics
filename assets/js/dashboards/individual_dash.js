@@ -648,6 +648,14 @@ $(document).ready(function () {
                     series: data['indi_team_averages_series'],
                 });
 
+                // Marks Summary 
+
+                /* Marks Summary */
+                markssummary.updateSeries([{
+                    data: data['marks_summary'],
+                }]);
+
+
             },
             error: function (request) {
                 console.log("Request: " + JSON.stringify(request));
