@@ -538,7 +538,7 @@ echo <<<HTML
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
-                            <i data-feather="bar-chart-2" 
+                            <i data-feather="users" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
@@ -548,7 +548,7 @@ echo <<<HTML
                                     padding : 12px;
                                     '>
                                     </i> &nbsp;      
-                            Marks Summary</h4>
+                            Peer Results </h4>
                         </div>
                         <div class="card-body">
                             <div id="marks_summary"></div>
