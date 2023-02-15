@@ -537,7 +537,18 @@ echo <<<HTML
                 <div class="col-md-6 col-sm-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Marks Summary</h4>
+                            <h4 class="card-title">
+                            <i data-feather="bar-chart-2" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#e53715; 
+                                    color:#000;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                    '>
+                                    </i> &nbsp;      
+                            Marks Summary</h4>
                         </div>
                         <div class="card-body">
                             <div id="marks_summary"></div>
