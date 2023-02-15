@@ -471,16 +471,16 @@ $(document).ready(function () {
         },
         // colors: window.colors.solid.info,
         dataLabels: {
-            enabled: false
+            enabled: true,
+            offsetY: -30,
+            formatter: function (val, opt) {
+                return parseInt(val) + '%';
+            }
         },
         series: [
             { data : [0,0,0] }
         ],
-        colors: [
-            chartColors.column.series1,
-            // chartColors.donut.series5,
-            // chartColors.donut.series1,
-        ],            
+        colors: [ '#ec9f3e', '#4de0bf', '#499dff'],            
         xaxis: {
             categories : ['Minimum','Average','Maximum']
             // type: 'category',
