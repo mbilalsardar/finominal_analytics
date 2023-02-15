@@ -351,6 +351,43 @@ if($_POST['function'] == 'individual_dash_view') {
     $response['totalteammembers'] = $teammembers;
   
 
+    // GETTING QUIZ MARKS FOR AVERAGE SUMMARY AND RANK
+    $allquizmarks = [];
+    foreach($course_enrollments as $value) {
+        $quizmarksinfo = quiz_grades($qid,$cid,$value->userid);
+        if(!empty($quizmarksinfo)){ 
+            foreach($quizmarksinfo as $value) {
+                $allquizmarks[] = $value->obtained_grade;
+            }
+        }
+    }
+
+    /*  Marks Summary  */
+    sort($allquizmarks);    
+    $minmarks = $allquizmarks[0];
+    $avgmarks = round(array_sum($allquizmarks) / count($allquizmarks),2);
+    $maxmarks = $allquizmarks[count($allquizmarks)-1];
+  
+    $markssummary = [
+        [
+            'x'=>'Minimum',
+            'y'=>$minmarks,
+        ],
+        [
+            'x'=>'Average',
+            'y'=>$avgmarks,
+        ],
+        [
+            'x'=>'Maximum',
+            'y'=>$maxmarks,
+        ],  
+    ];
+    
+    $response['marks_summary'] = $markssummary;
+
+
+
+
 
 
     // Getting quiz sections
@@ -375,6 +412,7 @@ if($_POST['function'] == 'individual_dash_view') {
                     $temp2[] = $sectiontotal;
                 }
                 else {
+
                     $attempt = check_if_quiz_attempted($cid,$qid,$value->userid);
                     if($attempt) {  
                         $secresult = quiz_sections_result($qid, $sectionid, $value->userid, $cid);
@@ -434,6 +472,8 @@ if($_POST['function'] == 'individual_dash_view') {
             "data" => $totalsections_selecteduser_averages
         ]
     ];
+
+
 
 
     $response['indi_team_averages_label'] = $final_indivual_section_labels;

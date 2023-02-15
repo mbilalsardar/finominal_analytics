@@ -490,10 +490,11 @@ echo <<<HTML
                 </div>
                 <!-- End quiz comparision chart -->
 
+            </div>
 
-
+            <div class='row'>
                 <!-- Questions Overview Card -->
-                <div class="col-lg-12 col-sm-12">
+                <div class="col-md-6 col-sm-12">
                     <div class="card bg-light-warning">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
@@ -532,8 +533,20 @@ echo <<<HTML
                 </div>
                 <!--/ Questions Overview Card -->
 
-
+                <!-- Marks Summary -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Marks Summary</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="marks_summary"></div>
+                        </div>
+                    </div>
+                </div>
                 
+
+
             </div>
         </div> 
     </div>

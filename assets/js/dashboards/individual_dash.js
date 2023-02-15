@@ -436,6 +436,59 @@ $(document).ready(function () {
     }
 
 
+    /* Marks Summary Chart */
+    var barChartEl = document.querySelector('#marks_summary'),
+    barChartConfig = {
+        chart: {
+            height: 229,
+            type: 'bar',
+            parentHeightOffset: 0,
+            toolbar: {
+                show: false
+            }
+        },
+        plotOptions: {
+            bar: {
+                vertical: true,
+                barHeight: '30%',
+                endingShape: 'flat'
+            }
+        },
+        grid: {
+            xaxis: {
+                lines: {
+                    show: false
+                }
+            },
+            padding: {
+                top: -15,
+                bottom: -10
+            }
+        },
+        // colors: window.colors.solid.info,
+        dataLabels: {
+            enabled: false
+        },
+        series: [
+            { data : [0,0,0] }
+        ],
+        colors: [
+            chartColors.column.series1,
+            // chartColors.donut.series5,
+            // chartColors.donut.series1,
+        ],            
+        xaxis: {
+            categories : ['Minimum','Average','Maximum']
+            // type: 'category',
+        },
+    };
+    if (typeof barChartEl !== undefined && barChartEl !== null) {
+        var markssummary = new ApexCharts(barChartEl, barChartConfig);
+        markssummary.render();
+    }
+ 
+
+
     /* ---------------- END CHARTS DECLERATION ---------------------------*/
 
 
