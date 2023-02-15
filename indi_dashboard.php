@@ -543,7 +543,7 @@ echo <<<HTML
                                     width: 50px; 
                                     height: 50px;
                                     background:#e53715; 
-                                    color:#000;
+                                    color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
                                     '>
