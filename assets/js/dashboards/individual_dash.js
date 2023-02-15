@@ -480,7 +480,7 @@ $(document).ready(function () {
         series: [
             { data : [0,0,0] }
         ],
-        colors: [ '#ec9f3e', '#4de0bf', '#499dff'],            
+        colors: [ '#fc585c', '#e7bd4f', '#499dff'],            
         xaxis: {
             categories : ['Minimum','Average','Maximum']
             // type: 'category',
