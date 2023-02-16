@@ -348,14 +348,13 @@ if($_POST['function'] == 'individual_dash_view') {
     foreach($course_enrollments as $value) { 
         if($userdata->team == $value->team) {
             $teammembers++;
-        }
-
-
-        // GETTING QUIZ MARKS FOR AVERAGE SUMMARY AND RANK
-        $quizmarksinfo = quiz_grades($qid,$cid,$value->userid);
-        if(!empty($quizmarksinfo)){ 
-            foreach($quizmarksinfo as $qqvalue) {
-                $allquizmarks[] = $qqvalue->obtained_grade;
+     
+            // GETTING QUIZ MARKS FOR AVERAGE SUMMARY AND RANK
+            $quizmarksinfo = quiz_grades($qid,$cid,$value->userid);
+            if(!empty($quizmarksinfo)){ 
+                foreach($quizmarksinfo as $qqvalue) {
+                    $allquizmarks[] = $qqvalue->obtained_grade;
+                }
             }
         }
     }
