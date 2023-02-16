@@ -347,7 +347,7 @@ echo <<<HTML
 
                     <div class="row">
                         <div class="col-lg-12">    
-                            <div class="card py-1 text-center mx-0 bg-light-info" style='min-height:120px'>
+                            <div class="card py-1 text-center mx-0" style='min-height:120px; background-color:rgba(35,156,251,0.3);'>
                                 <div class="" style='padding:20px; margin-top: 30px'> 
                                     <span> <i data-feather="award" 
                                     style='
@@ -371,7 +371,7 @@ echo <<<HTML
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="card py-1 text-center mx-0" style='min-height:140px;'>
+                            <div class="card py-1 text-center mx-0" style='min-height:140px; background-color:rgba(254,176,25,0.3)'>
                                 <span> <i data-feather="hash" 
                                     style='
                                     width: 40px; 
@@ -389,12 +389,13 @@ echo <<<HTML
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="card py-1 text-center mx-0" style='min-height:140px;'>
+                            <div class="card py-1 text-center mx-0" style='min-height:140px; background-color:rgba(198,198,198,0.4);'>
                                 <span> <i data-feather="users" 
                                     style='
                                     width: 40px; 
                                     height: 40px;
-                                    background:red; color:white;
+                                    background:grey; 
+                                    color:white;
                                     border-radius:100px;
                                     padding : 8px;
                                     margin-bottom : 5px;
