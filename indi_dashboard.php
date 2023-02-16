@@ -115,6 +115,10 @@ echo <<<HTML
                 width : 140px;
                 height : 140px;
             } */
+
+            .secondary-navigation {
+                display:none;
+            } 
     </style>
 HTML;
 
