@@ -102,9 +102,9 @@ echo <<<HTML
                 font-family: Verdana,Geneva,sans-serif !important;
             }
 
-            nav {
+            /* nav {
                 display:none;
-            }
+            } */
         </style>
     </head>
 HTML;
