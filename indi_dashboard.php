@@ -430,7 +430,7 @@ echo <<<HTML
 
                 <!-- Section Overview Individual and Team Averages -->
                 <div class="col-xl-12 col-12">
-                    <div class="card " style='background-color : rgb(211,211,211,0.4);>
+                    <div class="card " style='background-color : rgba(211,211,211,0.4);>
                         <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
                                 
