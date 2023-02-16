@@ -328,11 +328,11 @@ echo <<<HTML
                             <div id="marks-overview-chart"></div>
                             <div class="row border-top text-center mx-0">
                                 <div class="col-6 border-right py-1">
-                                    <p class="card-text text-muted mb-0">Total Marks</p>
+                                    <p class="card-text mb-0" style='color:#5e5873'>Total Marks</p>
                                     <h3 class="font-weight-bolder mb-0" id='marks_overview_totalmarks'>0</h3>
                                 </div>
                                 <div class="col-6 py-1">
-                                    <p class="card-text text-muted mb-0">Obtained Marks</p>
+                                    <p class="card-text mb-0" style='color:#5e5873'>Obtained Marks</p>
                                     <h3 class="font-weight-bolder mb-0" id='marks_overview_obtainedmarks'>0</h3>
                                 </div>
                             </div>
@@ -384,7 +384,7 @@ echo <<<HTML
                                     '>
                                     </i>
                                 </span>
-                                <h4 class=''>Total Questions</h4>
+                                <h5 class=''>Total Questions</h5>
                                 <h4 class='font-weight-bolder' id='totalquestions_count_div'>0</h4>
                             </div>
                         </div>
@@ -402,7 +402,7 @@ echo <<<HTML
                                     '>
                                     </i>
                                 </span>
-                                <h4 class=''>Team Members</h4>
+                                <h5 class=''>Team Members</h5>
                                 <h4 class='font-weight-bolder' id='teammember_count_div'>0</h4>
                             </div>
                         </div>
