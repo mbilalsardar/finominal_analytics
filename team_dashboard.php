@@ -101,6 +101,10 @@ echo <<<HTML
             .app-content {
                 font-family: Verdana,Geneva,sans-serif !important;
             }
+
+            nav {
+                display:none;
+            }
         </style>
     </head>
 HTML;
