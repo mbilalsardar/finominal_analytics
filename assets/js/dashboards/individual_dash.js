@@ -318,15 +318,15 @@ $(document).ready(function () {
                                     return parseInt(val) + '%';
                                 }
                             },
-                            total: {
-                                show: true,
-                                fontSize: '1.5rem',
-                                color: '#FFFFFF',
-                                label: 'Total Questions',
-                                // formatter: function (w) {
-                                //     return '31%';
-                                // }
-                            }
+                            // total: {
+                            //     show: true,
+                            //     fontSize: '1.5rem',
+                            //     color: '#FFFFFF',
+                            //     label: 'Total Questions',
+                            //     // formatter: function (w) {
+                            //     //     return '31%';
+                            //     // }
+                            // }
                         }
                     }
                 }

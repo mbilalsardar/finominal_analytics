@@ -495,7 +495,7 @@ echo <<<HTML
             <div class='row'>
                 <!-- Questions Overview Card -->
                 <div class="col-md-6 col-sm-12">
-                    <div class="card bg-light-warning">
+                    <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
                                 <i data-feather="pie-chart" 
