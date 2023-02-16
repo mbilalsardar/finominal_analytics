@@ -430,7 +430,7 @@ echo <<<HTML
 
                 <!-- Section Overview Individual and Team Averages -->
                 <div class="col-xl-12 col-12">
-                    <div class="card bg-light-warning">
+                    <div class="card " style='background-color : #d3d3d3; opacity : 0.4'>
                         <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
                                 
@@ -468,14 +468,14 @@ echo <<<HTML
 
                 <!-- quiz comparision chart -->
                 <div class="col-lg-12 col-sm-12">
-                    <div class="card bg-light-danger">
+                    <div class="card bg-light-primary">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
                             <i data-feather="bar-chart" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#d43838; 
+                                    background:#7774ac; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
