@@ -386,7 +386,7 @@ echo <<<HTML
                                 <!-- <h4 class="card-title font-weight-bolder">Individual and Team Averages</h4> -->
                                 <h4 class="card-title mb-75">Top Performers</h4>
                             </div>
-                          
+                           
                         </div>
                         <div class="card-body">
                             <div id="top_performers_bar_chart"></div>
