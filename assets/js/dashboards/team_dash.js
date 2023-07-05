@@ -228,86 +228,86 @@ $(document).ready(function () {
 
 
     /* Section Wise Marks Overview */
-    var donutChartEl = document.querySelector('#section_marks_chart'),
-    donutChartConfigGrades = {
-        chart: {
-            height: 300,
-            type: 'donut'
-        },
-        legend: {
-            show: true,
-            position: 'right'
-        },
-        labels: ['sections'],
-        series: [0],
-        // colors: [
-        //     chartColors.donut.green,
-        //     chartColors.donut.red,
-        // ],
-        dataLabels: {
-            enabled: true,
-            formatter: function (val, opt) {
-                return parseInt(val) + '%';
-            }
-        },
-        plotOptions: {
-            pie: {
-                donut: {
-                    labels: {
-                        show: true,
-                        name: {
-                            fontSize: '0.5rem',
-                            fontFamily: 'Montserrat'
-                        },
-                        value: {
-                            fontSize: '0.5rem',
-                            fontFamily: 'Montserrat',
-                            formatter: function (val) {
-                                return parseInt(val) + '%';
-                            }
-                        },
-                    }
-                }
-            }
-        },
-        responsive: [
-            {
-                breakpoint: 992,
-                options: {
-                    chart: {
-                        height: 250
-                    }
-                }
-            },
-            {
-                breakpoint: 576,
-                options: {
-                    chart: {
-                        height: 250
-                    },
-                    plotOptions: {
-                        pie: {
-                            donut: {
-                                labels: {
-                                    show: true,
-                                    name: {
-                                        fontSize: '0.5rem'
-                                    },
-                                    value: {
-                                        fontSize: '0.5rem'
-                                    },
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        ]
-    };
-    if (typeof donutChartEl !== undefined && donutChartEl !== null) {
-        var donutChartSections = new ApexCharts(donutChartEl, donutChartConfigGrades);
-        donutChartSections.render();
-    }
+    // var donutChartEl = document.querySelector('#section_marks_chart'),
+    // donutChartConfigGrades = {
+    //     chart: {
+    //         height: 300,
+    //         type: 'donut'
+    //     },
+    //     legend: {
+    //         show: true,
+    //         position: 'right'
+    //     },
+    //     labels: ['sections'],
+    //     series: [0],
+    //     // colors: [
+    //     //     chartColors.donut.green,
+    //     //     chartColors.donut.red,
+    //     // ],
+    //     dataLabels: {
+    //         enabled: true,
+    //         formatter: function (val, opt) {
+    //             return parseInt(val) + '%';
+    //         }
+    //     },
+    //     plotOptions: {
+    //         pie: {
+    //             donut: {
+    //                 labels: {
+    //                     show: true,
+    //                     name: {
+    //                         fontSize: '0.5rem',
+    //                         fontFamily: 'Montserrat'
+    //                     },
+    //                     value: {
+    //                         fontSize: '0.5rem',
+    //                         fontFamily: 'Montserrat',
+    //                         formatter: function (val) {
+    //                             return parseInt(val) + '%';
+    //                         }
+    //                     },
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     responsive: [
+    //         {
+    //             breakpoint: 992,
+    //             options: {
+    //                 chart: {
+    //                     height: 250
+    //                 }
+    //             }
+    //         },
+    //         {
+    //             breakpoint: 576,
+    //             options: {
+    //                 chart: {
+    //                     height: 250
+    //                 },
+    //                 plotOptions: {
+    //                     pie: {
+    //                         donut: {
+    //                             labels: {
+    //                                 show: true,
+    //                                 name: {
+    //                                     fontSize: '0.5rem'
+    //                                 },
+    //                                 value: {
+    //                                     fontSize: '0.5rem'
+    //                                 },
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     ]
+    // };
+    // if (typeof donutChartEl !== undefined && donutChartEl !== null) {
+    //     var donutChartSections = new ApexCharts(donutChartEl, donutChartConfigGrades);
+    //     donutChartSections.render();
+    // }
 
 
     /* Section Averages Bar Chart */
@@ -323,11 +323,21 @@ $(document).ready(function () {
             },
             plotOptions: {
                 bar: {
-                    horizontal: true,
+                    dataLabels: {
+                        position: 'top'
+                    },
+                    vertical: true,
                     barHeight: '30%',
+                    distributed: true,
+                    columnWidth: '20%',
                     endingShape: 'flat'
                 }
             },
+
+            legend: {
+                show: false,
+            },
+
             grid: {
                 xaxis: {
                     lines: {
@@ -339,14 +349,22 @@ $(document).ready(function () {
                     bottom: -10
                 }
             },
-            // colors: window.colors.solid.info,
             dataLabels: {
-                enabled: false
+                enabled: true,
+                offsetY: -30,
+                // formatter: function (val, opt) {
+                //     return parseInt(val) + '%';
+                // }
             },
+            // colors: window.colors.solid.info,
+            // dataLabels: {
+            //     enabled: false
+            // },
             series: [],            
             xaxis: {
                 // categories : ['A','B','C']
                 type: 'category',
+                
             },
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
@@ -371,7 +389,10 @@ $(document).ready(function () {
                 bar: {
                     horizontal: true,
                     barHeight: '30%',
-                    endingShape: 'flat'
+                    endingShape: 'flat',
+                    dataLabels: {
+                        position: 'top'
+                    }
                 }
             },
             grid: {
@@ -387,7 +408,8 @@ $(document).ready(function () {
             },
             // colors: window.colors.solid.info,
             dataLabels: {
-                enabled: false
+                enabled: true,
+                offsetX: 30
             },
             series: [],            
             xaxis: {
@@ -401,103 +423,103 @@ $(document).ready(function () {
     }
 
 
-    // Questions overview chart
-    // pie Chart
-    // --------------------------------------------------------------------
-    var donutChartEl2 = document.querySelector('#questions_overview_chart'),
-        donutChartConfig = {
-            chart: {
-                height: 300,
-                type: 'pie'
-            },
-            legend: {
-                show: true,
-                position: 'bottom'
-            },
-            labels: ['Right','Wrong','Gave Up'],
-            series: [0,0,0],
-            // colors: [
-            //     chartColors.donut.series2,
-            //     chartColors.donut.series5,
-            //     chartColors.donut.series1,
-            // ],
-            colors:['#17efcb', '#ed5b2f', '#fc9e5f'],
-            dataLabels: {
-                enabled: true,
-                formatter: function (val, opt) {
-                    return parseInt(val) + '%';
-                }
-            },
-            plotOptions: {
-                pie: {
-                    donut: {
-                        labels: {
-                            show: true,
-                            name: {
-                                fontSize: '2rem',
-                                fontFamily: 'Montserrat'
-                            },
-                            value: {
-                                fontSize: '1rem',
-                                fontFamily: 'Montserrat',
-                                formatter: function (val) {
-                                    return parseInt(val) + '%';
-                                }
-                            },
-                            total: {
-                                show: true,
-                                fontSize: '1.5rem',
-                                color: '#FFFFFF',
-                                label: 'Total Questions',
-                                // formatter: function (w) {
-                                //     return '31%';
-                                // }
-                            }
-                        }
-                    }
-                }
-            },
-            responsive: [
-                {
-                    breakpoint: 992,
-                    options: {
-                        chart: {
-                            height: 380
-                        }
-                    }
-                },
-                {
-                    breakpoint: 576,
-                    options: {
-                        chart: {
-                            height: 320
-                        },
-                        plotOptions: {
-                            pie: {
-                                donut: {
-                                    labels: {
-                                        show: true,
-                                        name: {
-                                            fontSize: '1.5rem'
-                                        },
-                                        value: {
-                                            fontSize: '1rem'
-                                        },
-                                        total: {
-                                            fontSize: '1.5rem'
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            ]
-        };
-    if (typeof donutChartEl2 !== undefined && donutChartEl2 !== null) {
-        var pieChart = new ApexCharts(donutChartEl2, donutChartConfig);
-        pieChart.render();
-    }
+    // // Questions overview chart
+    // // pie Chart
+    // // --------------------------------------------------------------------
+    // var donutChartEl2 = document.querySelector('#questions_overview_chart'),
+    //     donutChartConfig = {
+    //         chart: {
+    //             height: 300,
+    //             type: 'pie'
+    //         },
+    //         legend: {
+    //             show: true,
+    //             position: 'bottom'
+    //         },
+    //         labels: ['Right','Wrong','Gave Up'],
+    //         series: [0,0,0],
+    //         // colors: [
+    //         //     chartColors.donut.series2,
+    //         //     chartColors.donut.series5,
+    //         //     chartColors.donut.series1,
+    //         // ],
+    //         colors:['#17efcb', '#ed5b2f', '#fc9e5f'],
+    //         dataLabels: {
+    //             enabled: true,
+    //             formatter: function (val, opt) {
+    //                 return parseInt(val) + '%';
+    //             }
+    //         },
+    //         plotOptions: {
+    //             pie: {
+    //                 donut: {
+    //                     labels: {
+    //                         show: true,
+    //                         name: {
+    //                             fontSize: '2rem',
+    //                             fontFamily: 'Montserrat'
+    //                         },
+    //                         value: {
+    //                             fontSize: '1rem',
+    //                             fontFamily: 'Montserrat',
+    //                             formatter: function (val) {
+    //                                 return parseInt(val) + '%';
+    //                             }
+    //                         },
+    //                         total: {
+    //                             show: true,
+    //                             fontSize: '1.5rem',
+    //                             color: '#FFFFFF',
+    //                             label: 'Total Questions',
+    //                             // formatter: function (w) {
+    //                             //     return '31%';
+    //                             // }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //         responsive: [
+    //             {
+    //                 breakpoint: 992,
+    //                 options: {
+    //                     chart: {
+    //                         height: 380
+    //                     }
+    //                 }
+    //             },
+    //             {
+    //                 breakpoint: 576,
+    //                 options: {
+    //                     chart: {
+    //                         height: 320
+    //                     },
+    //                     plotOptions: {
+    //                         pie: {
+    //                             donut: {
+    //                                 labels: {
+    //                                     show: true,
+    //                                     name: {
+    //                                         fontSize: '1.5rem'
+    //                                     },
+    //                                     value: {
+    //                                         fontSize: '1rem'
+    //                                     },
+    //                                     total: {
+    //                                         fontSize: '1.5rem'
+    //                                     }
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         ]
+    //     };
+    // if (typeof donutChartEl2 !== undefined && donutChartEl2 !== null) {
+    //     var pieChart = new ApexCharts(donutChartEl2, donutChartConfig);
+    //     pieChart.render();
+    // }
 
 
     /* Marks Summary Chart */
@@ -704,10 +726,10 @@ $(document).ready(function () {
                 $('#total_sections_div').html(data['ttlsections']);
                 
                 // Section Performance.
-                donutChartSections.updateOptions({
-                    labels: data['section_performance_labels'],
-                    series: data['section_performance_series']
-                });
+                // donutChartSections.updateOptions({
+                //     labels: data['section_performance_labels'],
+                //     series: data['section_performance_series']
+                // });
 
 
                 // Certificate donut chart
@@ -720,10 +742,10 @@ $(document).ready(function () {
                 $('#ttlcertnotissued').html(data['totalfail']);
 
                 /* Question Overview chart */
-                pieChart.updateOptions({
-                    series: data['question_overview_series'],
-                    labels: data['question_overview_labels'],
-                });
+                // pieChart.updateOptions({
+                //     series: data['question_overview_series'],
+                //     labels: data['question_overview_labels'],
+                // });
 
                 $('#q_overview_right').html(data['ttlrightquest']);                
                 $('#q_overview_wrong').html(data['ttlwrongquest']);

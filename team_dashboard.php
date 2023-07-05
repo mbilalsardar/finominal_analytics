@@ -98,13 +98,24 @@ echo <<<HTML
         <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
         <style>
+            .main-inner {
+                background-color : #eaeaea !important;
+            }
+
+            .col-12,.col-lg-6 {
+                background-color : #eaeaea !important;
+            }
+
             .app-content {
                 font-family: Verdana,Geneva,sans-serif !important;
+                background-color : #eaeaea !important;
             }
 
             .secondary-navigation {
                 display:none;
             } 
+
+
 
         </style>
     </head>
@@ -225,8 +236,8 @@ echo <<<HTML
                                     '>
                                     </i>
                                     </span>
-                                    <h4 class="card-text mb-0" id='ttl_members_count'>0</h4>
-                                    <h5 class="mb-0 font-weight-bolder ">Total Participants</h5>
+                                    <h5 class="mb-1">Total Participants</h5>
+                                    <h4 class="card-text mb-0 font-weight-bolder" id='ttl_members_count'>0</h4>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +245,9 @@ echo <<<HTML
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="card py-1 text-center mx-0" style='min-height:140px;'>
+                            <!-- <div class="card py-1 text-center mx-0" style='min-height:140px; background-color:rgba(254,176,25,0.3)'> -->
+
+                            <div class="card py-3 text-center mx-0" style='max-height:170px;'>
                                 <span> <i data-feather="hash" 
                                     style='
                                     width: 40px; 
@@ -246,26 +259,27 @@ echo <<<HTML
                                     margin-bottom : 5px;
                                     '>
                                     </i>
-                                    </span>
-                                <h4 id='totalquestions_count_div'>0</h4>
-                                <h5 class='font-weight-bolder '>Total <br>Questions</h5>
+                                </span>
+                                <h5 class=''>Total Questions</h5>
+                                <h4 class='font-weight-bolder' id='totalquestions_count_div'>0</h4>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="card py-1 text-center mx-0" style='min-height:140px;'>
+                            <div class="card py-3 text-center mx-0" style='max-height:170px;'>
                                 <span> <i data-feather="users" 
                                     style='
                                     width: 40px; 
                                     height: 40px;
-                                    background:red; color:white;
+                                    background: red;
+                                    color:white;
                                     border-radius:100px;
                                     padding : 8px;
                                     margin-bottom : 5px;
                                     '>
                                     </i>
-                                    </span>
-                                <h4 id='total_sections_div'>0</h4>
-                                <h5 class='font-weight-bolder '>Total <br> Sections</h5>
+                                </span>
+                                <h5 class=''>Total Sections</h5>
+                                <h4 class='font-weight-bolder' id='total_sections_div'>0</h4>
                             </div>
                         </div>
                     </div>
@@ -274,9 +288,26 @@ echo <<<HTML
                 <!-- Participation Overview Card -->
                 <div class="col-lg-3  col-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                        <!-- <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Quiz Participation</h4>
+                        </div> -->
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="percent" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#37b96e; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                    </i> &nbsp;
+                                Quiz Participation
+                            </h4>
                         </div>
+
                         <div class="card-body p-0">
                             <div id="attendance-chart"></div>
                             <div class="row border-top text-center mx-0">
@@ -298,9 +329,27 @@ echo <<<HTML
                 <!-- Certification Overview Card -->
                 <div class="col-lg-3  col-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                        <!-- <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Pass/Fail Overview</h4>
+                        </div> -->
+
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="percent" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#37b96e; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                    </i> &nbsp;
+                                Pass/Fail Overview
+                            </h4>
                         </div>
+                        
                         <div class="card-body p-0">
                             <div id="certification-chart"></div>
                             <div class="row border-top text-center mx-0">
@@ -325,9 +374,26 @@ echo <<<HTML
                 <!-- Certification Overview Card -->
                 <div class="col-lg-3  col-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                        <!-- <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Marks Summary</h4>
+                        </div> -->
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="percent" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#37b96e; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                    </i> &nbsp;
+                                Marks Summary
+                            </h4>
                         </div>
+
                         <div class="card-body">
                             <div id="marks_summary"></div>
                 
@@ -337,40 +403,37 @@ echo <<<HTML
                 <!--/ End Certification Overview Card -->
 
 
-
-
-
-
             </div> <!-- end row -->
 
 
-            <div class="row">
-                <!-- section wise marks donut Starts-->
-                <div class="col-xl-6 col-12">
-                    <div class="card">
-                        <div class="card-header flex-column align-items-start">
-                            <h4 class="card-title mb-75">Section Performance Overview</h4>
-                            <!-- <span class="card-subtitle text-muted">Sections marks Averages </span> -->
-                        </div>
-                        <div class="card-body">
-                            <div id="section_marks_chart"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Donut Chart Ends-->
-          
+            <div class="row">      
                 <!-- Section Averages Marks Bar Chart -->
                 <div class="col-xl-6 col-12">
                     <div class="card">
-                        <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
+                        <!-- <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
-                                <!-- <h4 class="card-title font-weight-bolder">Individual and Team Averages</h4> -->
                                 <h4 class="card-title mb-75">Section's Average Marks</h4>
-                            </div>
-                            <!-- <div class="d-flex align-items-center mt-md-0 mt-1">
+                            </div> 
+                            <div class="d-flex align-items-center mt-md-0 mt-1">
                                 <i class="font-medium-2" data-feather="calendar"></i>
                                 <input type="text" class="form-control flat-picker bg-transparent border-0 shadow-none" placeholder="YYYY-MM-DD" />
-                            </div> -->
+                            </div> 
+                        </div> -->
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="percent" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#37b96e; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                    </i> &nbsp;
+                                Section's Average Marks
+                            </h4>
                         </div>
                         <div class="card-body">
                             <div id="section_average_marks_chart"></div>
@@ -378,20 +441,30 @@ echo <<<HTML
                     </div>
                 </div>
                 <!-- End Bar Chart Ends -->
-            </div>
 
-
-
-            <div class="row">
-                <!-- Top Performers -->
-                <div class="col-xl-6 col-12">
+                 <!-- Top Performers -->
+                 <div class="col-xl-6 col-12">
                     <div class="card">
-                        <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
+                        <!-- <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
-                                <!-- <h4 class="card-title font-weight-bolder">Individual and Team Averages</h4> -->
                                 <h4 class="card-title mb-75">Top Performers</h4>
                             </div>
-                           
+                        </div> -->
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="percent" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#37b96e; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                </i> &nbsp;
+                                Top Performers
+                            </h4>
                         </div>
                         <div class="card-body">
                             <div id="top_performers_bar_chart"></div>
@@ -399,15 +472,38 @@ echo <<<HTML
                     </div>
                 </div>
                 <!-- End Performer chart -->
+            </div>
+
+
+
+            <div class="row">
+               
 
                 <!-- Questions Overview Card -->
-                <div class="col-lg-6 col-sm-12">
+                <div class="col-12">
                     <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
+                        <!-- <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Questions Overview</h4>
+                        </div> -->
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="percent" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#37b96e; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                </i> &nbsp;
+                                Questions Overview
+                            </h4>
                         </div>
-                        <div class="card-body p-0">
-                            <div id="questions_overview_chart"></div>
+
+                        <div class="card-body">
+                            <!-- <div id="questions_overview_chart"></div>
 
                             <div class="row border-top text-center mx-0">
                                 <div class="col-4 border-right py-1">
@@ -422,7 +518,16 @@ echo <<<HTML
                                     <p class="card-text text-muted mb-0">Gaveup</p>
                                     <h3 class="font-weight-bolder mb-0" id='q_overview_gaveup'>0</h3>
                                 </div>
-                            </div>
+                            </div> -->
+
+                            <table id='maintable' class='display'>
+                                <thead>
+                                    <th>s.no</th>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
