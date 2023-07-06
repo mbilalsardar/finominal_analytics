@@ -338,7 +338,32 @@ function course_quiz_grades($uid) {
     return $result;
 
 }
-    
+
+// Same as Above function. Redundant. remove it when time. Only removed percentage sign concat in this 
+function course_quiz_grades_single_record($uid) {
+
+    global $DB;
+
+    $query = "SELECT 
+    q.id AS 'quizid',
+    qg.userid AS 'userid',
+    q.name as 'quizname',
+    c.fullname as 'coursename',
+    q.grade AS 'total_grade',
+    Format(qg.grade,2) AS 'obtained_grade'
+    FROM mdl_quiz q
+    INNER JOIN mdl_quiz_grades qg ON qg.quiz = q.id
+    INNER JOIN mdl_course c ON c.id = q.course
+    INNER JOIN mdl_course_modules mcm on mcm.`instance`=q.id AND mcm.course=q.course
+    JOIN mdl_enrol AS en ON en.courseid = c.id
+    JOIN mdl_user_enrolments mue ON mue.enrolid = en.id 
+    WHERE qg.userid =? and mcm.visible=1
+    ";
+    $result = $DB->get_record_sql($query,[$uid]);
+
+    return $result;
+}
+
 function total_quiz_questions_from_attemptedusers ($courseid, $quizid) {
 
     global $DB;
@@ -431,6 +456,7 @@ function quiz_section_question_attempts_by_user($qid, $secid, $userid, $courseid
     quiza.userid AS quiz_userid,
     q.course,
     q.name,
+    mqc.name 'section',
     quiza.attempt,
     qa.slot,
     que.questiontext AS question,
@@ -482,14 +508,18 @@ function quiz_sections_result($quizid, $sectionid, $studentid, $courseid)
     // [student_answer] => True
 
     $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = 0;
-
+    $studentname = $sectionname = "";
     if (!empty($grades)) {
+      
+
         $ttlsectionquestion = count($grades);
         foreach ($grades as $gradedata) {
             // Table data
             $currentquiz['name'] = $gradedata->name;
             $profiledata['username'] = $gradedata->student_name;
             $profiledata['userid'] = $gradedata->userid;
+            $studentname = $gradedata->student_name;
+            $sectionname = $gradedata->section;
 
             if($gradedata->student_answer != "") { 
                 if ($gradedata->correct_answer == $gradedata->student_answer) {
@@ -513,6 +543,8 @@ function quiz_sections_result($quizid, $sectionid, $studentid, $courseid)
     $temparr['total_wrong'] = $allwrong;
     $temparr['total_gaveup'] = $allgaveup;
     $temparr['percentage'] = $sectionpercentage;
+    $temparr['studentname'] = $studentname;
+    $temparr['sectionname'] = $sectionname;
 
     // $maindataarr[$sections->section_name] = $temparr;
     // }
@@ -657,6 +689,12 @@ function check_if_quiz_attempted($cid,$qid,$uid) {
 
 
 
+/**
+ * stud_get_enrolled_courses
+ *
+ * @param  mixed $student_id
+ * @return void
+ */
 function stud_get_enrolled_courses($student_id)
 {
     global $DB;
@@ -692,6 +730,13 @@ function stud_get_enrolled_courses($student_id)
 
 
 
+/**
+ * get_sub_managers_for_main_manager
+ *
+ * @param  mixed $firstlinemanageremail
+ * @param  mixed $team
+ * @return void
+ */
 function get_sub_managers_for_main_manager($firstlinemanageremail, $team = '')
 {
 
@@ -728,3 +773,69 @@ function get_sub_managers_for_main_manager($firstlinemanageremail, $team = '')
     return $result;
 }
 
+
+
+/**
+ * sectionwise_quizreport
+ *
+ * @param  mixed $courseid
+ * @return void
+ */
+function sectionwise_quizreport($courseid)
+{
+
+    global $DB;
+
+    $query = "SELECT
+  	concat(mqc.id,u.id) as 'uniqueid',
+	u.id AS 'userid',
+	ui_pno.data AS pno,
+    concat(LOWER(u.firstname),' ', LOWER(u.lastname)) AS 'fullname',
+    --     u.id AS userid,
+    --     quiza.userid AS quiz_userid,
+    --     q.course,
+    LOWER(q.name) as 'quiz',
+    --     quiza.attempt,
+    --     qa.slot,
+    --     mqc.id 'section_id',
+    --     mqc.parent as 'parent_id',
+    (SELECT pc.name from mdl_question_categories pc WHERE pc.id=mqc.parent) AS 'parent_section',
+    mqc.name 'sub_section',
+    --     que.questiontext AS question,
+    --     qa.rightanswer AS correct_answer,
+    --     qa.responsesummary AS student_answer,
+    --     SUM(steps.id) AS 'Total Questions',
+    SUM(steps.state='gradedright') +
+    SUM(steps.state='gradedwrong') +
+    SUM(steps.state='gradedpartial') +
+    SUM(steps.state='gaveup') as 'total_questions',
+    SUM(steps.state='gradedright') as 'right',
+    SUM(steps.state='gradedwrong') as 'wrong',
+    SUM(steps.state='gradedpartial') as 'partial',
+    SUM(steps.state='gaveup') as 'gaveup',
+    CONCAT(FORMAT((quiza.sumgrades / q.sumgrades) * 100, 2), '') AS 'percentage'
+    FROM mdl_quiz_attempts quiza
+    JOIN mdl_quiz q ON q.id=quiza.quiz
+    JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    JOIN mdl_user u ON u.id = quiza.userid
+    -- JOIN mdl_cohort_members mcm ON mcm.userid = u.id
+    JOIN mdl_question_attempt_steps AS steps ON (steps.userid = u.id OR steps.userid =3) # 'gradedright','gradedwrong','gaveup
+    JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id AND (qa.id = steps.questionattemptid)
+    JOIN mdl_question que ON que.id = qa.questionid
+    JOIN mdl_question_versions mqv on mqv.questionid = que.id 
+	JOIN mdl_question_bank_entries mqbe on mqbe.id = mqv.questionbankentryid  
+	JOIN mdl_question_categories mqc on mqbe.questioncategoryid = mqc.id 
+	-- LEFT JOIN mdl_question_categories mqc on mqc.id = que.category 
+    WHERE q.course = ?
+    GROUP BY u.id,mqc.id
+    ORDER BY quiza.userid,mqc.parent
+    ";
+
+    $result = $DB->get_records_sql($query, [$courseid]);
+
+    if (!empty($result)) {
+        return $result;
+    } else {
+        return [];
+    }
+}

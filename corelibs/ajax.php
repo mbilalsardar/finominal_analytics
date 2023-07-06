@@ -569,6 +569,8 @@ if($_POST['function'] == 'team_dash_view') {
         }
     }
 
+    $tablearray = [];
+    $tblcount = 1; 
 
     foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
@@ -581,12 +583,33 @@ if($_POST['function'] == 'team_dash_view') {
             $attempt = check_if_quiz_attempted($cid,$qid,$user);
             if($attempt) {  
                 $secresult = quiz_sections_result($qid, $sectionid, $user, $cid);
+
                 $percentagesectiontotal = $secresult['percentage'];
                 $allcorrect += $secresult['total_correct'];
                 $allwrong += $secresult['total_wrong'];
                 $allgaveup += $secresult['total_gaveup'];
+
                 $sectiontotal[] = $percentagesectiontotal;
+
+                // $userdetail = get_user_with_extrafeilds($user);
+
+                $tablearray[] = "<tr>";
+                $tablearray[] = "<td class='text-center' >".$tblcount."</td>";
+                $tablearray[] = "<td>".$secresult['studentname'] ."</td>";
+                $tablearray[] = "<td>".$secresult['sectionname']."</td>";
+                $tablearray[] = "<td class='text-center'>".$secresult['total_correct']."</td>";
+                $tablearray[] = "<td class='text-center'>".$secresult['total_wrong']."</td>";
+                $tablearray[] = "<td class='text-center'>".$secresult['total_gaveup']."</td>";
+                $tablearray[] = "<td class='text-center'>".$percentagesectiontotal."</td>";
+
+                $quizgrades = course_quiz_grades_single_record($user);
+
+                $tablearray[] = "<td class='text-center'>". $quizgrades->obtained_grade ."</td>";
+                $tablearray[] = "</tr>";
+
             }
+
+            $tblcount++;
         }
         
         $series[] = round(array_sum($sectiontotal)/count($sectiontotal),2);
@@ -598,6 +621,9 @@ if($_POST['function'] == 'team_dash_view') {
         ];
 
     }
+
+
+    $tablearraysstring = implode('',$tablearray);
 
     $response['section_performance_labels'] = $labels;
     $response['section_performance_series'] = $series;
@@ -617,10 +643,8 @@ if($_POST['function'] == 'team_dash_view') {
     $response['ttlsections'] = count($labels);
     /* Total Team Members */
     $response['ttlparticipants'] = count($allenrolledusers);
-
     /* Average  */
     $response['sectionaveragemarks'] = $sectionaveragemarks;
-
     /*  Certification Overview - pass / fail */
     $allquizmarks = [];
     $allmarkswithuser = [];
@@ -697,7 +721,8 @@ if($_POST['function'] == 'team_dash_view') {
     }
 
     $response['top_performer'] = $topperformers;
-
+    $response['table'] = $tablearraysstring;
+    
     echo json_encode($response);
 
 }

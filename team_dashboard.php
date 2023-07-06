@@ -217,7 +217,7 @@ echo <<<HTML
 
             <div class="row">
                 <!-- Total Marks Block -->
-                <div class="col-lg-3 col-12">
+                <div class="col-lg-4 col-12">
 
                     <div class="row">
                         <div class="col-lg-12">    
@@ -270,7 +270,7 @@ echo <<<HTML
                                     style='
                                     width: 40px; 
                                     height: 40px;
-                                    background: red;
+                                    background: #C00000;
                                     color:white;
                                     border-radius:100px;
                                     padding : 8px;
@@ -286,7 +286,7 @@ echo <<<HTML
                 </div> <!-- Info Box Column End -->
 
                 <!-- Participation Overview Card -->
-                <div class="col-lg-3  col-12">
+                <div class="col-lg-4  col-12">
                     <div class="card">
                         <!-- <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Quiz Participation</h4>
@@ -297,7 +297,7 @@ echo <<<HTML
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#37b96e; 
+                                    background:#FF4D00; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
@@ -327,7 +327,7 @@ echo <<<HTML
 
 
                 <!-- Certification Overview Card -->
-                <div class="col-lg-3  col-12">
+                <div class="col-lg-4  col-12">
                     <div class="card">
                         <!-- <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">Pass/Fail Overview</h4>
@@ -371,36 +371,6 @@ echo <<<HTML
 
 
 
-                <!-- Certification Overview Card -->
-                <div class="col-lg-3  col-12">
-                    <div class="card">
-                        <!-- <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Marks Summary</h4>
-                        </div> -->
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">
-                                <i data-feather="percent" 
-                                    style='
-                                    width: 50px; 
-                                    height: 50px;
-                                    background:#37b96e; 
-                                    color:#fff;
-                                    border-radius:100px;
-                                    padding : 12px;
-                                   
-                                    '>
-                                    </i> &nbsp;
-                                Marks Summary
-                            </h4>
-                        </div>
-
-                        <div class="card-body">
-                            <div id="marks_summary"></div>
-                
-                        </div>
-                    </div>
-                </div>
-                <!--/ End Certification Overview Card -->
 
 
             </div> <!-- end row -->
@@ -408,7 +378,7 @@ echo <<<HTML
 
             <div class="row">      
                 <!-- Section Averages Marks Bar Chart -->
-                <div class="col-xl-6 col-12">
+                <div class="col-xl-4 col-12">
                     <div class="card">
                         <!-- <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
                             <div>
@@ -441,14 +411,11 @@ echo <<<HTML
                     </div>
                 </div>
                 <!-- End Bar Chart Ends -->
-
-                 <!-- Top Performers -->
-                 <div class="col-xl-6 col-12">
+                <!-- Certification Overview Card -->
+                <div class="col-xl-4  col-12">
                     <div class="card">
-                        <!-- <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
-                            <div>
-                                <h4 class="card-title mb-75">Top Performers</h4>
-                            </div>
+                        <!-- <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">Marks Summary</h4>
                         </div> -->
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
@@ -457,6 +424,37 @@ echo <<<HTML
                                     width: 50px; 
                                     height: 50px;
                                     background:#37b96e; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                    </i> &nbsp;
+                                Marks Summary
+                            </h4>
+                        </div>
+
+                        <div class="card-body">
+                            <div id="marks_summary"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/ End Certification Overview Card -->
+                 <!-- Top Performers -->
+                 <div class="col-xl-4 col-12">
+                    <div class="card">
+                        <!-- <div class="card-header d-flex flex-sm-row flex-column justify-content-md-between align-items-start justify-content-start">
+                            <div>
+                                <h4 class="card-title mb-75">Top Performers</h4>
+                            </div>
+                        </div> -->
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="users" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#0D51D9; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
@@ -487,18 +485,18 @@ echo <<<HTML
                         </div> -->
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
-                                <i data-feather="percent" 
+                                <i data-feather="user" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#37b96e; 
+                                    background:#545B5A; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
                                    
                                     '>
                                 </i> &nbsp;
-                                Questions Overview
+                                Individual Section Attempt Detail
                             </h4>
                         </div>
 
@@ -520,12 +518,21 @@ echo <<<HTML
                                 </div>
                             </div> -->
 
-                            <table id='maintable' class='display'>
+                            <table id="dtable" class='table table-striped table-bordered' width="100%">
                                 <thead>
-                                    <th>s.no</th>
+                                    <tr>
+                                        <th width="5%"  class="text-center" >S.No</th>
+                                        <th width="30%" >Name</th>
+                                        <th width="30%" >Section</th>
+                                        <th width="10%" class="text-center" >Right Attempts</th>
+                                        <th width="10%" class="text-center" >Wrong Attempts</th>
+                                        <th width="10%" class="text-center" >Gave Up</th>
+                                        <th width="10%" class="text-center" >Section Percentage %</th>
+                                        <th width="10%" class="text-center" >Quiz Percentage %</th>
+                                    </tr>
                                 </thead>
-                                <tbody>
-
+                                <tbody id='dtable-body'>
+                                
                                 </tbody>
                             </table>
                         </div>

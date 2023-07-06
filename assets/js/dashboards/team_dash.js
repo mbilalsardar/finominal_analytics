@@ -1,6 +1,8 @@
+var jq = $.noConflict();
+
 function load_Courses(elementid) {
     // Populate courses dropdown
-    $.ajax({
+    jq.ajax({
         type: "POST",
         url: AJAXURL,
         data: {
@@ -9,9 +11,9 @@ function load_Courses(elementid) {
         }, // Serializes the form's elements.
         dataType: 'json',
         success: function (data) {
-            // $('#select_course').attr('disabled', false);
-            $('#'+ elementid).empty();
-            $('#'+ elementid).append(data);
+            // jq('#select_course').attr('disabled', false);
+            jq('#'+ elementid).empty();
+            jq('#'+ elementid).append(data);
             // console.log(data);
         },
         error: function (request) {
@@ -22,31 +24,32 @@ function load_Courses(elementid) {
 }
 
 
-$(document).ready(function () {
+jq(document).ready(function () {
 
     
     // Attendance Overview Chart
-    var $textHeadingColor = '#5e5873';
-    var $strokeColor = '#ebe9f1';
-    var $labelColor = '#e7eef7';
-    var $avgSessionStrokeColor2 = '#ebf0f7';
-    var $budgetStrokeColor2 = '#dcdae3';
-    var $goalStrokeColor2 = '#51e5a8';
-    var $revenueStrokeColor2 = '#d0ccff';
-    var $textMutedColor = '#b9b9c3';
-    var $salesStrokeColor2 = '#df87f2';
-    var $white = '#fff';
-    var $earningsStrokeColor2 = '#28c76f66';
-    var $earningsStrokeColor3 = '#28c76f33';
+    var jqtextHeadingColor = '#5e5873';
+    var jqstrokeColor = '#ebe9f1';
+    var jqlabelColor = '#e7eef7';
+    var jqavgSessionStrokeColor2 = '#ebf0f7';
+    var jqbudgetStrokeColor2 = '#dcdae3';
+    var jqgoalStrokeColor2 = '#FF4D00';
+    var jqrevenueStrokeColor2 = '#d0ccff';
+    var jqtextMutedColor = '#b9b9c3';
+    var jqsalesStrokeColor2 = '#df87f2';
+    var jqwhite = '#fff';
+    var jqearningsStrokeColor2 = '#28c76f66';
+    var jqearningsStrokeColor3 = '#28c76f33';
+
+    var table = jq('#dtable').DataTable();
 
 
-
-    $('#manager').prop( "disabled", true );
-    $('#department').prop( "disabled", true );
-    $('#location').prop( "disabled", true );
-    $('#team').prop('disabled',true);
-    $('#quiz').prop('disabled',true);
-    $('#designation').prop( "disabled", true );
+    jq('#manager').prop( "disabled", true );
+    jq('#department').prop( "disabled", true );
+    jq('#location').prop( "disabled", true );
+    jq('#team').prop('disabled',true);
+    jq('#quiz').prop('disabled',true);
+    jq('#designation').prop( "disabled", true );
 
 
     chartColors = {
@@ -73,7 +76,7 @@ $(document).ready(function () {
         }
     };
 
-    var $radialbar_attendance = document.querySelector('#attendance-chart');
+    var jqradialbar_attendance = document.querySelector('#attendance-chart');
     goalChartOptions = {
         chart: {
             // height: 245,
@@ -90,7 +93,7 @@ $(document).ready(function () {
                 opacity: 0.1
             }
         },
-        colors: [$goalStrokeColor2],
+        colors: [jqgoalStrokeColor2],
         plotOptions: {
             radialBar: {
                 offsetY: -10,
@@ -100,7 +103,7 @@ $(document).ready(function () {
                     size: '77%'
                 },
                 track: {
-                    background: $strokeColor,
+                    background: jqstrokeColor,
                     strokeWidth: '50%'
                 },
                 dataLabels: {
@@ -108,7 +111,7 @@ $(document).ready(function () {
                         show: false
                     },
                     value: {
-                        color: $textHeadingColor,
+                        color: jqtextHeadingColor,
                         fontSize: '2.86rem',
                         fontWeight: '600'
                     }
@@ -138,7 +141,7 @@ $(document).ready(function () {
             }
         }
     };
-    attendance = new ApexCharts($radialbar_attendance, goalChartOptions);
+    attendance = new ApexCharts(jqradialbar_attendance, goalChartOptions);
     attendance.render();
 
 
@@ -378,7 +381,8 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#top_performers_bar_chart'),
         barChartConfig = {
             chart: {
-                height: 315,
+                height: 300,
+                // width : '100%',
                 type: 'bar',
                 parentHeightOffset: 0,
                 toolbar: {
@@ -391,7 +395,7 @@ $(document).ready(function () {
                     barHeight: '30%',
                     endingShape: 'flat',
                     dataLabels: {
-                        position: 'top'
+                        position: 'top',
                     }
                 }
             },
@@ -409,12 +413,21 @@ $(document).ready(function () {
             // colors: window.colors.solid.info,
             dataLabels: {
                 enabled: true,
-                offsetX: 30
+                offsetX: 30,
+                style: {
+                    // fontSize: '14px',
+                    // fontFamily: 'Helvetica, Arial, sans-serif',
+                    fontWeight: 'bold',
+                    // colors: ['#ffffff'],
+                },
+                
             },
             series: [],            
             xaxis: {
                 // categories : ['name']
                 type: 'category',
+                tickAmount: 10,
+                max: 100,
             },
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
@@ -526,7 +539,7 @@ $(document).ready(function () {
     var barChartEl = document.querySelector('#marks_summary'),
     barChartConfig = {
         chart: {
-            height: 229,
+            height: 300,
             type: 'bar',
             parentHeightOffset: 0,
             toolbar: {
@@ -536,8 +549,11 @@ $(document).ready(function () {
         plotOptions: {
             bar: {
                 vertical: true,
-                barHeight: '30%',
-                endingShape: 'flat'
+                barHeight: '25%',
+                endingShape: 'flat',
+                dataLabels: {
+                    position: 'top'
+                }
             }
         },
         grid: {
@@ -553,7 +569,8 @@ $(document).ready(function () {
         },
         // colors: window.colors.solid.info,
         dataLabels: {
-            enabled: false
+            enabled: true,
+            offsetY: -20
         },
         series: [
             { data : [0,0,0] }
@@ -567,6 +584,15 @@ $(document).ready(function () {
             categories : ['Minimum','Average','Maximum']
             // type: 'category',
         },
+        yaxis: {
+            tickAmount: 10,
+            max: 100,
+            labels: {
+                formatter: function(val) {
+                    return val.toFixed(0);
+                }
+            }
+        }
     };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
         var markssummary = new ApexCharts(barChartEl, barChartConfig);
@@ -578,14 +604,14 @@ $(document).ready(function () {
 
    load_Courses('course');
 
-   $('#course').on('change',function(e){
+   jq('#course').on('change',function(e){
 
         e.preventDefault();
 
-        var courseid = $('#course').val();
+        var courseid = jq('#course').val();
 
         /* For Quiz dropdown */
-        $.ajax({
+        jq.ajax({
             type: "POST",
             url: AJAXURL,
             data: {
@@ -594,9 +620,9 @@ $(document).ready(function () {
             }, // Serializes the form's elements.
             dataType: 'json',
             success: function (data) {
-                $('#quiz').empty();
-                $('#quiz').append(data);
-                $('#quiz').prop('disabled',false);
+                jq('#quiz').empty();
+                jq('#quiz').append(data);
+                jq('#quiz').prop('disabled',false);
             },
             error: function (request) {
                 alert("Request: " + JSON.stringify(request));
@@ -604,7 +630,7 @@ $(document).ready(function () {
         });
 
         /* For Student dropdown */
-        $.ajax({
+        jq.ajax({
             type: "POST",
             url: AJAXURL,
             data: {
@@ -613,9 +639,9 @@ $(document).ready(function () {
             }, // Serializes the form's elements.
             dataType: 'json',
             success: function (data) {
-                $('#team').empty();
-                $('#team').append(data);
-                $('#team').prop('disabled',false);
+                jq('#team').empty();
+                jq('#team').append(data);
+                jq('#team').prop('disabled',false);
             },
             error: function (request) {
                 alert("Request: " + JSON.stringify(request));
@@ -623,32 +649,32 @@ $(document).ready(function () {
         });
     });
 
-    $('#reset').on('click',function(e){
-        $('#course').prop('selectedIndex',0);
-        $('#quiz').prop('selectedIndex',0);
-        $('#team').prop('selectedIndex',0);
-        $('#manager').prop('selectedIndex',0);
-        $('#department').prop('selectedIndex',0);
-        $('#location').prop('selectedIndex',0);
-        $('#designation').prop( "selectedIndex", 0 );
+    jq('#reset').on('click',function(e){
+        jq('#course').prop('selectedIndex',0);
+        jq('#quiz').prop('selectedIndex',0);
+        jq('#team').prop('selectedIndex',0);
+        jq('#manager').prop('selectedIndex',0);
+        jq('#department').prop('selectedIndex',0);
+        jq('#location').prop('selectedIndex',0);
+        jq('#designation').prop( "selectedIndex", 0 );
 
-        $('#quiz').prop('disabled',true);
-        $('#team').prop('disabled',true);
-        $('#manager').prop('disabled',true);
-        $('#department').prop('disabled',true);
-        $('#location').prop('disabled',true);
-        $('#designation').prop( "disabled", true );
+        jq('#quiz').prop('disabled',true);
+        jq('#team').prop('disabled',true);
+        jq('#manager').prop('disabled',true);
+        jq('#department').prop('disabled',true);
+        jq('#location').prop('disabled',true);
+        jq('#designation').prop( "disabled", true );
         
     });
 
-    $('#team').on('change',function(e){
+    jq('#team').on('change',function(e){
         
         e.preventDefault();
 
-        var teamid = $('#team').val();
+        var teamid = jq('#team').val();
 
         /* For Quiz dropdown */
-        $.ajax({
+        jq.ajax({
             type: "POST",
             url: AJAXURL,
             data: {
@@ -659,24 +685,24 @@ $(document).ready(function () {
             success: function (data) {
                 
                 // Manager
-                $('#manager').empty();
-                $('#manager').append(data['manager']);
-                $('#manager').prop( "disabled", false );
+                jq('#manager').empty();
+                jq('#manager').append(data['manager']);
+                jq('#manager').prop( "disabled", false );
 
                 // Department
-                $('#department').empty();
-                $('#department').append(data['department']);
-                $('#department').prop( "disabled", false );
+                jq('#department').empty();
+                jq('#department').append(data['department']);
+                jq('#department').prop( "disabled", false );
 
                 // Location
-                $('#location').empty();
-                $('#location').append(data['location']);
-                $('#location').prop( "disabled", false );
+                jq('#location').empty();
+                jq('#location').append(data['location']);
+                jq('#location').prop( "disabled", false );
 
                 // Designation
-                $('#designation').empty();
-                $('#designation').append(data['designation']);
-                $('#designation').prop( "disabled", false );
+                jq('#designation').empty();
+                jq('#designation').append(data['designation']);
+                jq('#designation').prop( "disabled", false );
 
             },
             error: function (request) {
@@ -687,20 +713,20 @@ $(document).ready(function () {
 
 
     /* View Dashboard button click */
-    $('#view').on('click',function(e){
+    jq('#view').on('click',function(e){
 
         e.preventDefault();
 
-        var cid = $('#course').val();
-        var qid = $('#quiz').val();
-        var teamid = $('#team').val();
-        var location = $('#location').val();
-        var manageremail = $('#manager').val();
-        var department = $('#department').val();
-        var designation = $('#designation').val();
+        var cid = jq('#course').val();
+        var qid = jq('#quiz').val();
+        var teamid = jq('#team').val();
+        var location = jq('#location').val();
+        var manageremail = jq('#manager').val();
+        var department = jq('#department').val();
+        var designation = jq('#designation').val();
         
 
-        $.ajax({
+        jq.ajax({
             type: "POST",
             url: AJAXURL,
             data: {
@@ -719,11 +745,11 @@ $(document).ready(function () {
                 // console.log(data);
 
                 // Total members 
-                $('#ttl_members_count').html(data['ttlparticipants']);
+                jq('#ttl_members_count').html(data['ttlparticipants']);
                 // Total Questions 
-                $('#totalquestions_count_div').html(data['ttlquestions']);
+                jq('#totalquestions_count_div').html(data['ttlquestions']);
                 // Total Sections
-                $('#total_sections_div').html(data['ttlsections']);
+                jq('#total_sections_div').html(data['ttlsections']);
                 
                 // Section Performance.
                 // donutChartSections.updateOptions({
@@ -738,8 +764,8 @@ $(document).ready(function () {
                     labels: ['Pass','Fail'],
                 });
                 
-                $('#ttlcertissued').html(data['totalpass']);
-                $('#ttlcertnotissued').html(data['totalfail']);
+                jq('#ttlcertissued').html(data['totalpass']);
+                jq('#ttlcertnotissued').html(data['totalfail']);
 
                 /* Question Overview chart */
                 // pieChart.updateOptions({
@@ -747,9 +773,9 @@ $(document).ready(function () {
                 //     labels: data['question_overview_labels'],
                 // });
 
-                $('#q_overview_right').html(data['ttlrightquest']);                
-                $('#q_overview_wrong').html(data['ttlwrongquest']);
-                $('#q_overview_gaveup').html(data['ttlgaveupquest']);
+                jq('#q_overview_right').html(data['ttlrightquest']);                
+                jq('#q_overview_wrong').html(data['ttlwrongquest']);
+                jq('#q_overview_gaveup').html(data['ttlgaveupquest']);
 
 
                 /* Marks Summary */
@@ -769,13 +795,25 @@ $(document).ready(function () {
 
 
                 /* Attendance */
-                $('#participated').html(data['quizparticipated']);
-                $('#notparticipated').html(data['quiznotparticipated']);
+                jq('#participated').html(data['quizparticipated']);
+                jq('#notparticipated').html(data['quiznotparticipated']);
 
                 attendance.updateOptions({
                     series: [data['quizparticipatedpercent']],
                     labels: ['participated'],
                 });
+
+
+                // Table 
+
+                console.log(data['table']);
+           
+
+                table.clear().destroy();
+                jq('#dtable-body').html(data['table']);
+                table = jq('#dtable').DataTable();
+             
+
 
             },
             error: function (request) {
