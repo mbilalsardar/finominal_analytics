@@ -149,12 +149,15 @@ jq(document).ready(function () {
     var donutChartEl_cert = document.querySelector('#certification-chart'),
     donutChartConfigGrades = {
         chart: {
-            height: 165,
-            type: 'donut'
+            height: 170,
+            type: 'donut',
+            offsetX: -25
         },
         legend: {
             show: true,
-            position: 'right'
+            position: 'left',
+            offsetX: 25,
+
         },
         labels: [],
         series: [],
@@ -181,10 +184,12 @@ jq(document).ready(function () {
                             fontSize: '0.5rem',
                             fontFamily: 'Montserrat',
                             formatter: function (val) {
-                                return parseInt(val) + '%';
+                                return parseInt(val);
                             }
                         },
-                    }
+                    },
+                    
+                    size: '65%',
                 }
             }
         },
@@ -214,7 +219,8 @@ jq(document).ready(function () {
                                     value: {
                                         fontSize: '0.5rem'
                                     },
-                                }
+                                },
+                                size: '65%',
                             }
                         }
                     }
@@ -369,6 +375,15 @@ jq(document).ready(function () {
                 type: 'category',
                 
             },
+            yaxis: {
+                tickAmount: 5,
+                max: 100,
+                labels: {
+                    formatter: function(val) {
+                        return val.toFixed(0);
+                    }
+                }
+            }
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
         var sec_avg_bar_chart = new ApexCharts(barChartEl, barChartConfig);
@@ -426,9 +441,10 @@ jq(document).ready(function () {
             xaxis: {
                 // categories : ['name']
                 type: 'category',
-                tickAmount: 10,
+                tickAmount: 05,
                 max: 100,
             },
+            
         };
     if (typeof barChartEl !== undefined && barChartEl !== null) {
         var top_performers = new ApexCharts(barChartEl, barChartConfig);
@@ -551,6 +567,7 @@ jq(document).ready(function () {
                 vertical: true,
                 barHeight: '25%',
                 endingShape: 'flat',
+                columnWidth: '30%',
                 dataLabels: {
                     position: 'top'
                 }
@@ -579,13 +596,16 @@ jq(document).ready(function () {
             chartColors.column.series1,
             // chartColors.donut.series5,
             // chartColors.donut.series1,
-        ],            
+        ],  
+        fill: {
+            colors: ['#174700']
+        },          
         xaxis: {
             categories : ['Minimum','Average','Maximum']
             // type: 'category',
         },
         yaxis: {
-            tickAmount: 10,
+            tickAmount: 5,
             max: 100,
             labels: {
                 formatter: function(val) {

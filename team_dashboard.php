@@ -62,7 +62,7 @@ $usertype = $userrole->role;
 $userid = $USER->id;
 
 // echo $usertype;
-if(($usertype != 'manager') AND (is_siteadmin() !== true)) {
+if (($usertype != 'manager') and (is_siteadmin() !== true)) {
     $home = $CFG->wwwroot . "/my";
     redirect($home, 'Please login as Admin or Manager', 5);
     die();
@@ -124,7 +124,7 @@ HTML;
 
 /* Code */
 echo <<<HTML
-    <div class="app-content content">
+    <div class="app-content content" style="width:100%">
 
 
         <div class="content-body">
@@ -221,24 +221,23 @@ echo <<<HTML
 
                     <div class="row">
                         <div class="col-lg-12">    
-                            <div class="card py-1 text-center mx-0" style='min-height:120px'>
-                                <div class="" style='padding:20px; margin-top: 15px'> 
+                            <div class="card py-2 text-center mx-0" style='max-height:150px'>
+                                
                                     <span> <i data-feather="award" 
                                     style='
-                                    width: 50px; 
-                                    height: 50px;
+                                    width: 40px; 
+                                    height: 40px;
                                     background:#008ffb; 
                                     color:white;
                                     border-radius:100px;
-                                    padding : 12px;
-                                    display: float;
-                                    float : left;
+                                    padding : 8px;
+                                    margin-bottom : 5px;
                                     '>
                                     </i>
                                     </span>
                                     <h5 class="mb-1">Total Participants</h5>
                                     <h4 class="card-text mb-0 font-weight-bolder" id='ttl_members_count'>0</h4>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -247,8 +246,8 @@ echo <<<HTML
                         <div class="col-lg-6">
                             <!-- <div class="card py-1 text-center mx-0" style='min-height:140px; background-color:rgba(254,176,25,0.3)'> -->
 
-                            <div class="card py-3 text-center mx-0" style='max-height:170px;'>
-                                <span> <i data-feather="hash" 
+                            <div class="card py-3 text-center mx-0" style='max-height:175px;'>
+                                <span> <i data-feather="table" 
                                     style='
                                     width: 40px; 
                                     height: 40px;
@@ -265,8 +264,8 @@ echo <<<HTML
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="card py-3 text-center mx-0" style='max-height:170px;'>
-                                <span> <i data-feather="users" 
+                            <div class="card py-3 text-center mx-0" style='max-height:175px;'>
+                                <span> <i data-feather="grid" 
                                     style='
                                     width: 40px; 
                                     height: 40px;
@@ -309,7 +308,7 @@ echo <<<HTML
                         </div>
 
                         <div class="card-body p-0">
-                            <div id="attendance-chart"></div>
+                            <div id="attendance-chart" style="margin-bottom: 5px;"></div>
                             <div class="row border-top text-center mx-0">
                                 <div class="col-6 border-right py-1">
                                     <p class="card-text text-muted mb-0">Participated</p>
@@ -335,11 +334,11 @@ echo <<<HTML
 
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
-                                <i data-feather="percent" 
+                                <i data-feather="file-text" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#37b96e; 
+                                    background:#545B5A; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
@@ -391,11 +390,11 @@ echo <<<HTML
                         </div> -->
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
-                                <i data-feather="percent" 
+                                <i data-feather="clipboard" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#37b96e; 
+                                    background:#369416; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
@@ -419,11 +418,11 @@ echo <<<HTML
                         </div> -->
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
-                                <i data-feather="percent" 
+                                <i data-feather="book" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#37b96e; 
+                                    background:#174700; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
@@ -518,7 +517,7 @@ echo <<<HTML
                                 </div>
                             </div> -->
 
-                            <table id="dtable" class='table table-striped table-bordered' width="100%">
+                            <table id="dtable" class='table table-bordered table-striped table-hover dataTable table-responsive' width="100%" style="font-size: 12px">
                                 <thead>
                                     <tr>
                                         <th width="5%"  class="text-center" >S.No</th>
@@ -552,8 +551,6 @@ echo <<<HTML
 HTML;
 
 
-
-
 /* JS Files */
 echo <<<HTML
     <!-- BEGIN: Page Vendor JS-->
@@ -579,6 +576,23 @@ echo <<<HTML
         AJAXURL = "{$ajaxurl}";
     </script>
     <script src="{$assetpath}/js/dashboards/team_dash.js"></script>
+    <style>
+
+        .card .card-title {
+
+            font-size: 1.2rem !important;
+
+        }
+               @media only screen and (max-width: 1278px) and (min-width: 1200px) {
+            .card .card-title {
+                font-size: 1rem !important;
+            }
+            }
+            
+            .table th{
+            font-size: 12px !important;
+            }
+    </style>
 
 HTML;
 

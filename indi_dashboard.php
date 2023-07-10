@@ -245,7 +245,7 @@ echo <<<HTML
                 </div> -->
 
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="card user-card bg-light-primary" style="min-height:320px;">
+                    <div class="card user-card" style="min-height:320px; background-color: rgb(5, 46, 129,0.1);">
                             
                         <div class="card-header d-flex justify-content-between align-items-center mb-2">
                             
@@ -254,7 +254,7 @@ echo <<<HTML
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#7774ac; 
+                                    background:#052E81; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
@@ -318,7 +318,7 @@ echo <<<HTML
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#37b96e; 
+                                    background:#174700; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
@@ -351,13 +351,13 @@ echo <<<HTML
 
                     <div class="row">
                         <div class="col-lg-12">    
-                            <div class="card py-1 text-center mx-0" style='min-height:120px; background-color:rgba(35,156,251,0.3);'>
+                            <div class="card py-1 text-center mx-0" style='min-height:120px; background-color:rgba(13, 81, 217,0.3);'>
                                 <div class="" style='padding:20px; margin-top: 30px'> 
                                     <span> <i data-feather="award" 
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#008ffb; 
+                                    background:#0D51D9; 
                                     color:white;
                                     border-radius:100px;
                                     padding : 12px;
@@ -375,12 +375,12 @@ echo <<<HTML
 
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="card py-1 text-center mx-0" style='min-height:140px; background-color:rgba(254,176,25,0.3)'>
+                            <div class="card py-1 text-center mx-0" style='min-height:140px; background-color:rgb(255, 77, 0,0.3)'>
                                 <span> <i data-feather="hash" 
                                     style='
                                     width: 40px; 
                                     height: 40px;
-                                    background:#feb019;
+                                    background:#FF4D00;
                                     color:white;
                                     border-radius:100px;
                                     padding : 8px;
@@ -480,7 +480,7 @@ echo <<<HTML
                                     style='
                                     width: 50px; 
                                     height: 50px;
-                                    background:#7774ac; 
+                                    background:#0D51D9; 
                                     color:#fff;
                                     border-radius:100px;
                                     padding : 12px;
@@ -598,6 +598,13 @@ echo <<<HTML
     </script>
     <!-- Dashboard js -->
     <script src="{$assetpath}/js/dashboards/individual_dash.js"></script>
+    <style>
+      @media only screen and (max-width: 1280px) and (min-width: 990px) {
+            .card table {
+                font-size: 10px !important;
+            }
+            }
+</style>
 
 
     
