@@ -42,6 +42,7 @@ jq(document).ready(function () {
     var jqearningsStrokeColor3 = '#28c76f33';
 
     var table = jq('#dtable').DataTable();
+    var qanalyticstable = jq('#qanalyticstable').DataTable();
 
 
     jq('#manager').prop( "disabled", true );
@@ -758,12 +759,10 @@ jq(document).ready(function () {
                 'designation': designation,
                 'location': location,
                 'department': department,
-            }, // Serializes the form's elements.
+            }, 
             dataType: 'json',
             success: function (data) {
     
-                // console.log(data);
-
                 // Total members 
                 jq('#ttl_members_count').html(data['ttlparticipants']);
                 // Total Questions 
@@ -825,15 +824,13 @@ jq(document).ready(function () {
 
 
                 // Table 
-
-                console.log(data['table']);
-           
-
                 table.clear().destroy();
                 jq('#dtable-body').html(data['table']);
                 table = jq('#dtable').DataTable();
-             
 
+                qanalyticstable.clear().destroy();
+                jq('#qanalyticstable').html(data['qustionattemptdetailtable']);
+                qanalyticstable = jq('#qanalyticstable').DataTable();
 
             },
             error: function (request) {

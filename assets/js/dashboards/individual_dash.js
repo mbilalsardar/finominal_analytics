@@ -253,7 +253,7 @@ $(document).ready(function () {
                     bottom: -10
                 }
             },
-            colors: ['#ea5455','#269df8'],
+            colors: ['#C00000','#0D51D9'],
             dataLabels: {
                 enabled: true,
                 offsetX: 40,
@@ -294,7 +294,7 @@ $(document).ready(function () {
             //     chartColors.donut.series5,
             //     chartColors.donut.series1,
             // ],
-            colors:['#17efcb', '#ed5b2f', '#fc9e5f'],
+            colors:['#369416', '#FF4D00', '#fc9e5f'],
 
             dataLabels: {
                 enabled: true,
@@ -480,7 +480,7 @@ $(document).ready(function () {
         series: [
             { data : [0,0,0] }
         ],
-        colors: [ '#fc585c', '#e7bd4f', '#499dff'],        
+        colors: [ '#C00000', '#FF4D00', '#0D51D9'],
         // xaxis: {
         //     type: 'category',
         //     labels: {
@@ -492,6 +492,15 @@ $(document).ready(function () {
             // type: 'category',
             labels: {
                 show: false,
+            }
+        },
+        yaxis: {
+            tickAmount: 5,
+            max: 100,
+            labels: {
+                formatter: function(val) {
+                    return val.toFixed(0);
+                }
             }
         },
     };

@@ -474,14 +474,9 @@ echo <<<HTML
 
 
             <div class="row">
-               
-
                 <!-- Questions Overview Card -->
                 <div class="col-12">
                     <div class="card">
-                        <!-- <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title">Questions Overview</h4>
-                        </div> -->
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title">
                                 <i data-feather="user" 
@@ -500,23 +495,6 @@ echo <<<HTML
                         </div>
 
                         <div class="card-body">
-                            <!-- <div id="questions_overview_chart"></div>
-
-                            <div class="row border-top text-center mx-0">
-                                <div class="col-4 border-right py-1">
-                                    <p class="card-text text-muted mb-0">Right</p>
-                                    <h3 class="font-weight-bolder mb-0" id='q_overview_right'>0</h3>
-                                </div>
-                                <div class="col-4 border-right py-1">
-                                    <p class="card-text text-muted mb-0">Wrong</p>
-                                    <h3 class="font-weight-bolder mb-0" id='q_overview_wrong' >0</h3>
-                                </div>
-                                <div class="col-4 py-1">
-                                    <p class="card-text text-muted mb-0">Gaveup</p>
-                                    <h3 class="font-weight-bolder mb-0" id='q_overview_gaveup'>0</h3>
-                                </div>
-                            </div> -->
-
                             <table id="dtable" class='table table-bordered table-striped table-hover dataTable table-responsive' width="100%" style="font-size: 12px">
                                 <thead>
                                     <tr>
@@ -530,16 +508,59 @@ echo <<<HTML
                                         <th width="10%" class="text-center" >Quiz Percentage %</th>
                                     </tr>
                                 </thead>
-                                <tbody id='dtable-body'>
-                                
-                                </tbody>
+                                <tbody id='dtable-body'></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
                 <!--/ end Questions Overview Card -->
-
             </div>
+
+
+
+            <!-- Questions Analytics -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="user" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#545B5A; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                   
+                                    '>
+                                </i> &nbsp;
+                                Quiz Question Attempt Detail
+                            </h4>
+                        </div>
+
+                        <div class="card-body">
+                            <table id="qanalyticstable" class='table table-bordered table-striped table-hover dataTable table-responsive' width="100%" style="font-size: 12px">
+                                <thead>
+                                    <tr>
+                                        <th width="5%"  class="text-center" >S.No</th>
+                                        <th width="30%" >Name</th>
+                                        <th width="30%" >Email</th>
+                                        <!-- <th width="20%" >Time Taken</th> -->
+                                        <th width="10%" >Grade</th>
+                                        <th width="10%" class="text-center" >Q1</th>
+                                        <th width="10%" class="text-center" >Q2</th>
+                                        <th width="10%" class="text-center" >Q3</th>
+                                        <th width="10%" class="text-center" >...</th>
+                                    </tr>
+                                </thead>
+                                <tbody id='qanalyticstable-body'></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Questions Analytics -->
 
 
         </div> 

@@ -72,6 +72,22 @@ function sanitize_data($data)
     }
 }
 
+function secondsToTime($seconds_time)
+{
+    if ($seconds_time > 0) {
+        if ($seconds_time < 24 * 60 * 60) {
+            return gmdate('H:i:s', $seconds_time);
+        } else {
+            $hours = floor($seconds_time / 3600);
+            $minutes = floor(($seconds_time - $hours * 3600) / 60);
+            $seconds = floor($seconds_time - ($hours * 3600) - ($minutes * 60));
+            return "$hours:$minutes:$seconds";
+        }
+    } else {
+        return "00:00:00";
+    }
+}
+
 
 /**
  * get_user_role
@@ -478,6 +494,47 @@ function quiz_section_question_attempts_by_user($qid, $secid, $userid, $courseid
     ORDER BY quiza.userid, quiza.attempt, qa.slot";
 
     $result = $DB->get_records_sql($query, [$qid, $secid, $userid, $courseid]);
+    return $result;
+}
+
+
+function quiz_question_attempts_by_user($qid, $userid, $courseid)
+{
+    global $DB;
+
+    
+    $query = "SELECT
+    CONCAT(que.id,u.id) as uniqueid,
+    que.id AS questionid,
+    concat( u.firstname,' ', u.lastname ) AS student_name,
+    u.id AS userid,
+    quiza.userid AS quiz_userid,
+    q.course,
+    q.name,
+    mqc.name 'section',
+    quiza.attempt,
+    quiza.timestart as quizstarttime,
+    quiza.timefinish as quizfinishtime,
+    quiza.state as quizstate,
+    qa.slot,
+    que.questiontext AS question,
+    qa.rightanswer AS correct_answer,
+    qa.responsesummary AS student_answer
+    FROM mdl_quiz_attempts quiza
+    JOIN mdl_quiz q ON q.id=quiza.quiz
+    LEFT JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    LEFT JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    LEFT JOIN mdl_question que ON que.id = qa.questionid
+	JOIN mdl_question_versions mqv on mqv.questionid = que.id 
+	JOIN mdl_question_bank_entries mqbe on mqbe.id = mqv.questionbankentryid  
+	JOIN mdl_question_categories mqc on mqbe.questioncategoryid = mqc.id 
+    LEFT JOIN mdl_user u ON u.id = quiza.userid
+    WHERE q.id = ?
+    AND u.id = ?
+    AND q.course = ?
+    ORDER BY quiza.userid, quiza.attempt, qa.slot";
+
+    $result = $DB->get_records_sql($query, [$qid, $userid, $courseid]);
     return $result;
 }
 

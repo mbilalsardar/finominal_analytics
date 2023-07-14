@@ -572,6 +572,10 @@ if($_POST['function'] == 'team_dash_view') {
     $tablearray = [];
     $tblcount = 1; 
 
+
+
+    /* --------- Individual Quiz Attempts Detail Table -------------- */
+
     foreach ($allSectionsArray as $quizseckey => $quizsecvalue) {
 
         $sectiontotal = [];
@@ -580,6 +584,7 @@ if($_POST['function'] == 'team_dash_view') {
         $labels[] = $sectionname;
    
         foreach($allenrolledusers as $user) { 
+
             $attempt = check_if_quiz_attempted($cid,$qid,$user);
             if($attempt) {  
                 $secresult = quiz_sections_result($qid, $sectionid, $user, $cid);
@@ -621,9 +626,136 @@ if($_POST['function'] == 'team_dash_view') {
         ];
 
     }
-
-
     $tablearraysstring = implode('',$tablearray);
+    /* --------- End Individual Quiz Attempts Detail Table -------------- */
+
+
+    /* --------- Individual Quiz Question Attempts Detail Table -------------- */
+
+    $qattemptstablearray_body = [];
+    $qattemptstablearray_header = [];
+    $tblcount2 = 1; 
+    $totalquestionsaverage = [];
+    $totalgradeavg = 0;
+
+
+    // making table header array 
+    $qattemptstablearray_header[] = "<thead></tr>";
+    $qattemptstablearray_header[] = "<th width='5%'  class='text-center' >S.No</th>";
+    $qattemptstablearray_header[] = "<th width='30%' >Name</th>";
+    $qattemptstablearray_header[] = "<th width='30%' >Email</th>";
+    // $qattemptstablearray_header[] = "<th width='20%' >Time Taken</th>";
+    $qattemptstablearray_header[] = "<th width='10%' >Grade</th>";
+
+    for($i=1; $i<=$allquestion; $i++) {
+        $qattemptstablearray_header[] = "<th width='10%' >Q".$i."</th>";
+    }
+
+    $qattemptstablearray_header[] = "</tr></thead>";
+    
+
+    // Making table body array 
+    $qattemptstablearray_body[] = "<tbody>";
+    foreach($allenrolledusers as $user) { 
+
+        $attempt = check_if_quiz_attempted($cid,$qid,$user);
+        $userdetail = get_user_with_extrafeilds($user);
+        $timetakenset = false;
+
+        if($attempt) {  
+            
+            $questionno = 1;
+            
+            $qattemptstablearray_body[] = "<tr>";
+            $qattemptstablearray_body[] = "<td class='text-center' > $tblcount2 </td>";
+            $qattemptstablearray_body[] = "<td>".$userdetail->firstname.' '.$userdetail->lastname ."</td>";
+            $qattemptstablearray_body[] = "<td> $userdetail->email </td>";
+        
+
+            $quizgrades = course_quiz_grades_single_record($user);
+            $totalgradeavg += $quizgrades->obtained_grade;
+
+         
+
+            $qattemptstablearray_body[] = "<td> $quizgrades->obtained_grade </td>";
+            
+            $qquestionattempts = quiz_question_attempts_by_user($qid,$user,$cid);
+
+            foreach($qquestionattempts as $attempt=>$attemptvalue) {
+                
+                // Time Taken Calculation
+                // if($timetakenset == false) { 
+                //     $timestart = $attemptvalue->quizstarttime;
+                //     $timeend = $attemptvalue->quizfinishtime;
+                //     $timeseconds = $timeend - $timestart;
+                //     $secondsToTime = secondsToTime($timeseconds);
+                //     $qattemptstablearray_body[] = "<td> $secondsToTime </td>";
+                //     $timetakenset = true;
+                // }
+
+                $answerboolean = 0;
+                if($attemptvalue->student_answer != "") {
+                    if ($attemptvalue->correct_answer == $attemptvalue->student_answer) {
+                        $answerboolean = 1;
+                    } else {
+                        $answerboolean = 0;
+                    }
+                }
+                else {
+                    $answerboolean = 0;
+                }
+
+                $totalquestionsaverage[$questionno] += $answerboolean;
+
+                $qattemptstablearray_body[] = "<td>".$answerboolean."</td>";
+
+                $questionno++;
+            }
+            $qattemptstablearray_body[] = "</tr>";
+        }
+
+        $tblcount2++;
+    }
+
+ 
+    $qattemptstablearray_body[] = "</tbody>";
+
+    // Footer row with each question averages 
+    // becuase total questions rows will be only equal total participants. 
+    // each participant has one row. 
+    $qattemptstablearray_body[] = "</tfoot>";
+    $qattemptstablearray_body[] = "<tr>";
+
+    $qattemptstablearray_body[] = "<th colspan='3' style='text-align:right'> Average (%) </th>";
+    
+
+    if($particpated > 0) { 
+        $qattemptstablearray_body[] = "<td>".round(($totalgradeavg / $particpated),2) ."</td>";
+    } else {
+        $qattemptstablearray_body[] = "<td></td>";
+    }
+
+    foreach($totalquestionsaverage as $attemptcount) {
+        if($particpated > 0) { 
+            $attemptcountavg = round(($attemptcount / $particpated)*100,1);
+            $qattemptstablearray_body[] = "<td>".$attemptcountavg ."</td>";
+        }
+        else {
+            $qattemptstablearray_body[] = "<td> - </td>";
+        }
+    }
+    $qattemptstablearray_body[] = "</tr>";
+    $qattemptstablearray_body[] = "</tfoot>";
+
+
+
+    $qattemptstablearray_headerstring = implode('',$qattemptstablearray_header);
+    $qattemptstablearray_bodystring = implode('',$qattemptstablearray_body);
+    $finalIndividualQuizQuestionDetail = $qattemptstablearray_headerstring . $qattemptstablearray_bodystring;
+
+    /* --------- END Individual Quiz Question Attempts Detail Table -------------- */
+
+
 
     $response['section_performance_labels'] = $labels;
     $response['section_performance_series'] = $series;
@@ -722,6 +854,7 @@ if($_POST['function'] == 'team_dash_view') {
 
     $response['top_performer'] = $topperformers;
     $response['table'] = $tablearraysstring;
+    $response['qustionattemptdetailtable'] = $finalIndividualQuizQuestionDetail;
     
     echo json_encode($response);
 
