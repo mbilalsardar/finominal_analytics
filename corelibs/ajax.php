@@ -537,10 +537,22 @@ if($_POST['function'] == 'team_dash_view') {
 
     /*  SECTION PERFORMANCE */ 
     $quizsections = course_quiz_sections($cid,$qid);
-    $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = $allquestion = 0;
+    $allcorrect = $allwrong = $allgaveup = $ttlsectionquestion = $sectionpercentage = $allquestion =  0;
     $sectionaveragemarks = [];
+    $allsectioncount = [];
 
+    $allQBSectionList = quiz_questionbank_sections_list($cid,$qid);
+    foreach($allQBSectionList as $value ){
+        if(!empty($value->id)){
+            $allsectioncount[] = quiz_questionbank_sections_total($value->id);
+        }
+    }
 
+    foreach ($allsectioncount as $object) {
+        $sum_qcount += $object->qcount;
+    }
+
+    $allQuestionsBankCount = $sum_qcount;
     // ---------- ALL Qyestions of quiz ---------------
     $allQuestionsArray = total_quiz_questions_from_attemptedusers($cid,$qid);
     foreach($allQuestionsArray as $value ){ 
@@ -643,10 +655,10 @@ if($_POST['function'] == 'team_dash_view') {
     $qattemptstablearray_header[] = "<thead></tr>";
     $qattemptstablearray_header[] = "<th width='5%'  class='text-center' >S.No</th>";
     $qattemptstablearray_header[] = "<th width='30%' >Name</th>";
-    $qattemptstablearray_header[] = "<th width='30%' >Email</th>";
+    //$qattemptstablearray_header[] = "<th width='30%' >Email</th>";
     // $qattemptstablearray_header[] = "<th width='20%' >Time Taken</th>";
     $qattemptstablearray_header[] = "<th width='10%' >Grade</th>";
-
+    // $qattemptstablearray_header[] = "<th width='10%' >QBank Status</th>";
     for($i=1; $i<=$allquestion; $i++) {
         $qattemptstablearray_header[] = "<th width='10%' >Q".$i."</th>";
     }
@@ -669,7 +681,7 @@ if($_POST['function'] == 'team_dash_view') {
             $qattemptstablearray_body[] = "<tr>";
             $qattemptstablearray_body[] = "<td class='text-center' > $tblcount2 </td>";
             $qattemptstablearray_body[] = "<td>".$userdetail->firstname.' '.$userdetail->lastname ."</td>";
-            $qattemptstablearray_body[] = "<td> $userdetail->email </td>";
+            //$qattemptstablearray_body[] = "<td> $userdetail->email </td>";
         
 
             $quizgrades = course_quiz_grades_single_record($user);
@@ -678,6 +690,7 @@ if($_POST['function'] == 'team_dash_view') {
          
 
             $qattemptstablearray_body[] = "<td> $quizgrades->obtained_grade </td>";
+            // $qattemptstablearray_body[] = "<td> $allquestion / $allQuestionsBankCount </td>";
             
             $qquestionattempts = quiz_question_attempts_by_user($qid,$user,$cid);
 
@@ -734,10 +747,13 @@ if($_POST['function'] == 'team_dash_view') {
     } else {
         $qattemptstablearray_body[] = "<td></td>";
     }
+    // $qattemptstablearray_body[] = "<td></td>";
 
+    $allquestionaveragesarray = [];
     foreach($totalquestionsaverage as $attemptcount) {
         if($particpated > 0) { 
             $attemptcountavg = round(($attemptcount / $particpated)*100,1);
+            $allquestionaveragesarray[] = $attemptcountavg;
             $qattemptstablearray_body[] = "<td>".$attemptcountavg ."</td>";
         }
         else {
@@ -756,7 +772,78 @@ if($_POST['function'] == 'team_dash_view') {
     /* --------- END Individual Quiz Question Attempts Detail Table -------------- */
 
 
+    /* Calculating Questions Attempt success summary bar chart */ 
+    // categories : ['100-91','90-81','80-71','70-61','60-51','50-41','40-31','30-21','20-19','10-01'],
+    $allRangesCount = [];
+    $allRangesDifficultyCount = [];
+    foreach($allquestionaveragesarray as $percentage) {
 
+        if( $percentage >= 91 && $percentage <= 100 ) { $allRangesCount[1]++; }
+        else if( $percentage >= 81 && $percentage <= 90) { $allRangesCount[2]++; }
+        else if( $percentage >= 71 && $percentage <= 80) { $allRangesCount[3]++; }
+        else if( $percentage >= 61 && $percentage <= 70) { $allRangesCount[4]++; }
+        else if( $percentage >= 51 && $percentage <= 60) { $allRangesCount[5]++; }
+        else if( $percentage >= 41 && $percentage <= 50) { $allRangesCount[6]++; }
+        else if( $percentage >= 01 && $percentage <= 40) { $allRangesCount[7]++; }
+        
+    }
+
+    foreach($allquestionaveragesarray as $percentage) {
+
+        if( $percentage >= 80 && $percentage <= 100 ) { $allRangesDifficultyCount[1]++; }
+        else if( $percentage >= 60 && $percentage <= 79) { $allRangesDifficultyCount[2]++; }
+        else if( $percentage >= 40 && $percentage <= 59) { $allRangesDifficultyCount[3]++; }
+        else if( $percentage >= 20 && $percentage <= 39) { $allRangesDifficultyCount[4]++; }
+        else if( $percentage >= 0 && $percentage <= 19) { $allRangesDifficultyCount[5]++; }
+    }
+
+    $questionsucessattemptsummary = [
+        [
+            'x'=>'91-100',
+            'y'=>$allRangesCount[1],
+        ],
+        [
+            'x'=>'81-90',
+            'y'=>$allRangesCount[2],
+        ],
+        [
+            'x'=>'71-80',
+            'y'=>$allRangesCount[3],
+        ],
+        [
+            'x'=>'61-70',
+            'y'=>$allRangesCount[4],
+        ],
+        [
+            'x'=>'51-60',
+            'y'=>$allRangesCount[5],
+        ],
+        [
+            'x'=>'41-50',
+            'y'=>$allRangesCount[6],
+        ],
+        [
+            'x'=>'01-40',
+            'y'=>$allRangesCount[7],
+        ],
+        
+    ];
+
+    if($allquestion){
+        $allRangesDifficultySummary = [
+            
+            ['x'=>'Very Easy', 'y'=>round(($allRangesDifficultyCount[1]/$allquestion)*100, 2)],
+            ['x'=>'Easy', 'y'=>round(($allRangesDifficultyCount[2]/$allquestion)*100, 2)],
+            ['x'=>'Moderate', 'y'=>round(($allRangesDifficultyCount[3]/$allquestion)*100, 2)],
+            ['x'=>'Hard', 'y'=>round(($allRangesDifficultyCount[4]/$allquestion)*100, 2)],
+            ['x'=>'Difficult', 'y'=>round(($allRangesDifficultyCount[5]/$allquestion)*100, 2)],
+        ];
+    }
+
+
+    $response['allRangesDifficultySummary'] = $allRangesDifficultySummary;
+    /* End Calculating Questions Attempt success summary bar chart */
+    $response['questions_success_attempt_summary'] = $questionsucessattemptsummary;
     $response['section_performance_labels'] = $labels;
     $response['section_performance_series'] = $series;
 

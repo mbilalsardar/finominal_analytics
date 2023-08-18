@@ -544,8 +544,7 @@ echo <<<HTML
                                 <thead>
                                     <tr>
                                         <th width="5%"  class="text-center" >S.No</th>
-                                        <th width="30%" >Name</th>
-                                        <th width="30%" >Email</th>
+                                        <th width="30%" >Name</th>                                       
                                         <!-- <th width="20%" >Time Taken</th> -->
                                         <th width="10%" >Grade</th>
                                         <th width="10%" class="text-center" >Q1</th>
@@ -562,7 +561,55 @@ echo <<<HTML
             </div>
             <!-- End Questions Analytics -->
 
-
+            <div class="row">      
+                <!-- Section Averages Marks Bar Chart -->
+                <div class="col-xl-6 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h4 class="card-title">
+                                <i data-feather="clipboard" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#2B9AFF; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                    '>
+                                    </i> &nbsp;
+                                Question's Success Attempt Summary
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="question_success_attempt_summary"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Bar Chart Ends -->
+               <!-- Polar Area Chart -->
+                <div class="col-lg-6 col-12 mb-4">
+                  <div class="card">
+                    <div class="card-header header-elements">
+                      <h4 class="card-title"><i data-feather="clipboard" 
+                                    style='
+                                    width: 50px; 
+                                    height: 50px;
+                                    background:#4F5D70; 
+                                    color:#fff;
+                                    border-radius:100px;
+                                    padding : 12px;
+                                    '>
+                                    </i> &nbsp;
+                                    Questions Difficulty Level Overview</h4>
+                     
+                    </div>
+                    <div class="card-body">
+                      <div id="polarChart"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Polar Area Chart -->
+            </div>
         </div> 
 
 
@@ -581,6 +628,7 @@ echo <<<HTML
     <script src="{$assetpath}/vendors/js/tables/datatable/responsive.bootstrap4.js"></script>
     <script src="{$assetpath}/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <script src="{$assetpath}/vendors/js/charts/apexcharts.min.js"></script>
+    <script src="{$assetpath}/vendors/js/charts/chartjs.js"></script>
     <!-- END: Page Vendor JS-->
 
     <script>

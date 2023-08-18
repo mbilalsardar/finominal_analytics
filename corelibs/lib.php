@@ -419,6 +419,52 @@ function total_quiz_questions_from_attemptedusers ($courseid, $quizid) {
 
 }
 
+///////////////////////////////////////////////////////////////
+function quiz_questionbank_sections_list ($courseid, $quizid) {
+
+    global $DB;
+
+    $query = "SELECT
+	mqc.id,
+	mqc.name    
+    FROM mdl_quiz_attempts quiza        
+    JOIN mdl_quiz q ON q.id=quiza.quiz
+    JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+    JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    JOIN mdl_question que ON que.id = qa.questionid
+    JOIN mdl_user u ON u.id = quiza.userid
+    JOIN mdl_question_versions mqv ON mqv.questionid = que.id 
+    JOIN mdl_question_bank_entries mqbe ON mqbe.id = mqv.questionbankentryid  
+    JOIN mdl_question_categories mqc ON mqbe.questioncategoryid = mqc.id     
+    WHERE q.id = ? AND q.course = ?
+    GROUP BY mqbe.questioncategoryid
+    ";
+
+    $result = $DB->get_records_sql($query, [$quizid, $courseid]);
+    return $result;
+
+}
+
+
+function quiz_questionbank_sections_total ($categoryid) {
+
+    global $DB;
+
+    $query = "SELECT	COUNT(mq.id) AS 'qcount'
+                FROM mdl_question mq
+                JOIN mdl_question_versions mqv ON mqv.questionid = mq.id
+                JOIN mdl_question_bank_entries mqbe ON mqbe.id = mqv.questionbankentryid  
+                JOIN mdl_question_categories mqc ON mqbe.questioncategoryid = mqc.id  
+                WHERE mqc.id =?
+    ";
+
+    $result = $DB->get_record_sql($query, [$categoryid]);
+    return $result;
+
+}
+////////////////////////////////////////////////////////////////////////////////////
+
+
 function course_quiz_sections($courseid, $quizid)
 {
     global $DB;
